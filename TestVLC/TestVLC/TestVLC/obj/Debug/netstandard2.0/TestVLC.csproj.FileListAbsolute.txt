@@ -1,0 +1,14 @@
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\bin\Debug\netstandard2.0\TestVLC.deps.json
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\bin\Debug\netstandard2.0\TestVLC.dll
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\bin\Debug\netstandard2.0\ref\TestVLC.dll
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\bin\Debug\netstandard2.0\TestVLC.pdb
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\TestVLC.csprojAssemblyReference.cache
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\TestVLC.csproj.CoreCompileInputs.cache
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\TestVLC.AssemblyInfoInputs.cache
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\TestVLC.AssemblyInfo.cs
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\TestVLC.dll
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\ref\TestVLC.dll
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\TestVLC.pdb
+C:\Users\apolenyaka\source\TestVLC\TestVLC\TestVLC\obj\Debug\netstandard2.0\XamlC.stamp
