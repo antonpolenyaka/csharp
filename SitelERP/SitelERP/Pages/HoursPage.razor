@@ -1,0 +1,75 @@
+﻿@page "/hours"
+
+<h3>Hoja de dedicació</h3>
+
+<div class="container mx-0">
+    <div class="row mb-3">
+        <div class="fl">
+            <button class="btn btn-primary" @onclick="ShowDataByYear">Mostrar horas segun el año</button>
+            <select @bind="SelecteYear">
+                @for (int year = 2006; year <= DateTime.Now.Year; year++)
+                {
+                    <option selected="@(year == (DateTime.Now.Year - 1))" @key="year">@year</option>
+                }
+            </select>
+            <button class="btn btn-success">+</button>
+        </div>
+        <div class="ml-5">
+            <select @bind="SelectedCollaborator" disabled="@(Collaborators.Count == 0)">
+                @foreach (string collaborator in Collaborators)
+                {
+                    <option selected="@(collaborator == "AP")">@collaborator</option>
+                }
+            </select>
+            <button class="btn btn-info" disabled="@(Collaborators.Count == 0)">Filtrar</button>
+        </div>
+    </div>
+    <div class="row">
+        @if (ShowData)
+        {
+            <table>
+                <tr>
+                    <th>CpP</th>
+                    <th>Client</th>
+                    <th>Sistema</th>
+                    <th>PROJECTE</th>
+                    <th>Ofp</th>
+                    <th>Hi</th>
+                    <th>Status</th>
+                    <th>I</th>
+                    <th>D</th>
+                    <th>Data</th>
+                    <th>W</th>
+                    <th>dias</th>
+                    <th>D Entrega</th>
+                    <th>h:m</th>
+                    <th>TASCA</th>
+                    <th>DESCRIPCIÓ</th>
+                    <th>Nº Factura</th>
+                    <th>Número</th>
+                    <th>Tancada</th>
+                    <th>Resolució</th>
+                    <th>Observacions</th>
+                </tr>
+                <Virtualize ItemsProvider="LoadAsync" TItem="SitelHour">
+                    <ItemContent>
+                        <RowHourWork Data="@context" />
+                    </ItemContent>
+                    <Placeholder>
+                        <tr>
+                            <td colspan="20" style="color: gray">Cargando...</td>
+                        </tr>
+                    </Placeholder>
+                </Virtualize>
+            </table>
+        }
+        else if (isLoading)
+        {
+            <div class="alert alert-info">Cargando ...</div>
+        }
+        else if (HasNotData)
+        {
+            <div class="alert alert-warning">No hay datos para @SelecteYear</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://langdale.com.au/2005/Message#" xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:d="http://www.isotrol.com/STG-CIDE/2013/Devices#" xmlns:a="http://langdale.com.au/2005/Message#" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.isotrol.com/STG-CIDE/2013/Devices#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Meter" type="d:Meter" />
+  <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#Meter" name="Meter">
+    <xs:annotation>
+      <xs:documentation>Physical asset that performs the metering role of
+				the usage point. Used for measuring consumption and detection of
+				events.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.mRID" minOccurs="1" maxOccurs="1" name="mRID" type="xs:string" />
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDevice.Customer" minOccurs="1" maxOccurs="1" name="Customer" type="d:Customer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDevice.Customer" name="Customer">
+    <xs:annotation>
+      <xs:documentation>Organisation receiving services from service
+				supplier.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.mRID" minOccurs="1" maxOccurs="1" name="mRID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDevice" name="EndDevices">
+    <xs:annotation>
+      <xs:documentation>Asset container that performs one or more end
+				device functions. One type of end device is a meter which can
+				perform metering, load management, connect/disconnect, accounting
+				functions, etc. Some end devices, such as ones monitoring and
+				controlling air conditioner, refrigerator, pool pumps may be
+				connected to a meter. All end devices may have communication
+				capability defined by the associated communication function(s). An
+				end device may be owned by a consumer, a service provider, utility
+				or otherwise.
+				There may be a related end device function that
+				identifies a sensor or control point within a metering application
+				or
+				communications systems (e.g., water, gas, electricity).
+				Some
+				devices may use an optical port that conforms to the ANSI C12.18
+				standard for communications.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.mRID" minOccurs="1" maxOccurs="1" name="mRID" type="xs:string" />
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDevice.Customer" minOccurs="1" maxOccurs="1" name="Customer" type="d:Customer" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

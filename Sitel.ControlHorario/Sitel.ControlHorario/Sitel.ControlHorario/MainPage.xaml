@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            x:Class="Sitel.ControlHorario.MainPage"
+            xmlns:views="clr-namespace:Sitel.ControlHorario.Views"
+            Title="Sitel: Control horario"
+            UnselectedTabColor="#64726D"
+            SelectedTabColor="#01764A"
+            BackgroundColor="Blue" 
+            BarBackgroundColor="AliceBlue" 
+            BarTextColor="#C92127">
+    <!--Pages can be added as references or inline-->
+    <TabbedPage.Children>
+
+        <NavigationPage Title="Registro de horas"
+                        Icon="alarm.png"
+                        BackgroundColor="Transparent"
+                        BarBackgroundColor="#01764A"
+                        BarTextColor="White">
+            <x:Arguments>
+                <views:RegisterHourPage />
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Historico"
+                        Icon="timesheet.png"
+                        BarBackgroundColor="#01764A"
+                        BackgroundColor="Transparent">
+            <x:Arguments>
+                <views:ShowPersonalHoursPage />
+            </x:Arguments>
+        </NavigationPage>
+
+    </TabbedPage.Children>
+</TabbedPage>

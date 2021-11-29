@@ -1,0 +1,32 @@
+﻿<Window x:Class="AntonUtils.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AntonUtils"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="200" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Content="Branch name" Grid.Row="0" Grid.Column="0" />
+        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding BranchNameSource, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Content="Convert" Grid.Row="0" Grid.Column="4" Command="{Binding BranchNameConvertCommand}" />
+        <TextBox Grid.Row="0" Grid.Column="6" Text="{Binding BranchNameConverted, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Content="Copy" Grid.Row="0" Grid.Column="8" Command="{Binding BranchNameCopyClipboard}" />
+    </Grid>    
+</Window>

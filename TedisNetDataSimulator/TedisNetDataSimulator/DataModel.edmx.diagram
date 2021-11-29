@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac9456b27aa74a09af93a260a46d00a3" Name="Diagram1">
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertDestination" Width="1.5" PointX="7.5" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertEventLevel" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertExecution" Width="1.5" PointX="14.75" PointY="57.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertFile" Width="1.5" PointX="3" PointY="47.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertInterval" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertParameterValue" Width="1.5" PointX="12" PointY="50.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertPendingExecution" Width="1.5" PointX="14.75" PointY="62.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertPort" Width="1.5" PointX="9.75" PointY="50" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertTag" Width="1.5" PointX="5.25" PointY="53.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.AlertTemporarilyDisabled" Width="1.5" PointX="9.75" PointY="46.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Branch" Width="1.5" PointX="15" PointY="41" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Change" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Channel" Width="1.5" PointX="9.75" PointY="53.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.ChannelState" Width="1.5" PointX="12" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.CommandExecution" Width="1.5" PointX="7.5" PointY="61.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Command" Width="1.5" PointX="5.25" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.ControlPosition" Width="1.5" PointX="20" PointY="52.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Control" Width="1.5" PointX="17.75" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.CustomUserRight" Width="1.5" PointX="12.75" PointY="46.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.DataActivation" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.DataState" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.DevicePropertyValue" Width="1.5" PointX="7.5" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Device" Width="1.5" PointX="5.25" PointY="45.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.DeviceState" Width="1.5" PointX="15" PointY="48.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Element" Width="1.5" PointX="7.5" PointY="46.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Event" Width="1.5" PointX="7.5" PointY="80.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Network" Width="1.5" PointX="10.5" PointY="39.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.NodePolyline" Width="1.5" PointX="19.5" PointY="40.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.NodePosition" Width="1.5" PointX="15" PointY="44.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Node" Width="1.5" PointX="12.75" PointY="42.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.NotePosition" Width="1.5" PointX="15" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Note" Width="1.5" PointX="12.75" PointY="32.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Operand" Width="1.5" PointX="12.5" PointY="60.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Operation" Width="1.5" PointX="5.25" PointY="60.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Point" Width="1.5" PointX="19.5" PointY="44" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Polyline" Width="1.5" PointX="17.25" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Port" Width="1.5" PointX="7.5" PointY="52.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.PortState" Width="1.5" PointX="12" PointY="57.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Region" Width="1.5" PointX="15.5" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.SerialPort" Width="1.5" PointX="9.75" PointY="57.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.TagIntervalSummary" Width="1.5" PointX="5.25" PointY="63.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.TagIntervalValue" Width="1.5" PointX="5.25" PointY="68.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.TagPropertyValue" Width="1.5" PointX="5.25" PointY="73.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.Tag" Width="1.5" PointX="3" PointY="50.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.TagScale" Width="1.5" PointX="5.25" PointY="76.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.TagSet" Width="1.5" PointX="0.75" PointY="54.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.TagValueChanx" Width="1.5" PointX="5.25" PointY="79.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetDataModel.TagValue" Width="1.5" PointX="5.25" PointY="84.25" IsExpanded="true" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertDestination_CommandActivate" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertDestination_CommandDeactivate" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertDestination_Element" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertExecutions_Destination" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertPendingExecutions_Destination" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertExecutions_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertTag_AlertFile" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertParameterValues_SerialPort" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertPendingExecutions_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertPorts_SerialPort" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertTemporarilyDisabled_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_AlertTemporarilyDisabled_Elements" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Branch_Node1" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Branch_Node2" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Channels_MasterPorts" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Channels_SlavePorts" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_ChannelStates_Channels" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_DeviceStates_CurrentChannelChannelsId" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_DeviceStates_TransientChannelChannelsId" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_PortStates_TransientChannelChannelsId" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_CommandExecutions_Command" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_CommandExecutions_TagValueChanges" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_CommandExecutions_TargetCommand" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Commands_LinkedTags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Commands_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Elements_StateCommand" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_ControlPositions_Controls" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Controls_Elements" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Controls_Networks" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Controls_Networks1" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Controls_Regions" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Controls_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_CustomUserRights_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_CustomUserRights_Elements" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_DevicePropertyValues_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Devices_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Devices_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Devices_Tags2" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_DeviceStates_Command" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Ports_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Tags_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Tags_VirtualDevices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_TagSets_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Elements_Elements" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Elements_StateTag" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Nodes_Elements" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Tags_Elements" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Events_AckTagValueChange" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Network_Network" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Nodes_Networks" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Notes_Networks" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Regions_Network" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_NodePolylines_Nodes" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_NodePolylines_Polylines" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_NodePositions_Node" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_NotePositions_Note" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Operands_Operation" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Operands_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Operations_ResultTagId" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Points_Polylines" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_PortStates_Ports" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_SerialPorts_Ports" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_TagIntervalSummary_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_TagIntervalValue_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_TagPropertyValues_TagId" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Tags_TagSets" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_TagScales_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_ValueChanges_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.FK_Values_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetDataModel.BranchPolylines" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

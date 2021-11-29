@@ -1,0 +1,41 @@
+﻿<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mes="http://iec.ch/TC57/2011/schema/message" xmlns:end="http://www.isotrol.com/STG-CIDE/2013/EndDeviceControls#" xmlns:dev="http://www.isotrol.com/STG-CIDE/2013/Devices#" xmlns:end1="http://www.isotrol.com/STG-CIDE/2013/EndDeviceEvents#" xmlns:met="http://www.isotrol.com/STG-CIDE/2013/MeterReadings#" xmlns:tas="http://www.isotrol.com/STG-CIDE/2013/TaskInfo#">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <mes:Request>
+      <mes:Header>
+        <mes:Verb>get</mes:Verb>
+        <mes:Noun>MeterReadings</mes:Noun>
+        <mes:Revision>1</mes:Revision>
+        <!-- Informacion para saber desde donde se realiza la peticion-->
+        <mes:Source>SoapUI</mes:Source>
+        <mes:AsyncReplyFlag>false</mes:AsyncReplyFlag>
+        <mes:AckRequired>true</mes:AckRequired>
+        <mes:User>
+          <mes:UserID>83ca42dd-0e6b-4278-900d-a73ae9d5a329</mes:UserID>
+        </mes:User>
+        <mes:Property>
+          <mes:Name>CompressFlag</mes:Name>
+          <mes:Value>false</mes:Value>
+        </mes:Property>
+      </mes:Header>
+      <mes:Request>
+        <mes:Option>
+          <mes:name>RequestType</mes:name>
+          <mes:value>AUTO</mes:value>
+        </mes:Option>
+        <mes:Option>
+          <mes:name>PrimeReport</mes:name>
+          <mes:value>S21</mes:value>
+        </mes:Option>
+        <mes:MeterReadings>
+          <met:MeterReading>
+            <met:Meter>
+              <!-- SUPERVISOR AL CUAL VAMOS A REALIZAR LA PETICION -->
+              <dev:mRID>LGZ0018251259</dev:mRID>
+            </met:Meter>
+          </met:MeterReading>
+        </mes:MeterReadings>
+      </mes:Request>
+    </mes:Request>
+  </soapenv:Body>
+</soapenv:Envelope>

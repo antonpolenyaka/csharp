@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:a="http://langdale.com.au/2005/Message#" xmlns:c="http://www.isotrol.com/STG-CIDE/2013/EndDeviceControls#" xmlns:d="http://www.isotrol.com/STG-CIDE/2013/Devices#" xmlns="http://langdale.com.au/2005/Message#" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.isotrol.com/STG-CIDE/2013/EndDeviceControls#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="Devices.xsd" namespace="http://www.isotrol.com/STG-CIDE/2013/Devices#" />
+  <xs:element name="EndDeviceControls" type="c:EndDeviceControls" />
+  <xs:complexType name="EndDeviceControls">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EndDeviceControl" type="c:EndDeviceControl" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceControl" name="EndDeviceControl">
+    <xs:annotation>
+      <xs:documentation>Instructs an end device (or an end device group) to
+				perform a specified action.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceControlType" minOccurs="1" maxOccurs="1" name="EndDeviceControlType">
+        <xs:annotation>
+          <xs:documentation><![CDATA[Detailed description for a control produced by an
+						end device. Values in attributes allow for creation of recommended
+						codes to be used for identifying end device controls as follows:
+						&lt;type&gt;.&lt;domain&gt;.&lt;subDomain&gt;.&lt;eventOrAction&gt;.]]></xs:documentation>
+        </xs:annotation>
+        <xs:complexType sawsdl:modelReference="">
+          <xs:attribute name="ref" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDevice" minOccurs="1" maxOccurs="unbounded" name="EndDevices" type="d:EndDevices" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

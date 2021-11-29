@@ -1,0 +1,2114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TedisNetDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AlertDestination">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CommandActivateId" Type="Int32" />
+    <Property Name="CommandDeactivateId" Type="Int32" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="IsRemoved" Type="Boolean" Nullable="false" />
+    <Property Name="ElementId" Type="Int32" />
+    <NavigationProperty Name="Command" Relationship="Self.FK_AlertDestination_CommandActivate" FromRole="AlertDestinations" ToRole="Commands" />
+    <NavigationProperty Name="Command1" Relationship="Self.FK_AlertDestination_CommandDeactivate" FromRole="AlertDestinations" ToRole="Commands" />
+    <NavigationProperty Name="Element" Relationship="Self.FK_AlertDestination_Element" FromRole="AlertDestinations" ToRole="Elements" />
+    <NavigationProperty Name="AlertExecutions" Relationship="Self.FK_AlertExecutions_Destination" FromRole="AlertDestinations" ToRole="AlertExecutions" />
+    <NavigationProperty Name="AlertPendingExecutions" Relationship="Self.FK_AlertPendingExecutions_Destination" FromRole="AlertDestinations" ToRole="AlertPendingExecutions" />
+  </EntityType>
+  <EntityType Name="AlertEventLevel">
+    <Key>
+      <PropertyRef Name="EventLevelId" />
+      <PropertyRef Name="AlertTypeId" />
+    </Key>
+    <Property Name="EventLevelId" Type="Int32" Nullable="false" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlertExecution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AlertDestinationId" Type="Int32" />
+    <Property Name="Header" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsSent" Type="Boolean" Nullable="false" />
+    <Property Name="IsSentOk" Type="Boolean" Nullable="false" />
+    <Property Name="SentTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="SentResultMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="RealDestination" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AlertStateId" Type="Int32" />
+    <NavigationProperty Name="AlertDestination" Relationship="Self.FK_AlertExecutions_Destination" FromRole="AlertExecutions" ToRole="AlertDestinations" />
+    <NavigationProperty Name="Event" Relationship="Self.FK_AlertExecutions_Event" FromRole="AlertExecutions" ToRole="Events" />
+  </EntityType>
+  <EntityType Name="AlertFile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <NavigationProperty Name="AlertTags" Relationship="Self.FK_AlertTag_AlertFile" FromRole="AlertFiles" ToRole="AlertTags" />
+  </EntityType>
+  <EntityType Name="AlertInterval">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="DayOfWeek" Type="Int32" />
+    <Property Name="StartTime" Type="Time" Precision="7" />
+    <Property Name="EndTime" Type="Time" Precision="7" />
+    <Property Name="SendOnlyIfUnattended" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlertParameterValue">
+    <Key>
+      <PropertyRef Name="AlertParameterId" />
+      <PropertyRef Name="AlertPortId" />
+    </Key>
+    <Property Name="AlertParameterId" Type="Int32" Nullable="false" />
+    <Property Name="AlertPortId" Type="Int32" Nullable="false" />
+    <Property Name="ValueInt" Type="Int32" />
+    <Property Name="ValueStr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ValueBool" Type="Boolean" />
+    <NavigationProperty Name="AlertPort" Relationship="Self.FK_AlertParameterValues_SerialPort" FromRole="AlertParameterValues" ToRole="AlertPorts" />
+  </EntityType>
+  <EntityType Name="AlertPendingExecution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AlertDestinationId" Type="Int32" />
+    <Property Name="Header" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsWaitingOn" Type="Boolean" Nullable="false" />
+    <Property Name="WaitOnEndDatetime" Type="DateTime" Precision="3" />
+    <Property Name="IsPendingToSend" Type="Boolean" Nullable="false" />
+    <Property Name="IsSending" Type="Boolean" Nullable="false" />
+    <Property Name="IsSent" Type="Boolean" Nullable="false" />
+    <Property Name="IsSentOk" Type="Boolean" Nullable="false" />
+    <Property Name="SentTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="SentResultMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Retries" Type="Int32" Nullable="false" />
+    <Property Name="RealDestination" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AlertStateId" Type="Int32" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AlertDestination" Relationship="Self.FK_AlertPendingExecutions_Destination" FromRole="AlertPendingExecutions" ToRole="AlertDestinations" />
+    <NavigationProperty Name="Event" Relationship="Self.FK_AlertPendingExecutions_Event" FromRole="AlertPendingExecutions" ToRole="Events" />
+  </EntityType>
+  <EntityType Name="AlertPort">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="PortId" Type="Int32" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="MaxRetries" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AlertParameterValues" Relationship="Self.FK_AlertParameterValues_SerialPort" FromRole="AlertPorts" ToRole="AlertParameterValues" />
+    <NavigationProperty Name="Port" Relationship="Self.FK_AlertPorts_SerialPort" FromRole="AlertPorts" ToRole="Ports" />
+  </EntityType>
+  <EntityType Name="AlertTag">
+    <Key>
+      <PropertyRef Name="TagId" />
+      <PropertyRef Name="AlertTypeId" />
+    </Key>
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="AddHeaderElementName" Type="Boolean" Nullable="false" />
+    <Property Name="AddHeaderTagClassDescription" Type="Boolean" Nullable="false" />
+    <Property Name="AddHeaderTagName" Type="Boolean" Nullable="false" />
+    <Property Name="AddHeaderState" Type="Boolean" Nullable="false" />
+    <Property Name="CustomHeader" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AddElementName" Type="Boolean" Nullable="false" />
+    <Property Name="AddTagClassDescription" Type="Boolean" Nullable="false" />
+    <Property Name="AddTagName" Type="Boolean" Nullable="false" />
+    <Property Name="AddState" Type="Boolean" Nullable="false" />
+    <Property Name="CustomMessage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AddFile" Type="Boolean" Nullable="false" />
+    <Property Name="AlertFileId" Type="Int32" />
+    <Property Name="ConvertTextToVoice" Type="Boolean" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="OnWaitTime" Type="Int32" />
+    <NavigationProperty Name="AlertFile" Relationship="Self.FK_AlertTag_AlertFile" FromRole="AlertTags" ToRole="AlertFiles" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_AlertTag_Tag" FromRole="AlertTags" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="AlertTemporarilyDisabled">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ElementId" Type="Int32" />
+    <Property Name="DeviceId" Type="Int32" />
+    <Property Name="AlertTypeId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedByUserId" Type="Int32" Nullable="false" />
+    <Property Name="StartTimestamp" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="EndTimestamp" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_AlertTemporarilyDisabled_Devices" FromRole="AlertTemporarilyDisabled" ToRole="Devices" />
+    <NavigationProperty Name="Element" Relationship="Self.FK_AlertTemporarilyDisabled_Elements" FromRole="AlertTemporarilyDisabled" ToRole="Elements" />
+  </EntityType>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Node1Id" Type="Int32" Nullable="false" />
+    <Property Name="Node2Id" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Node" Relationship="Self.FK_Branch_Node1" FromRole="Branches" ToRole="Nodes" />
+    <NavigationProperty Name="Node1" Relationship="Self.FK_Branch_Node2" FromRole="Branches" ToRole="Nodes" />
+    <NavigationProperty Name="Polylines" Relationship="Self.BranchPolylines" FromRole="Branches" ToRole="Polylines" />
+  </EntityType>
+  <EntityType Name="Change">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ChangeTypeId" Type="Int32" Nullable="false" />
+    <Property Name="EntityId" Type="Int32" Nullable="false" />
+    <Property Name="EntityName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OldData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NewData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Channel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MasterPortId" Type="Int32" Nullable="false" />
+    <Property Name="SlavePortId" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProtocolId" Type="Int32" />
+    <NavigationProperty Name="Port" Relationship="Self.FK_Channels_MasterPorts" FromRole="Channels" ToRole="Ports" />
+    <NavigationProperty Name="Port1" Relationship="Self.FK_Channels_SlavePorts" FromRole="Channels" ToRole="Ports" />
+    <NavigationProperty Name="ChannelState" Relationship="Self.FK_ChannelStates_Channels" FromRole="Channels" ToRole="ChannelStates" />
+    <NavigationProperty Name="DeviceStates" Relationship="Self.FK_DeviceStates_CurrentChannelChannelsId" FromRole="Channels" ToRole="DeviceStates" />
+    <NavigationProperty Name="DeviceStates1" Relationship="Self.FK_DeviceStates_TransientChannelChannelsId" FromRole="Channels" ToRole="DeviceStates" />
+    <NavigationProperty Name="PortStates" Relationship="Self.FK_PortStates_TransientChannelChannelsId" FromRole="Channels" ToRole="PortStates" />
+  </EntityType>
+  <EntityType Name="ChannelState">
+    <Key>
+      <PropertyRef Name="ChannelId" />
+    </Key>
+    <Property Name="ChannelId" Type="Int32" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Channel" Relationship="Self.FK_ChannelStates_Channels" FromRole="ChannelStates" ToRole="Channels" />
+  </EntityType>
+  <EntityType Name="CommandExecution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommandId" Type="Int32" Nullable="false" />
+    <Property Name="ValueEnumValueId" Type="Int32" Nullable="false" />
+    <Property Name="TargetCommandId" Type="Int32" />
+    <Property Name="TargetValueEnumValueId" Type="Int32" />
+    <Property Name="StateEnumValueId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExpiresBy" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SelectStart" Type="DateTime" Precision="3" />
+    <Property Name="Selected" Type="DateTime" Precision="3" />
+    <Property Name="ExecuteStart" Type="DateTime" Precision="3" />
+    <Property Name="Executed" Type="DateTime" Precision="3" />
+    <Property Name="Expired" Type="DateTime" Precision="3" />
+    <Property Name="Cancelled" Type="DateTime" Precision="3" />
+    <Property Name="SetByUser" Type="DateTime" Precision="3" />
+    <Property Name="IsFinished" Type="Boolean" Nullable="false" />
+    <Property Name="TagValueChangeId" Type="Int32" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Command" Relationship="Self.FK_CommandExecutions_Command" FromRole="CommandExecutions" ToRole="Commands" />
+    <NavigationProperty Name="TagValueChanx" Relationship="Self.FK_CommandExecutions_TagValueChanges" FromRole="CommandExecutions" ToRole="TagValueChanges" />
+    <NavigationProperty Name="Command1" Relationship="Self.FK_CommandExecutions_TargetCommand" FromRole="CommandExecutions" ToRole="Commands" />
+  </EntityType>
+  <EntityType Name="Command">
+    <Key>
+      <PropertyRef Name="TagId" />
+    </Key>
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="LinkedTagId" Type="Int32" />
+    <NavigationProperty Name="AlertDestinations" Relationship="Self.FK_AlertDestination_CommandActivate" FromRole="Commands" ToRole="AlertDestinations" />
+    <NavigationProperty Name="AlertDestinations1" Relationship="Self.FK_AlertDestination_CommandDeactivate" FromRole="Commands" ToRole="AlertDestinations" />
+    <NavigationProperty Name="CommandExecutions" Relationship="Self.FK_CommandExecutions_Command" FromRole="Commands" ToRole="CommandExecutions" />
+    <NavigationProperty Name="CommandExecutions1" Relationship="Self.FK_CommandExecutions_TargetCommand" FromRole="Commands" ToRole="CommandExecutions" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Commands_LinkedTags" FromRole="Commands" ToRole="Tags" />
+    <NavigationProperty Name="Tag1" Relationship="Self.FK_Commands_Tags" FromRole="Commands" ToRole="Tags" />
+    <NavigationProperty Name="Elements" Relationship="Self.FK_Elements_StateCommand" FromRole="Commands" ToRole="Elements" />
+  </EntityType>
+  <EntityType Name="ControlPosition">
+    <Key>
+      <PropertyRef Name="LayoutId" />
+      <PropertyRef Name="ControlId" />
+    </Key>
+    <Property Name="LayoutId" Type="Int32" Nullable="false" />
+    <Property Name="ControlId" Type="Int32" Nullable="false" />
+    <Property Name="X" Type="Int32" Nullable="false" />
+    <Property Name="Y" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Control" Relationship="Self.FK_ControlPositions_Controls" FromRole="ControlPositions" ToRole="Controls" />
+  </EntityType>
+  <EntityType Name="Control">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="356" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ControlTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DialogActionId" Type="Int32" />
+    <Property Name="ElementId" Type="Int32" />
+    <Property Name="TagId" Type="Int32" />
+    <Property Name="ForegroundColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="BackgroundColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Width" Type="Int32" />
+    <Property Name="Height" Type="Int32" />
+    <Property Name="FontSize" Type="Int32" />
+    <Property Name="NetworkId" Type="Int32" Nullable="false" />
+    <Property Name="RotationAngle" Type="Int32" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="RegionId" Type="Int32" />
+    <Property Name="ImageId" Type="Int32" />
+    <Property Name="GoToNetworkId" Type="Int32" />
+    <NavigationProperty Name="ControlPositions" Relationship="Self.FK_ControlPositions_Controls" FromRole="Controls" ToRole="ControlPositions" />
+    <NavigationProperty Name="Element" Relationship="Self.FK_Controls_Elements" FromRole="Controls" ToRole="Elements" />
+    <NavigationProperty Name="Network" Relationship="Self.FK_Controls_Networks" FromRole="Controls" ToRole="Networks" />
+    <NavigationProperty Name="Network1" Relationship="Self.FK_Controls_Networks1" FromRole="Controls" ToRole="Networks" />
+    <NavigationProperty Name="Region" Relationship="Self.FK_Controls_Regions" FromRole="Controls" ToRole="Regions" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Controls_Tags" FromRole="Controls" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="CustomUserRight">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ElementId" Type="Int32" />
+    <Property Name="DeviceId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RightId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_CustomUserRights_Devices" FromRole="CustomUserRights" ToRole="Devices" />
+    <NavigationProperty Name="Element" Relationship="Self.FK_CustomUserRights_Elements" FromRole="CustomUserRights" ToRole="Elements" />
+  </EntityType>
+  <EntityType Name="DataActivation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActivateTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="StateId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DataState">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UpdateTimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="DevicePropertyValue">
+    <Key>
+      <PropertyRef Name="PropertyId" />
+      <PropertyRef Name="DeviceId" />
+    </Key>
+    <Property Name="PropertyId" Type="Int32" Nullable="false" />
+    <Property Name="DeviceId" Type="Int32" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ValueBool" Type="Boolean" />
+    <Property Name="ValueInt" Type="Int32" />
+    <Property Name="ValueFloat" Type="Double" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_DevicePropertyValues_Devices" FromRole="DevicePropertyValues" ToRole="Devices" />
+  </EntityType>
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="Int32" />
+    <Property Name="SlaveNumber" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DeviceTypeId" Type="Int32" Nullable="false" />
+    <Property Name="ParentDeviceId" Type="Int32" />
+    <Property Name="ConnectionStateTagId" Type="Int32" />
+    <Property Name="ConnectionPetStateTagId" Type="Int32" />
+    <Property Name="ExportCode" Type="Int32" />
+    <Property Name="ExtensionPort1Type" Type="Int32" />
+    <Property Name="ExtensionPort2Type" Type="Int32" />
+    <Property Name="ExtensionPort3Type" Type="Int32" />
+    <Property Name="IsAnalogMonopolar" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AlertTemporarilyDisableds" Relationship="Self.FK_AlertTemporarilyDisabled_Devices" FromRole="Devices" ToRole="AlertTemporarilyDisabled" />
+    <NavigationProperty Name="CustomUserRights" Relationship="Self.FK_CustomUserRights_Devices" FromRole="Devices" ToRole="CustomUserRights" />
+    <NavigationProperty Name="DevicePropertyValues" Relationship="Self.FK_DevicePropertyValues_Devices" FromRole="Devices" ToRole="DevicePropertyValues" />
+    <NavigationProperty Name="Devices1" Relationship="Self.FK_Devices_Devices" FromRole="Devices" ToRole="Devices1" />
+    <NavigationProperty Name="Device1" Relationship="Self.FK_Devices_Devices" FromRole="Devices1" ToRole="Devices" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Devices_Tags" FromRole="Devices" ToRole="Tags" />
+    <NavigationProperty Name="Tag1" Relationship="Self.FK_Devices_Tags2" FromRole="Devices" ToRole="Tags" />
+    <NavigationProperty Name="DeviceState" Relationship="Self.FK_DeviceStates_Command" FromRole="Devices" ToRole="DeviceStates" />
+    <NavigationProperty Name="Ports" Relationship="Self.FK_Ports_Devices" FromRole="Devices" ToRole="Ports" />
+    <NavigationProperty Name="Tags" Relationship="Self.FK_Tags_Devices" FromRole="Devices" ToRole="Tags" />
+    <NavigationProperty Name="Tags1" Relationship="Self.FK_Tags_VirtualDevices" FromRole="Devices" ToRole="Tags" />
+    <NavigationProperty Name="TagSets" Relationship="Self.FK_TagSets_Devices" FromRole="Devices" ToRole="TagSets" />
+  </EntityType>
+  <EntityType Name="DeviceState">
+    <Key>
+      <PropertyRef Name="DeviceId" />
+    </Key>
+    <Property Name="DeviceId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="StateId" Type="Int32" />
+    <Property Name="StateTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="RequestStateId" Type="Int32" />
+    <Property Name="RequestStateTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="TransientStateId" Type="Int32" />
+    <Property Name="TransientStateTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="ExpiryDateTime" Type="DateTime" Precision="3" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="IsConnected" Type="Boolean" />
+    <Property Name="StatusMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentChannelId" Type="Int32" />
+    <Property Name="TransientChannelId" Type="Int32" />
+    <Property Name="DatabaseBinaryFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="DatabaseXmlFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DatabaseGenerationTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="DatabaseServerXmlFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastUpdated" Type="DateTime" Precision="3" />
+    <Property Name="LastConnection" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Channel" Relationship="Self.FK_DeviceStates_CurrentChannelChannelsId" FromRole="DeviceStates" ToRole="Channels" />
+    <NavigationProperty Name="Channel1" Relationship="Self.FK_DeviceStates_TransientChannelChannelsId" FromRole="DeviceStates" ToRole="Channels" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_DeviceStates_Command" FromRole="DeviceStates" ToRole="Devices" />
+  </EntityType>
+  <EntityType Name="Element">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ElementTypeId" Type="Int32" Nullable="false" />
+    <Property Name="ParentElementId" Type="Int32" />
+    <Property Name="StateTagId" Type="Int32" />
+    <Property Name="StateCommandId" Type="Int32" />
+    <Property Name="ExportCode" Type="Int32" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AlertDestinations" Relationship="Self.FK_AlertDestination_Element" FromRole="Elements" ToRole="AlertDestinations" />
+    <NavigationProperty Name="AlertTemporarilyDisableds" Relationship="Self.FK_AlertTemporarilyDisabled_Elements" FromRole="Elements" ToRole="AlertTemporarilyDisabled" />
+    <NavigationProperty Name="Command" Relationship="Self.FK_Elements_StateCommand" FromRole="Elements" ToRole="Commands" />
+    <NavigationProperty Name="Controls" Relationship="Self.FK_Controls_Elements" FromRole="Elements" ToRole="Controls" />
+    <NavigationProperty Name="CustomUserRights" Relationship="Self.FK_CustomUserRights_Elements" FromRole="Elements" ToRole="CustomUserRights" />
+    <NavigationProperty Name="Elements1" Relationship="Self.FK_Elements_Elements" FromRole="Elements" ToRole="Elements1" />
+    <NavigationProperty Name="Element1" Relationship="Self.FK_Elements_Elements" FromRole="Elements1" ToRole="Elements" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Elements_StateTag" FromRole="Elements" ToRole="Tags" />
+    <NavigationProperty Name="Nodes" Relationship="Self.FK_Nodes_Elements" FromRole="Elements" ToRole="Nodes" />
+    <NavigationProperty Name="Tags" Relationship="Self.FK_Tags_Elements" FromRole="Elements" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagValueChangeId" Type="Int32" Nullable="false" />
+    <Property Name="AckUserId" Type="Int32" />
+    <Property Name="AckTimestamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AlertExecutions" Relationship="Self.FK_AlertExecutions_Event" FromRole="Events" ToRole="AlertExecutions" />
+    <NavigationProperty Name="AlertPendingExecutions" Relationship="Self.FK_AlertPendingExecutions_Event" FromRole="Events" ToRole="AlertPendingExecutions" />
+    <NavigationProperty Name="TagValueChanx" Relationship="Self.FK_Events_AckTagValueChange" FromRole="Events" ToRole="TagValueChanges" />
+  </EntityType>
+  <EntityType Name="Network">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DefaultLayoutId" Type="Int32" Nullable="false" />
+    <Property Name="BackgroundColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DefaultLineColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsElectrical" Type="Boolean" Nullable="false" />
+    <Property Name="IsSnap" Type="Boolean" Nullable="false" />
+    <Property Name="IsOrthogonal" Type="Boolean" Nullable="false" />
+    <Property Name="GridInterval" Type="Int32" Nullable="false" />
+    <Property Name="Width" Type="Int32" Nullable="false" />
+    <Property Name="Height" Type="Int32" Nullable="false" />
+    <Property Name="ParentNetworkId" Type="Int32" />
+    <Property Name="BackgroundImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="BackgroundImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Controls" Relationship="Self.FK_Controls_Networks" FromRole="Networks" ToRole="Controls" />
+    <NavigationProperty Name="Controls1" Relationship="Self.FK_Controls_Networks1" FromRole="Networks" ToRole="Controls" />
+    <NavigationProperty Name="Networks1" Relationship="Self.FK_Network_Network" FromRole="Networks" ToRole="Networks1" />
+    <NavigationProperty Name="Network1" Relationship="Self.FK_Network_Network" FromRole="Networks1" ToRole="Networks" />
+    <NavigationProperty Name="Nodes" Relationship="Self.FK_Nodes_Networks" FromRole="Networks" ToRole="Nodes" />
+    <NavigationProperty Name="Notes" Relationship="Self.FK_Notes_Networks" FromRole="Networks" ToRole="Notes" />
+    <NavigationProperty Name="Regions" Relationship="Self.FK_Regions_Network" FromRole="Networks" ToRole="Regions" />
+  </EntityType>
+  <EntityType Name="NodePolyline">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PolylineId" Type="Int32" Nullable="false" />
+    <Property Name="NodeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Node" Relationship="Self.FK_NodePolylines_Nodes" FromRole="NodePolylines" ToRole="Nodes" />
+    <NavigationProperty Name="Polyline" Relationship="Self.FK_NodePolylines_Polylines" FromRole="NodePolylines" ToRole="Polylines" />
+  </EntityType>
+  <EntityType Name="NodePosition">
+    <Key>
+      <PropertyRef Name="LayoutId" />
+      <PropertyRef Name="NodeId" />
+    </Key>
+    <Property Name="LayoutId" Type="Int32" Nullable="false" />
+    <Property Name="NodeId" Type="Int32" Nullable="false" />
+    <Property Name="X" Type="Int32" Nullable="false" />
+    <Property Name="Y" Type="Int32" Nullable="false" />
+    <Property Name="IsLabelVisible" Type="Boolean" Nullable="false" />
+    <Property Name="LabelX" Type="Int32" />
+    <Property Name="LabelY" Type="Int32" />
+    <NavigationProperty Name="Node" Relationship="Self.FK_NodePositions_Node" FromRole="NodePositions" ToRole="Nodes" />
+  </EntityType>
+  <EntityType Name="Node">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NetworkId" Type="Int32" Nullable="false" />
+    <Property Name="NodeTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="RotationAngle" Type="Int32" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="ElementId" Type="Int32" />
+    <NavigationProperty Name="Branches" Relationship="Self.FK_Branch_Node1" FromRole="Nodes" ToRole="Branches" />
+    <NavigationProperty Name="Branches1" Relationship="Self.FK_Branch_Node2" FromRole="Nodes" ToRole="Branches" />
+    <NavigationProperty Name="Element" Relationship="Self.FK_Nodes_Elements" FromRole="Nodes" ToRole="Elements" />
+    <NavigationProperty Name="Network" Relationship="Self.FK_Nodes_Networks" FromRole="Nodes" ToRole="Networks" />
+    <NavigationProperty Name="NodePolylines" Relationship="Self.FK_NodePolylines_Nodes" FromRole="Nodes" ToRole="NodePolylines" />
+    <NavigationProperty Name="NodePositions" Relationship="Self.FK_NodePositions_Node" FromRole="Nodes" ToRole="NodePositions" />
+  </EntityType>
+  <EntityType Name="NotePosition">
+    <Key>
+      <PropertyRef Name="LayoutId" />
+      <PropertyRef Name="NoteId" />
+    </Key>
+    <Property Name="LayoutId" Type="Int32" Nullable="false" />
+    <Property Name="NoteId" Type="Int32" Nullable="false" />
+    <Property Name="X" Type="Int32" Nullable="false" />
+    <Property Name="Y" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Note" Relationship="Self.FK_NotePositions_Note" FromRole="NotePositions" ToRole="Notes" />
+  </EntityType>
+  <EntityType Name="Note">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="NoteTypeId" Type="Int32" Nullable="false" />
+    <Property Name="NetworkId" Type="Int32" Nullable="false" />
+    <Property Name="CreateTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateTimeStamp" Type="DateTime" Precision="3" />
+    <Property Name="DeleteTimeStamp" Type="DateTime" Precision="3" />
+    <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+    <Property Name="UpdateUserId" Type="Int32" />
+    <Property Name="DeleteUserId" Type="Int32" />
+    <NavigationProperty Name="Network" Relationship="Self.FK_Notes_Networks" FromRole="Notes" ToRole="Networks" />
+    <NavigationProperty Name="NotePositions" Relationship="Self.FK_NotePositions_Note" FromRole="Notes" ToRole="NotePositions" />
+  </EntityType>
+  <EntityType Name="Operand">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OperationId" Type="Int32" Nullable="false" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="FormulaVariable" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Operation" Relationship="Self.FK_Operands_Operation" FromRole="Operands" ToRole="Operations" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Operands_Tags" FromRole="Operands" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="Operation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResultTagId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OperationTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Formula" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+    <Property Name="ValueOn" Type="Double" />
+    <Property Name="ValueOff" Type="Double" />
+    <NavigationProperty Name="Operands" Relationship="Self.FK_Operands_Operation" FromRole="Operations" ToRole="Operands" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Operations_ResultTagId" FromRole="Operations" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="Point">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PolylineId" Type="Int32" Nullable="false" />
+    <Property Name="X" Type="Int32" Nullable="false" />
+    <Property Name="Y" Type="Int32" Nullable="false" />
+    <Property Name="Order" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Polyline" Relationship="Self.FK_Points_Polylines" FromRole="Points" ToRole="Polylines" />
+  </EntityType>
+  <EntityType Name="Polyline">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LayoutId" Type="Int32" Nullable="false" />
+    <Property Name="PolylinePatternId" Type="Int32" />
+    <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NodePolylines" Relationship="Self.FK_NodePolylines_Polylines" FromRole="Polylines" ToRole="NodePolylines" />
+    <NavigationProperty Name="Points" Relationship="Self.FK_Points_Polylines" FromRole="Polylines" ToRole="Points" />
+    <NavigationProperty Name="Branches" Relationship="Self.BranchPolylines" FromRole="Polylines" ToRole="Branches" />
+  </EntityType>
+  <EntityType Name="Port">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DeviceId" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="Int32" />
+    <Property Name="IpAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IpPort" Type="Int32" />
+    <Property Name="IpModeId" Type="Int32" />
+    <Property Name="Uri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProtocolId" Type="Int32" />
+    <Property Name="DriverId" Type="Int32" />
+    <Property Name="IsMaster" Type="Boolean" Nullable="false" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="AppAddress" Type="Int32" />
+    <Property Name="OriginatorAddress" Type="Int32" />
+    <Property Name="ProtocolTimeout0" Type="Int32" />
+    <Property Name="ProtocolTimeout1" Type="Int32" />
+    <Property Name="ProtocolTimeout2" Type="Int32" />
+    <Property Name="ProtocolTimeout3" Type="Int32" />
+    <Property Name="DriverTimeout0" Type="Int32" />
+    <Property Name="DriverTimeout1" Type="Int32" />
+    <Property Name="DriverTimeout2" Type="Int32" />
+    <Property Name="DriverTimeout3" Type="Int32" />
+    <Property Name="Retries" Type="Int32" />
+    <Property Name="ExportPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AlertPorts" Relationship="Self.FK_AlertPorts_SerialPort" FromRole="Ports" ToRole="AlertPorts" />
+    <NavigationProperty Name="Channels" Relationship="Self.FK_Channels_MasterPorts" FromRole="Ports" ToRole="Channels" />
+    <NavigationProperty Name="Channels1" Relationship="Self.FK_Channels_SlavePorts" FromRole="Ports" ToRole="Channels" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_Ports_Devices" FromRole="Ports" ToRole="Devices" />
+    <NavigationProperty Name="PortState" Relationship="Self.FK_PortStates_Ports" FromRole="Ports" ToRole="PortStates" />
+    <NavigationProperty Name="SerialPort" Relationship="Self.FK_SerialPorts_Ports" FromRole="Ports" ToRole="SerialPorts" />
+  </EntityType>
+  <EntityType Name="PortState">
+    <Key>
+      <PropertyRef Name="PortId" />
+    </Key>
+    <Property Name="PortId" Type="Int32" Nullable="false" />
+    <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="TransientChannelId" Type="Int32" />
+    <Property Name="StatusMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Channel" Relationship="Self.FK_PortStates_TransientChannelChannelsId" FromRole="PortStates" ToRole="Channels" />
+    <NavigationProperty Name="Port" Relationship="Self.FK_PortStates_Ports" FromRole="PortStates" ToRole="Ports" />
+  </EntityType>
+  <EntityType Name="Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NetworkId" Type="Int32" Nullable="false" />
+    <Property Name="X1" Type="Int32" Nullable="false" />
+    <Property Name="Y1" Type="Int32" Nullable="false" />
+    <Property Name="X2" Type="Int32" Nullable="false" />
+    <Property Name="Y2" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Controls" Relationship="Self.FK_Controls_Regions" FromRole="Regions" ToRole="Controls" />
+    <NavigationProperty Name="Network" Relationship="Self.FK_Regions_Network" FromRole="Regions" ToRole="Networks" />
+  </EntityType>
+  <EntityType Name="SerialPort">
+    <Key>
+      <PropertyRef Name="PortId" />
+    </Key>
+    <Property Name="PortId" Type="Int32" Nullable="false" />
+    <Property Name="LocalName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SerialModeId" Type="Int32" Nullable="false" />
+    <Property Name="BaudRate" Type="Int32" Nullable="false" />
+    <Property Name="DataBits" Type="Int32" Nullable="false" />
+    <Property Name="SerialParityId" Type="Int32" Nullable="false" />
+    <Property Name="StopBits" Type="Double" Nullable="false" />
+    <Property Name="AtInitialize1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AtInitialize2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AtDialUp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AtAnswer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AtHangUp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AtCommandMode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CcPhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ResponseOk" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ResponseConnect" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ResponseRing" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CtsWaitTime" Type="Double" />
+    <Property Name="RtsStartWaitTime" Type="Double" />
+    <Property Name="RtsEndWaitTime" Type="Double" />
+    <NavigationProperty Name="Port" Relationship="Self.FK_SerialPorts_Ports" FromRole="SerialPorts" ToRole="Ports" />
+  </EntityType>
+  <EntityType Name="TagIntervalSummary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="StartValue" Type="Double" />
+    <Property Name="StartTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="EndValue" Type="Double" />
+    <Property Name="EndTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="IntervalTime" Type="Int32" />
+    <Property Name="MaximumValue" Type="Double" />
+    <Property Name="MaximumTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="MinimumValue" Type="Double" />
+    <Property Name="MinimumTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="AverageValue" Type="Double" />
+    <Property Name="TotalValue" Type="Double" />
+    <Property Name="SampleCount" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_TagIntervalSummary_Tags" FromRole="TagIntervalSummaries" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="TagIntervalValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="ValueBool" Type="Boolean" />
+    <Property Name="ValueInt" Type="Int32" />
+    <Property Name="ValueFloat" Type="Double" />
+    <Property Name="ValueStr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ValueEnumId" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SourceTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="QualityId" Type="Int32" />
+    <Property Name="QualityDetailId" Type="Int32" />
+    <Property Name="QualitySourceId" Type="Int32" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_TagIntervalValue_Tags" FromRole="TagIntervalValues" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="TagPropertyValue">
+    <Key>
+      <PropertyRef Name="PropertyId" />
+      <PropertyRef Name="TagId" />
+    </Key>
+    <Property Name="PropertyId" Type="Int32" Nullable="false" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ValueBool" Type="Boolean" />
+    <Property Name="ValueInt" Type="Int32" />
+    <Property Name="ValueFloat" Type="Double" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_TagPropertyValues_TagId" FromRole="TagPropertyValues" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="Int32" />
+    <Property Name="TelecontrolAddress" Type="Int32" />
+    <Property Name="TelecontrolIOAddress" Type="Int32" />
+    <Property Name="LocalAddress" Type="Int32" />
+    <Property Name="DeviceTerminal" Type="Int32" />
+    <Property Name="TagSetTerminal" Type="Int32" />
+    <Property Name="OpcItemId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OpcItemIdSelection" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ExportCode" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DeviceId" Type="Int32" Nullable="false" />
+    <Property Name="TagSetId" Type="Int32" />
+    <Property Name="TagClassId" Type="Int32" Nullable="false" />
+    <Property Name="ElementId" Type="Int32" />
+    <Property Name="ActivationTime" Type="Double" />
+    <Property Name="SendPriorityId" Type="Int32" />
+    <Property Name="IsCommonMode" Type="Boolean" />
+    <Property Name="IsMonopolar" Type="Boolean" />
+    <Property Name="IsInverted" Type="Boolean" />
+    <Property Name="StoreInterval" Type="Int32" />
+    <Property Name="SourceValueCodecId" Type="Int32" />
+    <Property Name="SourceValueTypeId" Type="Int32" />
+    <Property Name="IsWritten" Type="Boolean" />
+    <Property Name="VirtualDeviceId" Type="Int32" />
+    <Property Name="VirtualAddress" Type="Int32" />
+    <Property Name="DeviceScale" Type="Int32" />
+    <NavigationProperty Name="AlertTags" Relationship="Self.FK_AlertTag_Tag" FromRole="Tags" ToRole="AlertTags" />
+    <NavigationProperty Name="Commands" Relationship="Self.FK_Commands_LinkedTags" FromRole="Tags" ToRole="Commands" />
+    <NavigationProperty Name="Command" Relationship="Self.FK_Commands_Tags" FromRole="Tags" ToRole="Commands" />
+    <NavigationProperty Name="Controls" Relationship="Self.FK_Controls_Tags" FromRole="Tags" ToRole="Controls" />
+    <NavigationProperty Name="Devices" Relationship="Self.FK_Devices_Tags" FromRole="Tags" ToRole="Devices" />
+    <NavigationProperty Name="Devices1" Relationship="Self.FK_Devices_Tags2" FromRole="Tags" ToRole="Devices" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_Tags_Devices" FromRole="Tags" ToRole="Devices" />
+    <NavigationProperty Name="Device1" Relationship="Self.FK_Tags_VirtualDevices" FromRole="Tags" ToRole="Devices" />
+    <NavigationProperty Name="Elements" Relationship="Self.FK_Elements_StateTag" FromRole="Tags" ToRole="Elements" />
+    <NavigationProperty Name="Element" Relationship="Self.FK_Tags_Elements" FromRole="Tags" ToRole="Elements" />
+    <NavigationProperty Name="Operands" Relationship="Self.FK_Operands_Tags" FromRole="Tags" ToRole="Operands" />
+    <NavigationProperty Name="Operations" Relationship="Self.FK_Operations_ResultTagId" FromRole="Tags" ToRole="Operations" />
+    <NavigationProperty Name="TagIntervalSummaries" Relationship="Self.FK_TagIntervalSummary_Tags" FromRole="Tags" ToRole="TagIntervalSummaries" />
+    <NavigationProperty Name="TagIntervalValues" Relationship="Self.FK_TagIntervalValue_Tags" FromRole="Tags" ToRole="TagIntervalValues" />
+    <NavigationProperty Name="TagPropertyValues" Relationship="Self.FK_TagPropertyValues_TagId" FromRole="Tags" ToRole="TagPropertyValues" />
+    <NavigationProperty Name="TagSet" Relationship="Self.FK_Tags_TagSets" FromRole="Tags" ToRole="TagSets" />
+    <NavigationProperty Name="TagScales" Relationship="Self.FK_TagScales_Tags" FromRole="Tags" ToRole="TagScales" />
+    <NavigationProperty Name="TagValueChanges" Relationship="Self.FK_ValueChanges_Tags" FromRole="Tags" ToRole="TagValueChanges" />
+    <NavigationProperty Name="TagValue" Relationship="Self.FK_Values_Tags" FromRole="Tags" ToRole="TagValues" />
+  </EntityType>
+  <EntityType Name="TagScale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="InputValue" Type="Double" Nullable="false" />
+    <Property Name="ResultValue" Type="Double" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_TagScales_Tags" FromRole="TagScales" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="TagSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DeviceId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Device" Relationship="Self.FK_TagSets_Devices" FromRole="TagSets" ToRole="Devices" />
+    <NavigationProperty Name="Tags" Relationship="Self.FK_Tags_TagSets" FromRole="TagSets" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="TagValueChanx">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="ValueBool" Type="Boolean" />
+    <Property Name="ValueInt" Type="Int32" />
+    <Property Name="ValueFloat" Type="Double" />
+    <Property Name="ValueStr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ValueEnumId" Type="Int32" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SourceTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="QualityId" Type="Int32" />
+    <Property Name="QualityDetailId" Type="Int32" />
+    <Property Name="QualitySourceId" Type="Int32" />
+    <NavigationProperty Name="CommandExecutions" Relationship="Self.FK_CommandExecutions_TagValueChanges" FromRole="TagValueChanges" ToRole="CommandExecutions" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Events_AckTagValueChange" FromRole="TagValueChanges" ToRole="Events" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_ValueChanges_Tags" FromRole="TagValueChanges" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="TagValue">
+    <Key>
+      <PropertyRef Name="TagId" />
+    </Key>
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="ValueBool" Type="Boolean" />
+    <Property Name="ValueInt" Type="Int32" />
+    <Property Name="ValueFloat" Type="Double" />
+    <Property Name="ValueStr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ValueEnumId" Type="Int32" />
+    <Property Name="SourceTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="UpdateTimestamp" Type="DateTime" Precision="3" />
+    <Property Name="QualityId" Type="Int32" />
+    <Property Name="QualityDetailId" Type="Int32" />
+    <Property Name="QualitySourceId" Type="Int32" />
+    <Property Name="IsTagValueChangeHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_Values_Tags" FromRole="TagValues" ToRole="Tags" />
+  </EntityType>
+  <Association Name="FK_AlertDestination_CommandActivate">
+    <End Role="Commands" Type="Self.Command" Multiplicity="0..1" />
+    <End Role="AlertDestinations" Type="Self.AlertDestination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commands">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="AlertDestinations">
+        <PropertyRef Name="CommandActivateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertDestination_CommandDeactivate">
+    <End Role="Commands" Type="Self.Command" Multiplicity="0..1" />
+    <End Role="AlertDestinations" Type="Self.AlertDestination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commands">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="AlertDestinations">
+        <PropertyRef Name="CommandDeactivateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertDestination_Element">
+    <End Role="Elements" Type="Self.Element" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertDestinations" Type="Self.AlertDestination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertDestinations">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertExecutions_Destination">
+    <End Role="AlertDestinations" Type="Self.AlertDestination" Multiplicity="0..1" />
+    <End Role="AlertExecutions" Type="Self.AlertExecution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AlertDestinations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertExecutions">
+        <PropertyRef Name="AlertDestinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertPendingExecutions_Destination">
+    <End Role="AlertDestinations" Type="Self.AlertDestination" Multiplicity="0..1" />
+    <End Role="AlertPendingExecutions" Type="Self.AlertPendingExecution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AlertDestinations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertPendingExecutions">
+        <PropertyRef Name="AlertDestinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertExecutions_Event">
+    <End Role="Events" Type="Self.Event" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertExecutions" Type="Self.AlertExecution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Events">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertExecutions">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertTag_AlertFile">
+    <End Role="AlertFiles" Type="Self.AlertFile" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertTags" Type="Self.AlertTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AlertFiles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertTags">
+        <PropertyRef Name="AlertFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertParameterValues_SerialPort">
+    <End Role="AlertPorts" Type="Self.AlertPort" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertParameterValues" Type="Self.AlertParameterValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AlertPorts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertParameterValues">
+        <PropertyRef Name="AlertPortId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertPendingExecutions_Event">
+    <End Role="Events" Type="Self.Event" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertPendingExecutions" Type="Self.AlertPendingExecution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Events">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertPendingExecutions">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertPorts_SerialPort">
+    <End Role="Ports" Type="Self.Port" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertPorts" Type="Self.AlertPort" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ports">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertPorts">
+        <PropertyRef Name="PortId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertTag_Tag">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertTags" Type="Self.AlertTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertTags">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertTemporarilyDisabled_Devices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertTemporarilyDisabled" Type="Self.AlertTemporarilyDisabled" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertTemporarilyDisabled">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertTemporarilyDisabled_Elements">
+    <End Role="Elements" Type="Self.Element" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AlertTemporarilyDisabled" Type="Self.AlertTemporarilyDisabled" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertTemporarilyDisabled">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Branch_Node1">
+    <End Role="Nodes" Type="Self.Node" Multiplicity="1" />
+    <End Role="Branches" Type="Self.Branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nodes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branches">
+        <PropertyRef Name="Node1Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Branch_Node2">
+    <End Role="Nodes" Type="Self.Node" Multiplicity="1" />
+    <End Role="Branches" Type="Self.Branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nodes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branches">
+        <PropertyRef Name="Node2Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Channels_MasterPorts">
+    <End Role="Ports" Type="Self.Port" Multiplicity="1" />
+    <End Role="Channels" Type="Self.Channel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ports">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Channels">
+        <PropertyRef Name="MasterPortId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Channels_SlavePorts">
+    <End Role="Ports" Type="Self.Port" Multiplicity="1" />
+    <End Role="Channels" Type="Self.Channel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ports">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Channels">
+        <PropertyRef Name="SlavePortId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChannelStates_Channels">
+    <End Role="Channels" Type="Self.Channel" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ChannelStates" Type="Self.ChannelState" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Channels">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChannelStates">
+        <PropertyRef Name="ChannelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DeviceStates_CurrentChannelChannelsId">
+    <End Role="Channels" Type="Self.Channel" Multiplicity="0..1" />
+    <End Role="DeviceStates" Type="Self.DeviceState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Channels">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DeviceStates">
+        <PropertyRef Name="CurrentChannelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DeviceStates_TransientChannelChannelsId">
+    <End Role="Channels" Type="Self.Channel" Multiplicity="0..1" />
+    <End Role="DeviceStates" Type="Self.DeviceState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Channels">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DeviceStates">
+        <PropertyRef Name="TransientChannelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PortStates_TransientChannelChannelsId">
+    <End Role="Channels" Type="Self.Channel" Multiplicity="0..1" />
+    <End Role="PortStates" Type="Self.PortState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Channels">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PortStates">
+        <PropertyRef Name="TransientChannelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommandExecutions_Command">
+    <End Role="Commands" Type="Self.Command" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CommandExecutions" Type="Self.CommandExecution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commands">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="CommandExecutions">
+        <PropertyRef Name="CommandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommandExecutions_TagValueChanges">
+    <End Role="TagValueChanges" Type="Self.TagValueChanx" Multiplicity="0..1" />
+    <End Role="CommandExecutions" Type="Self.CommandExecution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagValueChanges">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommandExecutions">
+        <PropertyRef Name="TagValueChangeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommandExecutions_TargetCommand">
+    <End Role="Commands" Type="Self.Command" Multiplicity="0..1" />
+    <End Role="CommandExecutions" Type="Self.CommandExecution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commands">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="CommandExecutions">
+        <PropertyRef Name="TargetCommandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commands_LinkedTags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+    <End Role="Commands" Type="Self.Command" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commands">
+        <PropertyRef Name="LinkedTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commands_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Commands" Type="Self.Command" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commands">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Elements_StateCommand">
+    <End Role="Commands" Type="Self.Command" Multiplicity="0..1" />
+    <End Role="Elements" Type="Self.Element" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commands">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="Elements">
+        <PropertyRef Name="StateCommandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ControlPositions_Controls">
+    <End Role="Controls" Type="Self.Control" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ControlPositions" Type="Self.ControlPosition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Controls">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ControlPositions">
+        <PropertyRef Name="ControlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Controls_Elements">
+    <End Role="Elements" Type="Self.Element" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Controls" Type="Self.Control" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Controls">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Controls_Networks">
+    <End Role="Networks" Type="Self.Network" Multiplicity="1" />
+    <End Role="Controls" Type="Self.Control" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Networks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Controls">
+        <PropertyRef Name="NetworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Controls_Networks1">
+    <End Role="Networks" Type="Self.Network" Multiplicity="0..1" />
+    <End Role="Controls" Type="Self.Control" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Networks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Controls">
+        <PropertyRef Name="GoToNetworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Controls_Regions">
+    <End Role="Regions" Type="Self.Region" Multiplicity="0..1" />
+    <End Role="Controls" Type="Self.Control" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Regions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Controls">
+        <PropertyRef Name="RegionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Controls_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Controls" Type="Self.Control" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Controls">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomUserRights_Devices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CustomUserRights" Type="Self.CustomUserRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomUserRights">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomUserRights_Elements">
+    <End Role="Elements" Type="Self.Element" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CustomUserRights" Type="Self.CustomUserRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomUserRights">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DevicePropertyValues_Devices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DevicePropertyValues" Type="Self.DevicePropertyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DevicePropertyValues">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Devices_Devices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="Devices1" Type="Self.Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Devices1">
+        <PropertyRef Name="ParentDeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Devices_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+    <End Role="Devices" Type="Self.Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Devices">
+        <PropertyRef Name="ConnectionStateTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Devices_Tags2">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+    <End Role="Devices" Type="Self.Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Devices">
+        <PropertyRef Name="ConnectionPetStateTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DeviceStates_Command">
+    <End Role="Devices" Type="Self.Device" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DeviceStates" Type="Self.DeviceState" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DeviceStates">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ports_Devices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Ports" Type="Self.Port" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ports">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_Devices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_VirtualDevices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="VirtualDeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagSets_Devices">
+    <End Role="Devices" Type="Self.Device" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagSets" Type="Self.TagSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagSets">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Elements_Elements">
+    <End Role="Elements" Type="Self.Element" Multiplicity="0..1" />
+    <End Role="Elements1" Type="Self.Element" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Elements1">
+        <PropertyRef Name="ParentElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Elements_StateTag">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+    <End Role="Elements" Type="Self.Element" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Elements">
+        <PropertyRef Name="StateTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Nodes_Elements">
+    <End Role="Elements" Type="Self.Element" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Nodes" Type="Self.Node" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Nodes">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_Elements">
+    <End Role="Elements" Type="Self.Element" Multiplicity="0..1" />
+    <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Events_AckTagValueChange">
+    <End Role="TagValueChanges" Type="Self.TagValueChanx" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Events" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagValueChanges">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="TagValueChangeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Network_Network">
+    <End Role="Networks" Type="Self.Network" Multiplicity="0..1" />
+    <End Role="Networks1" Type="Self.Network" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Networks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Networks1">
+        <PropertyRef Name="ParentNetworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Nodes_Networks">
+    <End Role="Networks" Type="Self.Network" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Nodes" Type="Self.Node" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Networks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Nodes">
+        <PropertyRef Name="NetworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notes_Networks">
+    <End Role="Networks" Type="Self.Network" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Notes" Type="Self.Note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Networks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notes">
+        <PropertyRef Name="NetworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Regions_Network">
+    <End Role="Networks" Type="Self.Network" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Regions" Type="Self.Region" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Networks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Regions">
+        <PropertyRef Name="NetworkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NodePolylines_Nodes">
+    <End Role="Nodes" Type="Self.Node" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NodePolylines" Type="Self.NodePolyline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nodes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NodePolylines">
+        <PropertyRef Name="NodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NodePolylines_Polylines">
+    <End Role="Polylines" Type="Self.Polyline" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NodePolylines" Type="Self.NodePolyline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Polylines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NodePolylines">
+        <PropertyRef Name="PolylineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NodePositions_Node">
+    <End Role="Nodes" Type="Self.Node" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NodePositions" Type="Self.NodePosition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nodes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NodePositions">
+        <PropertyRef Name="NodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotePositions_Note">
+    <End Role="Notes" Type="Self.Note" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NotePositions" Type="Self.NotePosition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Notes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NotePositions">
+        <PropertyRef Name="NoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operands_Operation">
+    <End Role="Operations" Type="Self.Operation" Multiplicity="1" />
+    <End Role="Operands" Type="Self.Operand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Operands">
+        <PropertyRef Name="OperationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operands_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Operands" Type="Self.Operand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Operands">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operations_ResultTagId">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Operations" Type="Self.Operation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Operations">
+        <PropertyRef Name="ResultTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Points_Polylines">
+    <End Role="Polylines" Type="Self.Polyline" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Points" Type="Self.Point" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Polylines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Points">
+        <PropertyRef Name="PolylineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PortStates_Ports">
+    <End Role="Ports" Type="Self.Port" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PortStates" Type="Self.PortState" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Ports">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PortStates">
+        <PropertyRef Name="PortId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SerialPorts_Ports">
+    <End Role="Ports" Type="Self.Port" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SerialPorts" Type="Self.SerialPort" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Ports">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SerialPorts">
+        <PropertyRef Name="PortId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagIntervalSummary_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagIntervalSummaries" Type="Self.TagIntervalSummary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagIntervalSummaries">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagIntervalValue_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagIntervalValues" Type="Self.TagIntervalValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagIntervalValues">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagPropertyValues_TagId">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagPropertyValues" Type="Self.TagPropertyValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagPropertyValues">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_TagSets">
+    <End Role="TagSets" Type="Self.TagSet" Multiplicity="0..1" />
+    <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagSets">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="TagSetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagScales_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagScales" Type="Self.TagScale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagScales">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ValueChanges_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagValueChanges" Type="Self.TagValueChanx" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagValueChanges">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Values_Tags">
+    <End Role="Tags" Type="Self.Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TagValues" Type="Self.TagValue" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagValues">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchPolylines">
+    <End Role="Branches" Type="Self.Branch" Multiplicity="*" />
+    <End Role="Polylines" Type="Self.Polyline" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="TedisNetEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AlertDestinations" EntityType="Self.AlertDestination" />
+    <EntitySet Name="AlertEventLevels" EntityType="Self.AlertEventLevel" />
+    <EntitySet Name="AlertExecutions" EntityType="Self.AlertExecution" />
+    <EntitySet Name="AlertFiles" EntityType="Self.AlertFile" />
+    <EntitySet Name="AlertIntervals" EntityType="Self.AlertInterval" />
+    <EntitySet Name="AlertParameterValues" EntityType="Self.AlertParameterValue" />
+    <EntitySet Name="AlertPendingExecutions" EntityType="Self.AlertPendingExecution" />
+    <EntitySet Name="AlertPorts" EntityType="Self.AlertPort" />
+    <EntitySet Name="AlertTags" EntityType="Self.AlertTag" />
+    <EntitySet Name="AlertTemporarilyDisableds" EntityType="Self.AlertTemporarilyDisabled" />
+    <EntitySet Name="Branches" EntityType="Self.Branch" />
+    <EntitySet Name="Changes" EntityType="Self.Change" />
+    <EntitySet Name="Channels" EntityType="Self.Channel" />
+    <EntitySet Name="ChannelStates" EntityType="Self.ChannelState" />
+    <EntitySet Name="CommandExecutions" EntityType="Self.CommandExecution" />
+    <EntitySet Name="Commands" EntityType="Self.Command" />
+    <EntitySet Name="ControlPositions" EntityType="Self.ControlPosition" />
+    <EntitySet Name="Controls" EntityType="Self.Control" />
+    <EntitySet Name="CustomUserRights" EntityType="Self.CustomUserRight" />
+    <EntitySet Name="DataActivations" EntityType="Self.DataActivation" />
+    <EntitySet Name="DataStates" EntityType="Self.DataState" />
+    <EntitySet Name="DevicePropertyValues" EntityType="Self.DevicePropertyValue" />
+    <EntitySet Name="Devices" EntityType="Self.Device" />
+    <EntitySet Name="DeviceStates" EntityType="Self.DeviceState" />
+    <EntitySet Name="Elements" EntityType="Self.Element" />
+    <EntitySet Name="Events" EntityType="Self.Event" />
+    <EntitySet Name="Networks" EntityType="Self.Network" />
+    <EntitySet Name="NodePolylines" EntityType="Self.NodePolyline" />
+    <EntitySet Name="NodePositions" EntityType="Self.NodePosition" />
+    <EntitySet Name="Nodes" EntityType="Self.Node" />
+    <EntitySet Name="NotePositions" EntityType="Self.NotePosition" />
+    <EntitySet Name="Notes" EntityType="Self.Note" />
+    <EntitySet Name="Operands" EntityType="Self.Operand" />
+    <EntitySet Name="Operations" EntityType="Self.Operation" />
+    <EntitySet Name="Points" EntityType="Self.Point" />
+    <EntitySet Name="Polylines" EntityType="Self.Polyline" />
+    <EntitySet Name="Ports" EntityType="Self.Port" />
+    <EntitySet Name="PortStates" EntityType="Self.PortState" />
+    <EntitySet Name="Regions" EntityType="Self.Region" />
+    <EntitySet Name="SerialPorts" EntityType="Self.SerialPort" />
+    <EntitySet Name="TagIntervalSummaries" EntityType="Self.TagIntervalSummary" />
+    <EntitySet Name="TagIntervalValues" EntityType="Self.TagIntervalValue" />
+    <EntitySet Name="TagPropertyValues" EntityType="Self.TagPropertyValue" />
+    <EntitySet Name="Tags" EntityType="Self.Tag" />
+    <EntitySet Name="TagScales" EntityType="Self.TagScale" />
+    <EntitySet Name="TagSets" EntityType="Self.TagSet" />
+    <EntitySet Name="TagValueChanges" EntityType="Self.TagValueChanx" />
+    <EntitySet Name="TagValues" EntityType="Self.TagValue" />
+    <AssociationSet Name="FK_AlertDestination_CommandActivate" Association="Self.FK_AlertDestination_CommandActivate">
+      <End Role="Commands" EntitySet="Commands" />
+      <End Role="AlertDestinations" EntitySet="AlertDestinations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertDestination_CommandDeactivate" Association="Self.FK_AlertDestination_CommandDeactivate">
+      <End Role="Commands" EntitySet="Commands" />
+      <End Role="AlertDestinations" EntitySet="AlertDestinations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertDestination_Element" Association="Self.FK_AlertDestination_Element">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="AlertDestinations" EntitySet="AlertDestinations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertExecutions_Destination" Association="Self.FK_AlertExecutions_Destination">
+      <End Role="AlertDestinations" EntitySet="AlertDestinations" />
+      <End Role="AlertExecutions" EntitySet="AlertExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertPendingExecutions_Destination" Association="Self.FK_AlertPendingExecutions_Destination">
+      <End Role="AlertDestinations" EntitySet="AlertDestinations" />
+      <End Role="AlertPendingExecutions" EntitySet="AlertPendingExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertExecutions_Event" Association="Self.FK_AlertExecutions_Event">
+      <End Role="Events" EntitySet="Events" />
+      <End Role="AlertExecutions" EntitySet="AlertExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertTag_AlertFile" Association="Self.FK_AlertTag_AlertFile">
+      <End Role="AlertFiles" EntitySet="AlertFiles" />
+      <End Role="AlertTags" EntitySet="AlertTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertParameterValues_SerialPort" Association="Self.FK_AlertParameterValues_SerialPort">
+      <End Role="AlertPorts" EntitySet="AlertPorts" />
+      <End Role="AlertParameterValues" EntitySet="AlertParameterValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertPendingExecutions_Event" Association="Self.FK_AlertPendingExecutions_Event">
+      <End Role="Events" EntitySet="Events" />
+      <End Role="AlertPendingExecutions" EntitySet="AlertPendingExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertPorts_SerialPort" Association="Self.FK_AlertPorts_SerialPort">
+      <End Role="Ports" EntitySet="Ports" />
+      <End Role="AlertPorts" EntitySet="AlertPorts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertTag_Tag" Association="Self.FK_AlertTag_Tag">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="AlertTags" EntitySet="AlertTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertTemporarilyDisabled_Devices" Association="Self.FK_AlertTemporarilyDisabled_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="AlertTemporarilyDisabled" EntitySet="AlertTemporarilyDisableds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertTemporarilyDisabled_Elements" Association="Self.FK_AlertTemporarilyDisabled_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="AlertTemporarilyDisabled" EntitySet="AlertTemporarilyDisableds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Branch_Node1" Association="Self.FK_Branch_Node1">
+      <End Role="Nodes" EntitySet="Nodes" />
+      <End Role="Branches" EntitySet="Branches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Branch_Node2" Association="Self.FK_Branch_Node2">
+      <End Role="Nodes" EntitySet="Nodes" />
+      <End Role="Branches" EntitySet="Branches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Channels_MasterPorts" Association="Self.FK_Channels_MasterPorts">
+      <End Role="Ports" EntitySet="Ports" />
+      <End Role="Channels" EntitySet="Channels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Channels_SlavePorts" Association="Self.FK_Channels_SlavePorts">
+      <End Role="Ports" EntitySet="Ports" />
+      <End Role="Channels" EntitySet="Channels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChannelStates_Channels" Association="Self.FK_ChannelStates_Channels">
+      <End Role="Channels" EntitySet="Channels" />
+      <End Role="ChannelStates" EntitySet="ChannelStates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DeviceStates_CurrentChannelChannelsId" Association="Self.FK_DeviceStates_CurrentChannelChannelsId">
+      <End Role="Channels" EntitySet="Channels" />
+      <End Role="DeviceStates" EntitySet="DeviceStates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DeviceStates_TransientChannelChannelsId" Association="Self.FK_DeviceStates_TransientChannelChannelsId">
+      <End Role="Channels" EntitySet="Channels" />
+      <End Role="DeviceStates" EntitySet="DeviceStates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PortStates_TransientChannelChannelsId" Association="Self.FK_PortStates_TransientChannelChannelsId">
+      <End Role="Channels" EntitySet="Channels" />
+      <End Role="PortStates" EntitySet="PortStates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommandExecutions_Command" Association="Self.FK_CommandExecutions_Command">
+      <End Role="Commands" EntitySet="Commands" />
+      <End Role="CommandExecutions" EntitySet="CommandExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommandExecutions_TagValueChanges" Association="Self.FK_CommandExecutions_TagValueChanges">
+      <End Role="TagValueChanges" EntitySet="TagValueChanges" />
+      <End Role="CommandExecutions" EntitySet="CommandExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommandExecutions_TargetCommand" Association="Self.FK_CommandExecutions_TargetCommand">
+      <End Role="Commands" EntitySet="Commands" />
+      <End Role="CommandExecutions" EntitySet="CommandExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commands_LinkedTags" Association="Self.FK_Commands_LinkedTags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Commands" EntitySet="Commands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commands_Tags" Association="Self.FK_Commands_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Commands" EntitySet="Commands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Elements_StateCommand" Association="Self.FK_Elements_StateCommand">
+      <End Role="Commands" EntitySet="Commands" />
+      <End Role="Elements" EntitySet="Elements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ControlPositions_Controls" Association="Self.FK_ControlPositions_Controls">
+      <End Role="Controls" EntitySet="Controls" />
+      <End Role="ControlPositions" EntitySet="ControlPositions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Controls_Elements" Association="Self.FK_Controls_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="Controls" EntitySet="Controls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Controls_Networks" Association="Self.FK_Controls_Networks">
+      <End Role="Networks" EntitySet="Networks" />
+      <End Role="Controls" EntitySet="Controls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Controls_Networks1" Association="Self.FK_Controls_Networks1">
+      <End Role="Networks" EntitySet="Networks" />
+      <End Role="Controls" EntitySet="Controls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Controls_Regions" Association="Self.FK_Controls_Regions">
+      <End Role="Regions" EntitySet="Regions" />
+      <End Role="Controls" EntitySet="Controls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Controls_Tags" Association="Self.FK_Controls_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Controls" EntitySet="Controls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomUserRights_Devices" Association="Self.FK_CustomUserRights_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="CustomUserRights" EntitySet="CustomUserRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomUserRights_Elements" Association="Self.FK_CustomUserRights_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="CustomUserRights" EntitySet="CustomUserRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DevicePropertyValues_Devices" Association="Self.FK_DevicePropertyValues_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="DevicePropertyValues" EntitySet="DevicePropertyValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Devices_Devices" Association="Self.FK_Devices_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="Devices1" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Devices_Tags" Association="Self.FK_Devices_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Devices" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Devices_Tags2" Association="Self.FK_Devices_Tags2">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Devices" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DeviceStates_Command" Association="Self.FK_DeviceStates_Command">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="DeviceStates" EntitySet="DeviceStates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ports_Devices" Association="Self.FK_Ports_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="Ports" EntitySet="Ports" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_Devices" Association="Self.FK_Tags_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_VirtualDevices" Association="Self.FK_Tags_VirtualDevices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagSets_Devices" Association="Self.FK_TagSets_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="TagSets" EntitySet="TagSets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Elements_Elements" Association="Self.FK_Elements_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="Elements1" EntitySet="Elements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Elements_StateTag" Association="Self.FK_Elements_StateTag">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Elements" EntitySet="Elements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Nodes_Elements" Association="Self.FK_Nodes_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="Nodes" EntitySet="Nodes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_Elements" Association="Self.FK_Tags_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Events_AckTagValueChange" Association="Self.FK_Events_AckTagValueChange">
+      <End Role="TagValueChanges" EntitySet="TagValueChanges" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Network_Network" Association="Self.FK_Network_Network">
+      <End Role="Networks" EntitySet="Networks" />
+      <End Role="Networks1" EntitySet="Networks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Nodes_Networks" Association="Self.FK_Nodes_Networks">
+      <End Role="Networks" EntitySet="Networks" />
+      <End Role="Nodes" EntitySet="Nodes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notes_Networks" Association="Self.FK_Notes_Networks">
+      <End Role="Networks" EntitySet="Networks" />
+      <End Role="Notes" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Regions_Network" Association="Self.FK_Regions_Network">
+      <End Role="Networks" EntitySet="Networks" />
+      <End Role="Regions" EntitySet="Regions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NodePolylines_Nodes" Association="Self.FK_NodePolylines_Nodes">
+      <End Role="Nodes" EntitySet="Nodes" />
+      <End Role="NodePolylines" EntitySet="NodePolylines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NodePolylines_Polylines" Association="Self.FK_NodePolylines_Polylines">
+      <End Role="Polylines" EntitySet="Polylines" />
+      <End Role="NodePolylines" EntitySet="NodePolylines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NodePositions_Node" Association="Self.FK_NodePositions_Node">
+      <End Role="Nodes" EntitySet="Nodes" />
+      <End Role="NodePositions" EntitySet="NodePositions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotePositions_Note" Association="Self.FK_NotePositions_Note">
+      <End Role="Notes" EntitySet="Notes" />
+      <End Role="NotePositions" EntitySet="NotePositions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operands_Operation" Association="Self.FK_Operands_Operation">
+      <End Role="Operations" EntitySet="Operations" />
+      <End Role="Operands" EntitySet="Operands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operands_Tags" Association="Self.FK_Operands_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Operands" EntitySet="Operands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operations_ResultTagId" Association="Self.FK_Operations_ResultTagId">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Operations" EntitySet="Operations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Points_Polylines" Association="Self.FK_Points_Polylines">
+      <End Role="Polylines" EntitySet="Polylines" />
+      <End Role="Points" EntitySet="Points" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PortStates_Ports" Association="Self.FK_PortStates_Ports">
+      <End Role="Ports" EntitySet="Ports" />
+      <End Role="PortStates" EntitySet="PortStates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SerialPorts_Ports" Association="Self.FK_SerialPorts_Ports">
+      <End Role="Ports" EntitySet="Ports" />
+      <End Role="SerialPorts" EntitySet="SerialPorts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagIntervalSummary_Tags" Association="Self.FK_TagIntervalSummary_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TagIntervalSummaries" EntitySet="TagIntervalSummaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagIntervalValue_Tags" Association="Self.FK_TagIntervalValue_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TagIntervalValues" EntitySet="TagIntervalValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagPropertyValues_TagId" Association="Self.FK_TagPropertyValues_TagId">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TagPropertyValues" EntitySet="TagPropertyValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_TagSets" Association="Self.FK_Tags_TagSets">
+      <End Role="TagSets" EntitySet="TagSets" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagScales_Tags" Association="Self.FK_TagScales_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TagScales" EntitySet="TagScales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ValueChanges_Tags" Association="Self.FK_ValueChanges_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TagValueChanges" EntitySet="TagValueChanges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Values_Tags" Association="Self.FK_Values_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TagValues" EntitySet="TagValues" />
+    </AssociationSet>
+    <AssociationSet Name="BranchPolylines" Association="Self.BranchPolylines">
+      <End Role="Branches" EntitySet="Branches" />
+      <End Role="Polylines" EntitySet="Polylines" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:a="http://langdale.com.au/2005/Message#" xmlns:e="http://www.isotrol.com/STG-CIDE/2013/EndDeviceEvents#" xmlns:d="http://www.isotrol.com/STG-CIDE/2013/Devices#" xmlns="http://langdale.com.au/2005/Message#" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.isotrol.com/STG-CIDE/2013/EndDeviceEvents#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="Devices.xsd" namespace="http://www.isotrol.com/STG-CIDE/2013/Devices#" />
+  <xs:element name="EndDeviceEvents" type="e:EndDeviceEvents" />
+  <xs:complexType name="EndDeviceEvents">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EndDeviceEvent" type="e:EndDeviceEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceEvent" name="EndDeviceEvent">
+    <xs:annotation>
+      <xs:documentation>Event detected by a device function associated with
+				end device.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceControlType" minOccurs="1" maxOccurs="1" name="EndDeviceEventType">
+        <xs:annotation>
+          <xs:documentation><![CDATA[Detailed description for an event produced by an
+						end device.
+						Values in attributes allow for creation of recommended
+						codes to be
+						used for identifying end device events as follows:
+						&lt;type&gt;.&lt;domain&gt;.&lt;subDomain&gt;.&lt;eventOrAction&gt;.]]></xs:documentation>
+        </xs:annotation>
+        <xs:complexType sawsdl:modelReference="">
+          <xs:attribute name="ref" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDevice" minOccurs="1" maxOccurs="unbounded" name="EndDevices" type="d:EndDevices" />
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceEventDetail" minOccurs="0" maxOccurs="unbounded" name="EndDeviceEventDetail" type="e:EndDeviceEventDetail" />
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#ActivityRecord.status" minOccurs="0" maxOccurs="1" name="status">
+        <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#Status">
+          <xs:sequence>
+            <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#Status.dateTime" minOccurs="0" maxOccurs="1" name="dateTime" type="xs:dateTime" />
+            <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#Status.reason" minOccurs="0" maxOccurs="1" name="reason" type="xs:string" />
+            <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#Status.value" minOccurs="1" maxOccurs="1" name="value" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceEventDetail" name="EndDeviceEventDetail">
+    <xs:annotation>
+      <xs:documentation>Name-value pair, specific to end device events.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceEventDetail.name" minOccurs="1" maxOccurs="1" name="name" type="xs:string" />
+      <xs:element sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceEventDetail.value" minOccurs="1" maxOccurs="1" name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

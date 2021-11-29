@@ -1,0 +1,73 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\MyProjects\\SmsQuickstart\\SmsQuickstart\\SmsQuickstart.csproj": {}
+  },
+  "projects": {
+    "C:\\MyProjects\\SmsQuickstart\\SmsQuickstart\\SmsQuickstart.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\MyProjects\\SmsQuickstart\\SmsQuickstart\\SmsQuickstart.csproj",
+        "projectName": "SmsQuickstart",
+        "projectPath": "C:\\MyProjects\\SmsQuickstart\\SmsQuickstart\\SmsQuickstart.csproj",
+        "packagesPath": "C:\\Users\\apolenyaka\\.nuget\\packages\\",
+        "outputPath": "C:\\MyProjects\\SmsQuickstart\\SmsQuickstart\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\apolenyaka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Azure.Communication.Sms": {
+              "target": "Package",
+              "version": "[1.0.0-beta.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

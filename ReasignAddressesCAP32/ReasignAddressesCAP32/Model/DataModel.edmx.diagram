@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f83021a3d3af49a7a4ef4aa7bed142b8" Name="Diagram1">
+        <EntityTypeShape EntityType="TedisNetModel.Device" Width="2.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetModel.Tag" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TedisNetModel.DeviceType" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="TedisNetModel.FK_Devices_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetModel.FK_Devices_DeviceTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetModel.FK_Devices_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetModel.FK_Devices_Tags2" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetModel.FK_Tags_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="TedisNetModel.FK_Tags_VirtualDevices" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TedisNetModel.TagClass" Width="1.5" PointX="0.75" PointY="9.125" />
+        <AssociationConnector Association="TedisNetModel.FK_Tags_TagClasses" />
+        <AssociationConnector Association="TedisNetModel.FK_TagClasses_TagClasses" />
+        <AssociationConnector Association="TedisNetModel.FK_TagClasses_TargetTagClasses" />
+        <EntityTypeShape EntityType="TedisNetModel.Operand" Width="1.5" PointX="12.25" PointY="4.625" />
+        <EntityTypeShape EntityType="TedisNetModel.Operation" Width="1.5" PointX="10" PointY="6.875" />
+        <AssociationConnector Association="TedisNetModel.FK_Operands_Operation" />
+        <AssociationConnector Association="TedisNetModel.FK_Operands_Tags" />
+        <AssociationConnector Association="TedisNetModel.FK_Operations_ResultTagId" />
+        <EntityTypeShape EntityType="TedisNetModel.Channel" Width="1.5" PointX="8.5" PointY="13.125" />
+        <EntityTypeShape EntityType="TedisNetModel.Port" Width="1.5" PointX="6.25" PointY="10.875" />
+        <AssociationConnector Association="TedisNetModel.FK_Channels_MasterPorts" />
+        <AssociationConnector Association="TedisNetModel.FK_Channels_SlavePorts" />
+        <AssociationConnector Association="TedisNetModel.FK_Ports_Devices" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

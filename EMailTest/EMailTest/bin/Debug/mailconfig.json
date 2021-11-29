@@ -1,0 +1,12 @@
+{
+  "AlertSendParameterId_EmailSMTPServer": "smtp.office365.com",
+  "AlertSendParameterId_EmailFromEmail": "tedisnet@grupocuerva.com",
+  "AlertSendParameterId_EmailSubject": "Alertas TedisNet",
+  "AlertSendParameterId_EmailIsBodyHtml": true,
+  "AlertSendParameterId_EmailUseCredentials": true,
+  "AlertSendParameterId_EmailUserCredential": "tedisnet@grupocuerva.com",
+  "AlertSendParameterId_EmailPasswordCredential": "Eujs86456",
+  "AlertSendParameterId_EmailSMTPPort": 587,
+  "AlertSendParameterId_EmailUseSSL": true,
+  "Mail_Recipient": "anton@sitel-sa.com"
+}

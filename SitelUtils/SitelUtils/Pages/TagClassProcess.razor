@@ -1,0 +1,65 @@
+﻿@page "/tagclassprocess"
+
+<h3>Tag Class (Procesar)</h3>
+
+<textarea rows="20" class="form-control"
+          placeholder="Pon lista de TagClass nombres, uno por linea"
+          @bind="Segmentation" @bind:event="oninput" maxlength="999999999" />
+<p class="align-content-end">Total de tag class: @(Segmentation?.Split('\n').Where(i=>!string.IsNullOrWhiteSpace(i)).Count() ?? 0)</p>
+
+<h4 class="mt-3">Segmentación negativa</h4>
+<p>En los nombres de Tag class pueden haber textos que quieres excluir, aqui los puedes listar. Se van excluir todos los que estan en este listado, considerando cada linea como un elemento a negar. Si por ejemplo en la linea pone "ILLORA. PPT.87T" y en nombre de Tag Class pone "ILLORA. PPT.87T PROTECCION DIFERENCIAL DE AUTOTRAFO", el listado resultante sera "PROTECCION DIFERENCIAL DE AUTOTRAFO", pero si en nombre de tag class pone "PPT.87T PROTECCION DIFERENCIAL DE AUTOTRAFO", el resultado sera el mismo nombre, ya que no encontrara el elemento completo de segmentación negativa.</p>
+<textarea rows="20" class="form-control"
+          placeholder="Pon lista de TagClass nombres, uno por linea"
+          @bind="NegativeSegmentation" @bind:event="oninput" />
+<p class="align-content-end">Total de segmentación negativa: @(NegativeSegmentation?.Split('\n').Where(i => !string.IsNullOrWhiteSpace(i)).Count() ?? 0)</p>
+<button class="btn btn-success mt-5" @onclick="ProcessSegmentation">Procesar sin segmentacion negativa</button>
+
+<h4 class="mt-5">Resultado filtrado de segmentación</h4>
+<p>El resultado despues de procesar los tag class names, negando todos los items de segmentación negativa.</p>
+<textarea rows="20" class="form-control"
+          placeholder="Aqui se vera el resultado de segmentación"
+          @bind="SegmentationResult" @bind:event="oninput" />
+<p class="align-content-end">Total de segmentación negativa: @(SegmentationResult?.Split('\n').Where(i => !string.IsNullOrWhiteSpace(i)).Count() ?? 0)</p>
+
+<h3>Generación de SQL</h3>
+<h4 class="mt-3">Tag classes que ya existen</h4>
+<p>
+    Copiar todos los nombres de tag classes (tabla Config.TagClass campo Name). Realizara una comparacion para no duplicar las señales. Comparación es inteligente:
+    <ul>
+        <li>Compara nombre exactamente</li>
+        <li>Compara suma de letras y numeros sin espacios</li>
+    </ul>
+</p>
+<textarea rows="20" class="form-control"
+          placeholder="Pon lista de TagClass nombres con su prefijo (DI,DO,etc), uno por linea. Consulta: select [Name] from Lib.TagClasses"
+          @bind="TagClassNamesExist" @bind:event="oninput" />
+<p class="align-content-end">Total de tag class existentes: @(TagClassNamesExist?.Split('\n').Where(i => !string.IsNullOrWhiteSpace(i)).Count() ?? 0)</p>
+<div>
+    <label>Porcentaje de diferencia aceptable</label>
+    <input @bind="DifferencePercentage" @bind:event="oninput" />
+    <label>%</label>
+</div>
+<p class="alert-danger" hidden="@(!string.IsNullOrWhiteSpace(ErrorProcessSegmentation))">@ErrorProcessSegmentation</p>
+
+<div class="mt-5">
+    <select @bind="TypeOfTagClass" @bind:event="oninput">
+        <option value="DI">DI</option>
+        <option value="DO">DO</option>
+        <option value="CDI">CDI</option>
+        <option value="CDO">CDO</option>
+        <option value="AI">AI</option>
+        <option value="AO">AO</option>
+        <option value="SYS">SYS</option>
+    </select>
+    <button class="btn btn-success ml-3" @onclick="GenerateSqlInserts">Generar SQL</button>
+</div>
+
+<h4 class="mt-5">Resultado para SQL</h4>
+<p>Instrucciones SQL para insertar en BD.</p>
+<label hidden="@FormatSqlHiden" class="alert alert-danger">No existe ninguna clase nueva para introducir</label>
+<textarea rows="20" class="form-control"
+          placeholder="Aqui se vera el resultado de generación para SQL"
+          @bind="FormatSQL" @bind:event="oninput" />
+
+<p class="mt-3"></p>

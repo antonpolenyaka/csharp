@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Sitel: Registro de horas"
+              IconImageSource="alarm.png"
+             x:Class="Sitel.ControlHorario.Views.RegisterHourPage">
+    <ContentPage.Content>
+        <ScrollView Margin="10">
+            <StackLayout>
+                <Label Text="Introduce dia y hora"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand" />
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Format="dd/MM/yyyy" Grid.Column="0" Grid.Row="0"
+                                    Date="{Binding Item.Date}"/>
+                        <TimePicker Format="HH:mm" Grid.Column="1" Grid.Row="0"
+                                    Time="{Binding Item.Time}"/>
+                        <FlexLayout Grid.Row="1" Grid.Column="0" AlignItems="Center"
+                                    Margin="0,0,0,5">
+                            <Switch IsToggled="True"/>
+                            <Label Text="En oficina" Margin="10,0,0,0"/>
+                        </FlexLayout>
+                        <FlexLayout Grid.Row="1" Grid.Column="1" AlignItems="Center"
+                                    Margin="5,0,0,0">
+                            <Switch IsToggled="False"/>
+                            <Label Text="Vacaciones" Margin="10,0,0,0"/>
+                        </FlexLayout>
+                        <Label Text="Mati" Style="{StaticResource LabelMedium}" 
+                               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <Button Text="Hora Inici" Style="{StaticResource ButtonSitel}"
+                                Grid.Row="3" Grid.Column="0"/>
+                        <Button Text="Hora Fi" Style="{StaticResource ButtonSitel}"
+                                Grid.Row="3" Grid.Column="1"/>
+                        <Label Text="Migdia" Style="{StaticResource LabelMedium}"                                
+                                Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <Button Text="Hora Inici" Style="{StaticResource ButtonSitel}"
+                                Grid.Row="5" Grid.Column="0"/>
+                        <Button Text="Hora Fi" Style="{StaticResource ButtonSitel}"
+                                Grid.Row="5" Grid.Column="1"/>
+                        <Label Text="Tarda" Style="{StaticResource LabelMedium}"                                
+                                Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <Button Text="Hora Inici" Style="{StaticResource ButtonSitel}"
+                                Grid.Row="7" Grid.Column="0"/>
+                        <Button Text="Hora Fi" Style="{StaticResource ButtonSitel}"
+                                Grid.Row="7" Grid.Column="1"/>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

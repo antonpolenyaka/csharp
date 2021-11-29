@@ -1,0 +1,16 @@
+C:\MyProjects\SmsQuickstart\SmsQuickstart\bin\Debug\net5.0\SmsQuickstart.exe
+C:\MyProjects\SmsQuickstart\SmsQuickstart\bin\Debug\net5.0\SmsQuickstart.deps.json
+C:\MyProjects\SmsQuickstart\SmsQuickstart\bin\Debug\net5.0\SmsQuickstart.runtimeconfig.json
+C:\MyProjects\SmsQuickstart\SmsQuickstart\bin\Debug\net5.0\SmsQuickstart.runtimeconfig.dev.json
+C:\MyProjects\SmsQuickstart\SmsQuickstart\bin\Debug\net5.0\SmsQuickstart.dll
+C:\MyProjects\SmsQuickstart\SmsQuickstart\bin\Debug\net5.0\ref\SmsQuickstart.dll
+C:\MyProjects\SmsQuickstart\SmsQuickstart\bin\Debug\net5.0\SmsQuickstart.pdb
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.csprojAssemblyReference.cache
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.GeneratedMSBuildEditorConfig.editorconfig
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.AssemblyInfoInputs.cache
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.AssemblyInfo.cs
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.csproj.CoreCompileInputs.cache
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.dll
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\ref\SmsQuickstart.dll
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.pdb
+C:\MyProjects\SmsQuickstart\SmsQuickstart\obj\Debug\net5.0\SmsQuickstart.genruntimeconfig.cache

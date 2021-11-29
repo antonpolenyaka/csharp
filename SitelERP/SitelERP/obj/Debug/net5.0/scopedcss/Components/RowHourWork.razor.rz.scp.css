@@ -1,0 +1,26 @@
+.divTable[b-eviioso017] {
+    display: table;
+    width: auto;
+    background-color: #eee;
+    border: 1px solid #666666;
+    border-spacing: 5px; /*cellspacing:poor IE support for  this*/
+    /* border-collapse:separate;*/
+}
+
+.divRow[b-eviioso017] {
+    display: table-row;
+    width: auto;
+}
+
+.divCell[b-eviioso017] {
+    float: left; /*fix for  buggy browsers*/
+    display: table-column;
+    width: 200px;
+    background-color: #ccc;
+}
+
+td[b-eviioso017] {
+    font-size: 0.6rem;
+    white-space: nowrap;
+    border: 1px solid black;
+}

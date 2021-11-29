@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:t="http://www.isotrol.com/STG-CIDE/2013/TaskInfo#" xmlns:m="http://www.isotrol.com/STG-CIDE/2013/MeterReadings#" xmlns:c="http://www.isotrol.com/STG-CIDE/2013/EndDeviceControls#" xmlns="http://iec.ch/TC57/2011/schema/message" xmlns:e="http://www.isotrol.com/STG-CIDE/2013/EndDeviceEvents#" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://iec.ch/TC57/2011/schema/message" version="1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="MeterReadings.xsd" namespace="http://www.isotrol.com/STG-CIDE/2013/MeterReadings#" />
+  <xs:import schemaLocation="EndDeviceControls.xsd" namespace="http://www.isotrol.com/STG-CIDE/2013/EndDeviceControls#" />
+  <xs:import schemaLocation="EndDeviceEvents.xsd" namespace="http://www.isotrol.com/STG-CIDE/2013/EndDeviceEvents#" />
+  <xs:import schemaLocation="TaskInfo.xsd" namespace="http://www.isotrol.com/STG-CIDE/2013/TaskInfo#" />
+  <xs:complexType name="RequestType">
+    <xs:annotation>
+      <xs:documentation>Request type definition</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:annotation>
+        <xs:documentation>Request package is typically used to supply
+					parameters for 'get' requests</xs:documentation>
+      </xs:annotation>
+      <xs:element minOccurs="0" name="StartTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Start time of interest</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="EndTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>End time of interest</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Option" type="OptionType">
+        <xs:annotation>
+          <xs:documentation>Request type specialization</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Object ID for request</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:choice>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="EndDeviceControls" type="c:EndDeviceControls" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="EndDeviceEvents" type="e:EndDeviceEvents" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="MeterReadings" type="m:MeterReadings" />
+        <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax">
+          <xs:annotation>
+            <xs:documentation>This can be a CIM profile defined as an XSD with
+						a CIM-specific namespace</xs:documentation>
+          </xs:annotation>
+        </xs:any>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReplyType">
+    <xs:annotation>
+      <xs:documentation>Reply type definition</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:annotation>
+        <xs:documentation>Reply package is used to confirm success or
+					report
+					errors</xs:documentation>
+      </xs:annotation>
+      <xs:element name="Result">
+        <xs:annotation>
+          <xs:documentation>Reply code: OK, PARTIAL or
+						FAILED</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="OK" />
+            <xs:enumeration value="PARTIAL" />
+            <xs:enumeration value="FAILED" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Error" type="ErrorType">
+        <xs:annotation>
+          <xs:documentation>Reply details describing one or more
+						errors</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Resulting transaction ID (usually
+						consequence of
+						create)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+      <xs:element minOccurs="0" name="operationId" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>The reply.operationId provides the unique
+						identifier of the Operation for which this reply.result is
+						relevant. Thus, it is assumed that this is a partial
+						reply in
+						direct response to one of the operations contained in an
+						OperationSet
+						request.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PayloadType">
+    <xs:annotation>
+      <xs:documentation>Payload container</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other">
+          <xs:annotation>
+            <xs:documentation>For XML payloads, usually CIM profiles
+							defined using an XSD in a profile-specific
+							namespace.</xs:documentation>
+          </xs:annotation>
+        </xs:any>
+        <xs:element minOccurs="0" name="OperationSet" type="OperationSet">
+          <xs:annotation>
+            <xs:documentation>Each operation set is a collection of
+							operations that may require
+							operational-integrity and/or sequence
+							control.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="Compressed" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>For compressed and/or binary, uuencoded
+							payloads</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MeterReadings" type="m:MeterReadings" />
+        <xs:element minOccurs="0" maxOccurs="1" name="EndDeviceEvents" type="e:EndDeviceEvents" />
+        <xs:element minOccurs="0" maxOccurs="1" name="TaskInfo" type="t:TaskInfo" />
+      </xs:choice>
+      <xs:element minOccurs="0" name="Format" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Hint as to format of payload, e.g. XML,
+						RDF, SVF,
+						BINARY, PDF, ...</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OperationType">
+    <xs:annotation>
+      <xs:documentation>For master data set synchronization XML
+				payloads.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="operationId" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>The payload.operation.operationId
+						provides the
+						unique identifier (within the OperationSet) of the Operation
+						for
+						the purpose of reference in
+						subsequent messages (e.g. OperationSet
+						reply).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="noun" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The payload.operation.##other also
+						identifies the
+						noun, this element is optionally supplied to simplify
+						processing.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="verb" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>"create", "delete", "change",
+						etc.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" default="false" name="elementOperation" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>TRUE if the verb is operating at the
+						element
+						level. In such a case, the verb is to be applied to the elements
+						populated in the
+						payload.operation.##other below. If omitted,
+						assume FALSE.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:any minOccurs="0" namespace="##other" processContents="skip">
+        <xs:annotation>
+          <xs:documentation>An XML payload which carries a CIM
+						profile defined
+						using an XSD in a profile-specific namespate. Individual
+						payloads
+						are used collectively
+						to create a series of related operations. See
+						the "enforce" boolean
+						flags in the header for instructions
+						on how to
+						process these messages.</xs:documentation>
+        </xs:annotation>
+      </xs:any>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OperationSet">
+    <xs:annotation>
+      <xs:documentation>Each operation set is a collection of operations
+				that may
+				require operational-integrity and/or sequence control.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="enforceMsgSequence" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>If set to TRUE, the Operation.##other
+						messages
+						must be processed in the sequence presented. If omitted, assume
+						FALSE.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="enforceTransactionalIntegrity" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Set to TRUE when all of the
+						Operation.##other
+						messages must be processed successfully or else the entire
+						message
+						set must be
+						rolled back. If omitted, assume TRUE.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Operation" type="OperationType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReplayDetectionType">
+    <xs:annotation>
+      <xs:documentation>Used to detect and prevent replay
+				attacks</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Nonce" type="xs:string" />
+      <xs:element name="Created" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserType">
+    <xs:annotation>
+      <xs:documentation>User type definition</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="UserID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>User identifier</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Organization" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>User parent organization
+						identifier</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HeaderType">
+    <xs:annotation>
+      <xs:documentation>Message header type definition</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:annotation>
+        <xs:documentation>Message header contains control and descriptive
+					information about the message.</xs:documentation>
+      </xs:annotation>
+      <xs:element name="Verb">
+        <xs:annotation>
+          <xs:documentation>This enumerated list of verbs that can be
+						used to
+						form message types in compliance with the IEC 61968 standard.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="cancel" />
+            <xs:enumeration value="canceled" />
+            <xs:enumeration value="change" />
+            <xs:enumeration value="changed" />
+            <xs:enumeration value="create" />
+            <xs:enumeration value="created" />
+            <xs:enumeration value="close" />
+            <xs:enumeration value="closed" />
+            <xs:enumeration value="delete" />
+            <xs:enumeration value="deleted" />
+            <xs:enumeration value="get" />
+            <xs:enumeration value="reply" />
+            <xs:enumeration value="execute" />
+            <xs:enumeration value="executed" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Noun" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The Noun of the Control Area identifies
+						the main
+						subject of the message type, typically a real world object
+						defined
+						in the
+						CIM.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Revision" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Revision level of the message
+						type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ReplayDetection" type="ReplayDetectionType">
+        <xs:annotation>
+          <xs:documentation>Use to introduce randomness in the
+						message to
+						enhance effectiveness of encryption</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Context">
+        <xs:annotation>
+          <xs:documentation>Intended context for information usage,
+						e.g.
+						PRODUCTION, TESTING, TRAINING, ...</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="PRODUCTION" />
+            <xs:enumeration value="TESTING" />
+            <xs:enumeration value="DEVELOPMENT" />
+            <xs:enumeration value="STUDY" />
+            <xs:enumeration value="TRAINING" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Application level relevant time and date
+						for when
+						this instance of the message type was produced. This is not
+						intended to be used by
+						middleware for message management.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Source" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Source system or application that sends
+						the
+						message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="AsyncReplyFlag" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Indicates whether or not reply should be
+						asynchronous</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ReplyAddress" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Address to be used for asynchronous
+						replies,
+						typically a URL/topic/queue.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="AckRequired" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Indicates whether or not an
+						acknowledgement is
+						required</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="User" type="UserType">
+        <xs:annotation>
+          <xs:documentation>User information of the
+						sender</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="MessageID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Unique message ID to be used for
+						tracking messages</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CorrelationID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>ID to be used by applications for
+						correlating
+						replies</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Comment" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Optional comment</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Property" type="MessageProperty">
+        <xs:annotation>
+          <xs:documentation>Message properties can be used to
+						identify
+						information needed for extended routing and filtering
+						capabilities</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Message" type="MessageType">
+    <xs:annotation>
+      <xs:documentation>Common IEC 61968 Message
+				Definition</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="MessageProperty">
+    <xs:annotation>
+      <xs:documentation>Message properties can be used for extended routing
+				and
+				filtering</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RequestMessage" type="RequestMessageType">
+    <xs:annotation>
+      <xs:documentation>Request message structure</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ResponseMessage" type="ResponseMessageType">
+    <xs:annotation>
+      <xs:documentation>Response message structure</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EventMessage" type="EventMessageType">
+    <xs:annotation>
+      <xs:documentation>Event message structure</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="MessageType">
+    <xs:annotation>
+      <xs:documentation>Generic Message Type</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Header" type="HeaderType" />
+      <xs:element minOccurs="0" name="Request" type="RequestType" />
+      <xs:element minOccurs="0" name="Reply" type="ReplyType" />
+      <xs:element minOccurs="0" name="Payload" type="PayloadType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RequestMessageType">
+    <xs:annotation>
+      <xs:documentation>Request Message Type, which will typically result
+				in a
+				ResponseMessage to be returned. This isn typically used to
+				initiate a transaction
+				or a query
+				request.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Header" type="HeaderType" />
+      <xs:element minOccurs="0" name="Request" type="RequestType" />
+      <xs:element minOccurs="0" name="Payload" type="PayloadType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResponseMessageType">
+    <xs:annotation>
+      <xs:documentation>Response MessageType, typically used to reply to a
+				RequestMessage</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Header" type="HeaderType" />
+      <xs:element name="Reply" type="ReplyType" />
+      <xs:element minOccurs="0" name="Payload" type="PayloadType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FaultMessageType">
+    <xs:annotation>
+      <xs:documentation>Fault Messsage Type, which is used in cases where
+				the
+				incoming message (including the header) can not be parsed</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Reply" type="ReplyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EventMessageType">
+    <xs:annotation>
+      <xs:documentation>Event Message Type, which is used to indicate a
+				condition
+				of potential interest.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Header" type="HeaderType" />
+      <xs:element minOccurs="0" name="Payload" type="PayloadType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ErrorType">
+    <xs:annotation>
+      <xs:documentation>Error Structure</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Application defined error
+						code</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="level">
+        <xs:annotation>
+          <xs:documentation>Severity level, e.g. INFORMATIVE,
+						WARNING, FATAL,
+						CATASTROPHIC</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="INFORM" />
+            <xs:enumeration value="WARNING" />
+            <xs:enumeration value="FATAL" />
+            <xs:enumeration value="CATASTROPHIC" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="reason">
+        <xs:annotation>
+          <xs:documentation>Description of the
+						error</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="details" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Free form detailed text description of
+						error</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="xpath" type="xs:QName">
+        <xs:annotation>
+          <xs:documentation>XPath expression to identify specific XML
+						element</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="stackTrace" type="xs:string" />
+      <xs:element minOccurs="0" name="Location" type="LocationType" />
+      <xs:element minOccurs="0" name="object" type="IdentifiedObject" />
+      <xs:element minOccurs="0" name="operationId" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>The reply.operationId provides the unique
+						identifier of the Operation for which this reply.result.error is
+						relevant. Thus, it is assumed that this is an
+						error from one of the
+						operations contained in an OperationSet request.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OptionType">
+    <xs:annotation>
+      <xs:documentation>Request options</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocationType">
+    <xs:annotation>
+      <xs:documentation>Process location where error was
+				encountered</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="node" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Name of the pipeline/branch/route node
+						where error
+						occurred</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="pipeline" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Name of the pipeline where error occurred
+						(if
+						applicable)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="stage" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Name of the stage where error occurred
+						(if
+						applicable)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IdentifiedObject">
+    <xs:annotation>
+      <xs:documentation>From CIM</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="mRID" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Name" type="Name" />
+      <xs:element minOccurs="0" name="objectType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>CIM class name that classiifies the
+						identified
+						object</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NameType">
+    <xs:annotation>
+      <xs:documentation>From CIM</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" />
+      <xs:element minOccurs="0" name="description" />
+      <xs:element minOccurs="0" name="NameTypeAuthority" type="NameTypeAuthority" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Name">
+    <xs:annotation>
+      <xs:documentation>From CIM</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" />
+      <xs:element minOccurs="0" name="NameType" type="NameType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NameTypeAuthority">
+    <xs:annotation>
+      <xs:documentation>From CIM</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" />
+      <xs:element minOccurs="0" name="description" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FaultMessage" type="FaultMessageType">
+    <xs:annotation>
+      <xs:documentation>Fault message structure</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

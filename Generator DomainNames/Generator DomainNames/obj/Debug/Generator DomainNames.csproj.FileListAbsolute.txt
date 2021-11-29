@@ -1,0 +1,6 @@
+C:\Users\apolenyaka\source\repos\Generator DomainNames\Generator DomainNames\bin\Debug\Generator DomainNames.exe.config
+C:\Users\apolenyaka\source\repos\Generator DomainNames\Generator DomainNames\bin\Debug\Generator DomainNames.exe
+C:\Users\apolenyaka\source\repos\Generator DomainNames\Generator DomainNames\bin\Debug\Generator DomainNames.pdb
+C:\Users\apolenyaka\source\repos\Generator DomainNames\Generator DomainNames\obj\Debug\Generator DomainNames.csprojAssemblyReference.cache
+C:\Users\apolenyaka\source\repos\Generator DomainNames\Generator DomainNames\obj\Debug\Generator DomainNames.exe
+C:\Users\apolenyaka\source\repos\Generator DomainNames\Generator DomainNames\obj\Debug\Generator DomainNames.pdb

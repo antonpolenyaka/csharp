@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:t="http://www.isotrol.com/STG-CIDE/2013/TaskInfo#" xmlns="http://langdale.com.au/2005/Message#" xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:a="http://langdale.com.au/2005/Message#" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.isotrol.com/STG-CIDE/2013/TaskInfo#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TaskInfo" type="t:TaskInfo" />
+  <xs:complexType name="TaskInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="State" type="t:state" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="state">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PROCESS" />
+      <xs:enumeration value="COMPLETED" />
+      <xs:enumeration value="FAILED" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

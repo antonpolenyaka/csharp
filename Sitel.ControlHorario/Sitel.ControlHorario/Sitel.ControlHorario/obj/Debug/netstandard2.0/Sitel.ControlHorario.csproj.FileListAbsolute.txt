@@ -1,0 +1,16 @@
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\bin\Debug\netstandard2.0\Sitel.ControlHorario.deps.json
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\bin\Debug\netstandard2.0\Sitel.ControlHorario.dll
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Sitel.ControlHorario.csprojAssemblyReference.cache
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Sitel.ControlHorario.csproj.CoreCompileInputs.cache
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Sitel.ControlHorario.AssemblyInfoInputs.cache
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Sitel.ControlHorario.AssemblyInfo.cs
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Views\RegisterHourPage.xaml.g.cs
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Views\ShowPersonalHoursPage.xaml.g.cs
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\bin\Debug\netstandard2.0\ref\Sitel.ControlHorario.dll
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\bin\Debug\netstandard2.0\Sitel.ControlHorario.pdb
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Sitel.ControlHorario.dll
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\ref\Sitel.ControlHorario.dll
+C:\Users\apolenyaka\source\repos\Sitel.ControlHorario\Sitel.ControlHorario\Sitel.ControlHorario\obj\Debug\netstandard2.0\Sitel.ControlHorario.pdb

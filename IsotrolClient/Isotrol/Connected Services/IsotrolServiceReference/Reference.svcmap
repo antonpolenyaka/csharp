@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bc44b3ac-9c71-47df-94d4-edca991b0b01" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\Users\apolenyaka\Documents\SEGUIMIENTO CLIENTES\PITARCH\2019-05-30 Proyecto Datos desde WS externo\ProyectoSOAP_WS_STG_Sitel\STG_WS_Sitel-soapui-project.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MeterReadings.xsd" MetadataType="Schema" ID="743b3f46-f46e-4cb8-acee-6f4019a9d2c3" SourceId="1" SourceUrl="file:///C:/Users/apolenyaka/Documents/SEGUIMIENTO CLIENTES/PITARCH/2019-05-30 Proyecto Datos desde WS externo/ProyectoSOAP_WS_STG_Sitel/XSD/MeterReadings.xsd" />
+    <MetadataFile FileName="TaskInfo.xsd" MetadataType="Schema" ID="3963012b-f8b4-417d-bc4b-52abfa90b697" SourceId="1" SourceUrl="file:///C:/Users/apolenyaka/Documents/SEGUIMIENTO CLIENTES/PITARCH/2019-05-30 Proyecto Datos desde WS externo/ProyectoSOAP_WS_STG_Sitel/XSD/TaskInfo.xsd" />
+    <MetadataFile FileName="Message.xsd" MetadataType="Schema" ID="76ba5b24-8168-4ade-acd6-7fd598ffe341" SourceId="1" SourceUrl="file:///C:/Users/apolenyaka/Documents/SEGUIMIENTO CLIENTES/PITARCH/2019-05-30 Proyecto Datos desde WS externo/ProyectoSOAP_WS_STG_Sitel/XSD/Message.xsd" />
+    <MetadataFile FileName="EndDeviceEvents.xsd" MetadataType="Schema" ID="6b7665b3-1911-46db-a73b-ec7d926e9251" SourceId="1" SourceUrl="file:///C:/Users/apolenyaka/Documents/SEGUIMIENTO CLIENTES/PITARCH/2019-05-30 Proyecto Datos desde WS externo/ProyectoSOAP_WS_STG_Sitel/XSD/EndDeviceEvents.xsd" />
+    <MetadataFile FileName="EndDeviceControls.xsd" MetadataType="Schema" ID="575756ba-cc30-4d00-8d41-5b82a01ae011" SourceId="1" SourceUrl="file:///C:/Users/apolenyaka/Documents/SEGUIMIENTO CLIENTES/PITARCH/2019-05-30 Proyecto Datos desde WS externo/ProyectoSOAP_WS_STG_Sitel/XSD/EndDeviceControls.xsd" />
+    <MetadataFile FileName="STG_WS_Sitel-soapui-project.wsdl" MetadataType="Wsdl" ID="94889e4d-4234-447a-abcb-0682f36faa48" SourceId="1" SourceUrl="file:///C:/Users/apolenyaka/Documents/SEGUIMIENTO CLIENTES/PITARCH/2019-05-30 Proyecto Datos desde WS externo/ProyectoSOAP_WS_STG_Sitel/STG_WS_Sitel-soapui-project.wsdl" />
+    <MetadataFile FileName="Devices.xsd" MetadataType="Schema" ID="3189f623-059b-41af-8b4e-bfeb717c8b39" SourceId="1" SourceUrl="file:///C:/Users/apolenyaka/Documents/SEGUIMIENTO CLIENTES/PITARCH/2019-05-30 Proyecto Datos desde WS externo/ProyectoSOAP_WS_STG_Sitel/XSD/Devices.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

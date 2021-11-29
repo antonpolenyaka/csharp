@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "SmsQuickstart/1.0.0": {
+        "runtime": {
+          "SmsQuickstart.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SmsQuickstart/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
