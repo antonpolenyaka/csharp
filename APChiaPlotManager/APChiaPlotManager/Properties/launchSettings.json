@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "APChiaPlotManager": {
+      "commandName": "Project",
+      "commandLineArgs": "/o \"C:\\PlotsHDDTest\" /d \"d:\\PlotsHDDtest\" /m 3 /b 4096 /t 5"
+    }
+  }
+}

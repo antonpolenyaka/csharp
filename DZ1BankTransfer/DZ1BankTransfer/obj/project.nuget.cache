@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "iDypTEE50Q3MKQrmNAbjl2hMcd4nVpxI1yYbx9HbOMRMVvZk3vii13q3uxQZf+/8GEqoZTaR9MLy6idJHcA9Nw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\apolenyaka\\source\\repos\\DZ1BankTransfer\\DZ1BankTransfer\\DZ1BankTransfer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\apolenyaka\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\apolenyaka\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

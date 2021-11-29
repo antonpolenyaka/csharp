@@ -1,0 +1,20 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm Model="this">
+    @for (int i = 0; i < MailList.Count; i++)
+    {
+        <input value="@MailList[i]" />
+    }
+
+    <div>
+        @for (int x = 0; x < MailList.Count; x++)
+        {
+            <label>@MailList[x]</label>
+        }
+    </div>
+</EditForm>
+
+@code {
+    public List<string> MailList { get; set; } = new List<string>() { "a", "b", "c" };
+}

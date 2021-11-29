@@ -1,0 +1,17 @@
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\DZ1BankTransfer.exe
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\BankPayRequest.enc
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\DZ1BankTransfer.deps.json
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\DZ1BankTransfer.runtimeconfig.json
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\DZ1BankTransfer.runtimeconfig.dev.json
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\DZ1BankTransfer.dll
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\ref\DZ1BankTransfer.dll
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\bin\Debug\net5.0\DZ1BankTransfer.pdb
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.csprojAssemblyReference.cache
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.AssemblyInfoInputs.cache
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.AssemblyInfo.cs
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.csproj.CoreCompileInputs.cache
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.dll
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\ref\DZ1BankTransfer.dll
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.pdb
+C:\Users\apolenyaka\source\repos\DZ1BankTransfer\DZ1BankTransfer\obj\Debug\net5.0\DZ1BankTransfer.genruntimeconfig.cache

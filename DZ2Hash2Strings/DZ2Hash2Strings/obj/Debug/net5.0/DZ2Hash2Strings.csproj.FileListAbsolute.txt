@@ -1,0 +1,16 @@
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\bin\Debug\net5.0\DZ2Hash2Strings.exe
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\bin\Debug\net5.0\DZ2Hash2Strings.deps.json
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\bin\Debug\net5.0\DZ2Hash2Strings.runtimeconfig.json
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\bin\Debug\net5.0\DZ2Hash2Strings.runtimeconfig.dev.json
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\bin\Debug\net5.0\DZ2Hash2Strings.dll
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\bin\Debug\net5.0\ref\DZ2Hash2Strings.dll
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\bin\Debug\net5.0\DZ2Hash2Strings.pdb
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.csprojAssemblyReference.cache
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.AssemblyInfoInputs.cache
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.AssemblyInfo.cs
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.csproj.CoreCompileInputs.cache
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.dll
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\ref\DZ2Hash2Strings.dll
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.pdb
+C:\Users\apolenyaka\source\repos\DZ2Hash2Strings\DZ2Hash2Strings\obj\Debug\net5.0\DZ2Hash2Strings.genruntimeconfig.cache

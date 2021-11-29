@@ -1,0 +1,24 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm Model="this">
+    <InputCheckbox @bind-Value="Value" @bind-Value:event="ValueChanged" style="display:inline" />
+</EditForm>
+
+@code{
+    bool value = false;
+
+    [Parameter]
+    public bool Value
+    {
+        get => this.value;
+        set
+        {
+            if (this.value == value) return;
+            this.value = value;
+            ValueChanged.InvokeAsync(this.value);
+        }
+    }
+    [Parameter]
+    public EventCallback<bool> ValueChanged { get; set; }
+}
