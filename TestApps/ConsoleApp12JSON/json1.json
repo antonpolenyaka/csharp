@@ -1,0 +1,1231 @@
+[
+  {
+    "DeviceName": "ALB-CAP32",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:UDP4001-&gt;ALB-CAP32:UDP-PORT",
+        "State": "Desconectado",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T15:28:03.817",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "",
+            "TransientStateTime": "2020-06-12T13:19:32.820",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "anton",
+                "TransientState": "No inicializado",
+                "TransientChannel": "CC:COM22OLD-&gt;PRUEBAS CAP 32 DOBLE VIA:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "C. LLANARS",
+    "DT": [
+      {
+        "DeviceType": "CAP16",
+        "CurrentChannel": "CC:COM23-&gt;C. LLANARS:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:17.937",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-07-28T11:21:17.937",
+            "Message": "My status at 28\/07\/2020 11:21:17.936",
+            "TransientStateTime": "2020-07-28T11:21:17.937",
+            "LastConnectionTime": "2020-07-28T11:21:17.937",
+            "U": [
+              {
+                "UserName": "julio",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYA_CAP32:COM3-&gt;SERINYA_CAP32\/Esclavo 10:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "CAL REVISOR",
+    "DT": [
+      {
+        "DeviceType": "CAP16",
+        "CurrentChannel": "CC:COM23-&gt;CAL REVISOR:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:27.980",
+            "RequestStateTime": "2020-07-28T11:21:27.980",
+            "Message": "My status at 28\/07\/2020 11:21:27.979",
+            "TransientStateTime": "2020-07-28T11:21:27.980",
+            "LastConnectionTime": "2020-07-28T11:21:27.980",
+            "U": [
+              {
+                "UserName": "julio",
+                "TransientState": "Espera",
+                "TransientChannel": "PLA POLIGER NORD:COM3-&gt;PLA POLIGER NORD\/Esclavo 5:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "CAN BADOSA",
+    "DT": [
+      {
+        "DeviceType": "CAP16",
+        "CurrentChannel": "CC:COM26-&gt;CAN BADOSA:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:27:22.227",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-07-28T11:21:17.937",
+            "Message": "My status at 28\/07\/2020 11:21:17.936",
+            "TransientStateTime": "2020-07-28T11:21:17.937",
+            "LastConnectionTime": "2020-07-28T11:21:17.937",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYA_CAP32B:COM3-&gt;SERINYA_CAP32B\/Esclavo 1:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "CAP_PRX_GEN1",
+    "DT": [
+      {
+        "DeviceType": "CAP-PRX",
+        "CurrentChannel": "CC:IEC104-&gt;CAP_PRX_GEN1:IEC104",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:26.223",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "My status at 09\/06\/2020 15:37:07.178",
+            "TransientStateTime": "2020-06-09T15:37:07.180",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "operador",
+                "TransientState": "Conectando",
+                "TransientChannel": "CC:Modbus_203-&gt;Talus_1:Modbus",
+                "Enabled": 0,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "CAP32_TestTemplate",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM6-&gt;PRUEBA CAP 32 VIA DIRECTA:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-09T15:37:07.180",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "My status at 09\/06\/2020 15:37:07.178",
+            "TransientStateTime": "2020-06-09T15:37:07.180",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:PUERTO 104 CC-&gt;RTU TEST OPC 1:OPC",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "CAP-PRX_TestTemplate",
+    "DT": [
+      {
+        "DeviceType": "CAP-PRX",
+        "CurrentChannel": "CC:Modbus_203-&gt;SEPAMT20_1:Modbus",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-09T15:37:07.180",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "My status at 09\/06\/2020 15:37:07.178",
+            "TransientStateTime": "2020-06-09T15:37:07.180",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "Tedis",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:PUERTO 104 CC-&gt;PRUEBAS CAP PRX:OPC 104",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "COLS",
+    "DT": [
+      {
+        "DeviceType": "CAP16",
+        "CurrentChannel": "CC:PUERTO 104 CC-&gt;RTU TEST OPC 2:OPC",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:33.107",
+            "RequestStateTime": "2020-07-28T11:21:33.107",
+            "Message": "My status at 28\/07\/2020 11:21:33.104",
+            "TransientStateTime": "2020-07-28T11:21:33.107",
+            "LastConnectionTime": "2020-07-28T11:21:33.107",
+            "U": [
+              {
+                "UserName": "josepmaria",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:COM22OLD-&gt;PRUEBAS CAP 32 DOBLE VIA:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "CVM-B150_1",
+    "DT": [
+      {
+        "DeviceType": "CVM-B150",
+        "CurrentChannel": "CC:Modbus_203-&gt;CVM-B150_1:Modbus",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:22:08.707",
+            "RequestStateTime": "2020-07-28T11:22:08.707",
+            "Message": "My status at 28\/07\/2020 11:22:08.706",
+            "TransientStateTime": "2020-07-28T11:22:08.707",
+            "LastConnectionTime": "2020-07-28T11:22:08.707",
+            "U": [
+              {
+                "UserName": "Tedis",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:Modbus_203-&gt;ModbusServer:Modbus",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "DESEMPARATS",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM24-&gt;DESEMPARATS:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:27.980",
+            "RequestStateTime": "2020-07-28T11:21:27.980",
+            "Message": "My status at 28\/07\/2020 11:21:27.979",
+            "TransientStateTime": "2020-07-28T11:21:27.980",
+            "LastConnectionTime": "2020-07-28T11:21:27.980",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "LES FUNOSES:COM3-&gt;LES FUNOSES\/Esclavo 7:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "DR BARTRINA 1",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM6-&gt;DR BARTRINA:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:53.340",
+            "RequestStateTime": "2020-07-28T11:21:53.340",
+            "Message": "My status at 28\/07\/2020 11:21:53.340",
+            "TransientStateTime": "2020-07-28T11:21:53.340",
+            "LastConnectionTime": "2020-07-28T11:21:53.340",
+            "U": [
+              {
+                "UserName": "anton2",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYA_CAP32:COM3-&gt;SERINYA_CAP32\/Esclavo 8:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "E.R. OLOT 6 (CONCEN)",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;E.R. OLOT 6 (CONCEN):COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:12.897",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-07-28T11:21:12.897",
+            "Message": "My status at 28\/07\/2020 11:21:12.897",
+            "TransientStateTime": "2020-07-28T11:21:12.897",
+            "LastConnectionTime": "2020-07-28T11:21:12.897",
+            "U": [
+              {
+                "UserName": "josepmaria",
+                "TransientState": "Espera",
+                "TransientChannel": "E.R. OLOT 6 (CONCEN)\/Esclavo 7:COM3-&gt;E.R. OLOT 6 (CONCEN)\/Esclavo 7\/Esclavo 3:COM1",
+                "Enabled": 0,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "EL TURELL",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;VAYREDA:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:22:08.707",
+            "RequestStateTime": "2020-07-28T11:22:08.707",
+            "Message": "My status at 28\/07\/2020 11:22:08.706",
+            "TransientStateTime": "2020-07-28T11:22:08.707",
+            "LastConnectionTime": "2020-07-28T11:22:08.707",
+            "U": [
+              {
+                "UserName": "anton",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:UDP4006-&gt;MIERES:UDP",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "GATEWAY_PRX_BROADCAST",
+    "DT": [
+      {
+        "DeviceType": "CAP-PRX",
+        "CurrentChannel": "CC:Modbus-Generic-&gt;GATEWAY_PRX_BROADCAST:MODBUS",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:25.467",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "My status at 09\/06\/2020 15:37:07.178",
+            "TransientStateTime": "2020-06-09T15:37:07.180",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "enric",
+                "TransientState": "Espera",
+                "TransientChannel": "EL TURELL:COM3-&gt;EL TURELL\/Esclavo 1:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "GATEWAY_PRX_SEPAM",
+    "DT": [
+      {
+        "DeviceType": "CAP-PRX",
+        "CurrentChannel": "CC:Modbus-Generic-&gt;GATEWAY_PRX_SEPAM:MODBUS_502",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:25.467",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "My status at 09\/06\/2020 15:37:07.178",
+            "TransientStateTime": "2020-06-09T15:37:07.180",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "anton",
+                "TransientState": "Espera",
+                "TransientChannel": "VAYREDA:COM3-&gt;VAYREDA\/Esclavo 2:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "HOSTAL NOU 2",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM18-&gt;HOSTAL NOU 2:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:22.953",
+            "RequestStateTime": "2020-07-28T11:21:22.953",
+            "Message": "My status at 28\/07\/2020 11:21:22.952",
+            "TransientStateTime": "2020-07-28T11:21:22.953",
+            "LastConnectionTime": "2020-07-28T11:21:22.953",
+            "U": [
+              {
+                "UserName": "bbb",
+                "TransientState": "Espera",
+                "TransientChannel": "TUSSOLS:COM3-&gt;TUSSOLS\/Esclavo 2:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "MARSAL",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:OnCell_COM1-&gt;RTU C.CONTROL:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:22:08.707",
+            "RequestStateTime": "2020-07-28T11:22:08.707",
+            "Message": "My status at 28\/07\/2020 11:22:08.706",
+            "TransientStateTime": "2020-07-28T11:22:08.707",
+            "LastConnectionTime": "2020-07-28T11:22:08.707",
+            "U": [
+              {
+                "UserName": "enric",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:COM25-&gt;MIERES:Principal",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "MIERES",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM22OLD-&gt;MIERES:Secundario",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:27:20.007",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-07-28T11:21:48.277",
+            "Message": "My status at 28\/07\/2020 11:21:48.278",
+            "TransientStateTime": "2020-07-28T11:21:48.277",
+            "LastConnectionTime": "2020-07-28T11:21:48.277",
+            "U": [
+              {
+                "UserName": "josepmaria",
+                "TransientState": "Espera",
+                "TransientChannel": "ESCATLLAR-EKOR:COM3-&gt;ESCATLLAR-EKOR\/Esclavo 6:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "MODBUS_SIM1",
+    "DT": [
+      {
+        "DeviceType": "Otros",
+        "CurrentChannel": "CC:Modbus-&gt;MODBUS_SIM1:MODBUS",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:25.463",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "My status at 09\/06\/2020 15:37:07.178",
+            "TransientStateTime": "2020-06-09T15:37:07.180",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "PLA POLIGER NORD:COM3-&gt;PLA POLIGER NORD\/Esclavo 7:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "ModbusGenerico1",
+    "DT": [
+      {
+        "DeviceType": "Otros",
+        "CurrentChannel": "CC:Modbus_203-&gt;ModbusGenerico1:Modbus",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:25.453",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "My status at 09\/06\/2020 15:37:07.161",
+            "TransientStateTime": "2020-06-09T15:37:07.163",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "josepmaria",
+                "TransientState": "Espera",
+                "TransientChannel": "LES FUNOSES:COM3-&gt;LES FUNOSES\/Esclavo 1:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "ModbusServer",
+    "DT": [
+      {
+        "DeviceType": "Otros",
+        "CurrentChannel": "CC:Modbus_203-&gt;ModbusServer:Modbus",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-09T15:37:07.163",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "My status at 09\/06\/2020 15:37:07.161",
+            "TransientStateTime": "2020-06-09T15:37:07.163",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "julio",
+                "TransientState": "Desconectando",
+                "TransientChannel": "LES FUNOSES:COM3-&gt;LES FUNOSES\/Esclavo 3:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PLA POLIGER NORD",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:Modbus_203-&gt;CVM-B150_1:Modbus",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:22:03.677",
+            "RequestStateTime": "2020-07-28T11:22:03.677",
+            "Message": "My status at 28\/07\/2020 11:22:03.678",
+            "TransientStateTime": "2020-07-28T11:22:03.677",
+            "LastConnectionTime": "2020-07-28T11:22:03.677",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:Modbus_203-&gt;Talus_1:Modbus",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PRATS DE SABATER",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;PRATS DE SABATER:COM1",
+        "State": "Desconectado",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:33.107",
+            "RequestStateTime": "2020-07-28T11:21:33.107",
+            "Message": "My status at 28\/07\/2020 11:21:33.104",
+            "TransientStateTime": "2020-07-28T11:21:33.107",
+            "LastConnectionTime": "2020-07-28T11:21:33.107",
+            "U": [
+              {
+                "UserName": "enric",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:UDP4006-&gt;MIERES:UDP",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PROVA 4SIP-CAP32",
+    "DT": [
+      {
+        "DeviceType": "Otros",
+        "CurrentChannel": "CC:IEC104-&gt;PROVA 4SIP-CAP32:IEC104",
+        "State": "Desconectado",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T15:29:08.240",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "",
+            "TransientStateTime": "2020-07-28T15:29:38.243",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "operador",
+                "TransientState": "Conectando",
+                "TransientChannel": "LES FUNOSES:COM3-&gt;LES FUNOSES\/Esclavo 5:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PRUEBA 101",
+    "DT": [
+      {
+        "DeviceType": "ekorCCP",
+        "CurrentChannel": "CC:IEC101-&gt;PRUEBA 101:IEC101",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:27:07.400",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "My status at 09\/06\/2020 15:37:07.161",
+            "TransientStateTime": "2020-06-09T15:37:07.163",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "LA PUNTIA:COM3-&gt;LA PUNTIA\/Esclavo 1:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PRUEBA CAP 32 VIA DIRECTA",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:RADIO-&gt;PRUEBA CAP 32 VIA DIRECTA:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:27.620",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.137",
+            "Message": "My status at 09\/06\/2020 15:37:07.136",
+            "TransientStateTime": "2020-06-09T15:37:07.137",
+            "LastConnectionTime": "2020-06-09T15:37:07.137",
+            "U": [
+              {
+                "UserName": "josepmaria",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYA_CAP32:COM3-&gt;SERINYA_CAP32\/Esclavo 8:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PRUEBA-4SIP",
+    "DT": [
+      {
+        "DeviceType": "Otros",
+        "CurrentChannel": "CC:IEC104-&gt;PRUEBA-4SIP:IEC104",
+        "State": "Desconectado",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T15:28:11.893",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.180",
+            "Message": "",
+            "TransientStateTime": "2020-07-28T15:28:41.897",
+            "LastConnectionTime": "2020-06-09T15:37:07.180",
+            "U": [
+              {
+                "UserName": "julio",
+                "TransientState": "Conectando",
+                "TransientChannel": "PLA POLIGER NORD:COM3-&gt;PLA POLIGER NORD\/Esclavo 1:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PRUEBAS CAP 32 DOBLE VIA",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM22OLD-&gt;PRUEBAS CAP 32 DOBLE VIA:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:25.393",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.137",
+            "Message": "My status at 09\/06\/2020 15:37:07.136",
+            "TransientStateTime": "2020-06-09T15:37:07.137",
+            "LastConnectionTime": "2020-06-09T15:37:07.137",
+            "U": [
+              {
+                "UserName": "operador",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYA_CAP32:COM3-&gt;SERINYA_CAP32\/Esclavo 12:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PRUEBAS CAP 32 VIA RADIO",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM22OLD-&gt;PRUEBAS CAP 32 VIA RADIO:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:26.417",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.137",
+            "Message": "My status at 09\/06\/2020 15:37:07.136",
+            "TransientStateTime": "2020-06-09T15:37:07.137",
+            "LastConnectionTime": "2020-06-09T15:37:07.137",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYA_CAP32B:COM3-&gt;SERINYA_CAP32B\/Esclavo 1:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "PRUEBAS EKOR CCP",
+    "DT": [
+      {
+        "DeviceType": "ekorCCP",
+        "CurrentChannel": "CC:IEC104-&gt;PRUEBAS EKOR CCP:IEC104",
+        "State": "Desconectado",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T15:29:08.347",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.137",
+            "Message": "",
+            "TransientStateTime": "2020-07-28T15:29:38.347",
+            "LastConnectionTime": "2020-06-09T15:37:07.137",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Conectando",
+                "TransientChannel": "SERINYA_CAP32:COM3-&gt;SERINYA_CAP32\/Esclavo 2:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "RTU C.CONTROL",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;RTU C.CONTROL:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:22.953",
+            "RequestStateTime": "2020-07-28T11:21:22.953",
+            "Message": "My status at 28\/07\/2020 11:21:22.952",
+            "TransientStateTime": "2020-07-28T11:21:22.953",
+            "LastConnectionTime": "2020-07-28T11:21:22.953",
+            "U": [
+              {
+                "UserName": "operador",
+                "TransientState": "Espera",
+                "TransientChannel": "MIERES:COM3-&gt;MIERES\/Esclavo 3:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "RTU TEST OPC 1",
+    "DT": [
+      {
+        "DeviceType": "ekorCCP",
+        "CurrentChannel": "CC:PUERTO 104 CC-&gt;RTU TEST OPC 1:OPC",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-09T15:37:07.163",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "My status at 09\/06\/2020 15:37:07.161",
+            "TransientStateTime": "2020-06-09T15:37:07.163",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "MIERES:COM3-&gt;MIERES\/Esclavo 1:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "RTU TEST OPC 2",
+    "DT": [
+      {
+        "DeviceType": "ekorCCP",
+        "CurrentChannel": "CC:PUERTO 104 CC-&gt;RTU TEST OPC 2:OPC",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-09T15:37:07.163",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "My status at 09\/06\/2020 15:37:07.161",
+            "TransientStateTime": "2020-06-09T15:37:07.163",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "anton",
+                "TransientState": "Espera",
+                "TransientChannel": "MIERES:COM3-&gt;MIERES\/Esclavo 3:COM1",
+                "Enabled": 1,
+                "Connected": "True"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "RTU101",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;RTU101:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:27.620",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "My status at 09\/06\/2020 15:37:07.161",
+            "TransientStateTime": "2020-06-09T15:37:07.163",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "TUSSOLS:COM3-&gt;TUSSOLS\/Esclavo 2:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "RTU3",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:UDP4001-&gt;RTU3:UDP",
+        "State": "Desconectado",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T15:27:58.630",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "",
+            "TransientStateTime": "2020-06-12T13:19:32.817",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "operador",
+                "TransientState": "No inicializado",
+                "TransientChannel": "DR BARTRINA:COM3-&gt;DR BARTRINA\/Esclavo 5:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "SANTA PAU",
+    "DT": [
+      {
+        "DeviceType": "CAP16",
+        "CurrentChannel": "CC:Modbus_203-&gt;SEPAMT20_1:Modbus",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:33.107",
+            "RequestStateTime": "2020-07-28T11:21:33.107",
+            "Message": "My status at 28\/07\/2020 11:21:33.104",
+            "TransientStateTime": "2020-07-28T11:21:33.107",
+            "LastConnectionTime": "2020-07-28T11:21:33.107",
+            "U": [
+              {
+                "UserName": "bbb",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:PUERTO 104 CC-&gt;PRUEBAS CAP PRX:OPC 104",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "SEPAMT20_1",
+    "DT": [
+      {
+        "DeviceType": "SEPAMS20",
+        "CurrentChannel": "CC:Modbus_203-&gt;SEPAMT20_1:Modbus",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-09T15:37:07.137",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.137",
+            "Message": "My status at 09\/06\/2020 15:37:07.136",
+            "TransientStateTime": "2020-06-09T15:37:07.137",
+            "LastConnectionTime": "2020-06-09T15:37:07.137",
+            "U": [
+              {
+                "UserName": "Tedis",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYÀ:COM3-&gt;SERINYÀ\/Esclavo 5:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "SERINYÀ",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:RADIO-&gt;MIERES:Secundario",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:38.130",
+            "RequestStateTime": "2020-07-28T11:21:38.130",
+            "Message": "My status at 28\/07\/2020 11:21:38.128",
+            "TransientStateTime": "2020-07-28T11:21:38.130",
+            "LastConnectionTime": "2020-07-28T11:21:38.130",
+            "U": [
+              {
+                "UserName": "josepmaria",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:COM22-&gt;MIERES:Principal",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "Sim_IEC104_10",
+    "DT": [
+      {
+        "DeviceType": "ekorCCP",
+        "CurrentChannel": "CC:IEC104-&gt;Sim_IEC104_10:Puerto104",
+        "State": "Desconectado",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T15:27:52.650",
+            "RequestStateTime": "2020-06-16T11:21:56.070",
+            "Message": "",
+            "TransientStateTime": "2020-07-28T15:28:22.653",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "Tedis",
+                "TransientState": "Conectando",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "Talus_1",
+    "DT": [
+      {
+        "DeviceType": "Talus T200",
+        "CurrentChannel": "CC:Modbus_203-&gt;Talus_1:Modbus",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:22:08.707",
+            "RequestStateTime": "2020-07-28T11:22:08.707",
+            "Message": "My status at 28\/07\/2020 11:22:08.706",
+            "TransientStateTime": "2020-07-28T11:22:08.707",
+            "LastConnectionTime": "2020-07-28T11:22:08.707",
+            "U": [
+              {
+                "UserName": "Unattended",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:RADIO-&gt;DESEMPARATS:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "TESTCAP32_EXTENSORAS",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;TESTCAP32_EXTENSORAS:COM1",
+        "State": "Iniciando",
+        "DS": [
+          {
+            "StateTime": "2020-06-12T13:19:27.620",
+            "RequestState": "Inicializar",
+            "RequestStateTime": "2020-06-09T15:37:07.163",
+            "Message": "My status at 09\/06\/2020 15:37:07.161",
+            "TransientStateTime": "2020-06-09T15:37:07.163",
+            "LastConnectionTime": "2020-06-09T15:37:07.163",
+            "U": [
+              {
+                "UserName": "Tedis",
+                "TransientState": "Desconectando",
+                "TransientChannel": "LES FUNOSES:COM3-&gt;LES FUNOSES\/Esclavo 7:COM1",
+                "Enabled": 1,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "TUSSOLS",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;TUSSOLS:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:21:53.340",
+            "RequestStateTime": "2020-07-28T11:21:53.340",
+            "Message": "My status at 28\/07\/2020 11:21:53.340",
+            "TransientStateTime": "2020-07-28T11:21:53.340",
+            "LastConnectionTime": "2020-07-28T11:21:53.340",
+            "U": [
+              {
+                "UserName": "anton",
+                "TransientState": "Espera",
+                "TransientChannel": "SERINYA_CAP32B:COM3-&gt;SERINYA_CAP32B\/Esclavo 11:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "DeviceName": "VAYREDA",
+    "DT": [
+      {
+        "DeviceType": "CAP32",
+        "CurrentChannel": "CC:COM25-&gt;VAYREDA:COM1",
+        "State": "Correcto",
+        "DS": [
+          {
+            "StateTime": "2020-07-28T11:22:08.707",
+            "RequestStateTime": "2020-07-28T11:22:08.707",
+            "Message": "My status at 28\/07\/2020 11:22:08.706",
+            "TransientStateTime": "2020-07-28T11:22:08.707",
+            "LastConnectionTime": "2020-07-28T11:22:08.707",
+            "U": [
+              {
+                "UserName": "operador",
+                "TransientState": "Espera",
+                "TransientChannel": "CC:RADIO-&gt;PRUEBA CAP 32 VIA DIRECTA:COM1",
+                "Enabled": 0,
+                "Connected": "False"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

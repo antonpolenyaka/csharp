@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://Sitel.TedisNet.System1.SystemDataService" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="StateService" targetNamespace="http://Sitel.TedisNet.System1.SystemDataService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IStateService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://Sitel.TedisNet.System1.SystemDataService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.State" />
+      <xs:element name="GetStateEntitySet">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetStateEntitySetResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetStateEntitySetResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTagValues">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTagValuesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetTagValuesResult" type="xs:boolean" />
+            <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="tagValues" nillable="true" type="q1:ArrayOfKeyValueOfintTagValueDa_StG7_P2" />
+            <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTagValuesBetweenDates">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="tagId" type="xs:int" />
+            <xs:element minOccurs="0" name="startDate" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetTagValuesBetweenDatesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetTagValuesBetweenDatesResult" type="xs:boolean" />
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.State" minOccurs="0" name="tagValues" nillable="true" type="q2:ArrayOfTagValue" />
+            <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetOldestStateEntitySetId">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetOldestStateEntitySetIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetOldestStateEntitySetIdResult" type="xs:boolean" />
+            <xs:element minOccurs="0" name="tagValueChangeId" nillable="true" type="xs:int" />
+            <xs:element minOccurs="0" name="eventId" nillable="true" type="xs:int" />
+            <xs:element minOccurs="0" name="commandExecutionId" nillable="true" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.State" />
+      <xs:complexType name="ArrayOfKeyValueOfintTagValueDa_StG7_P2">
+        <xs:annotation>
+          <xs:appinfo>
+            <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfintTagValueDa_StG7_P2">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Key" type="xs:int" />
+                <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.State" name="Value" nillable="true" type="q1:TagValue" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKeyValueOfintTagValueDa_StG7_P2" nillable="true" type="tns:ArrayOfKeyValueOfintTagValueDa_StG7_P2" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.State" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.State" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.Base" />
+      <xs:complexType name="TagValue">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.Base" base="q1:BaseEntity">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="IsTagValueChangeHidden" type="xs:boolean" />
+              <xs:element minOccurs="0" name="QualityDetailId" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="QualityId" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="QualitySourceId" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="SourceTimestamp" nillable="true" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="TagId" type="xs:int" />
+              <xs:element minOccurs="0" name="UpdateTimestamp" nillable="true" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="ValueBool" nillable="true" type="xs:boolean" />
+              <xs:element minOccurs="0" name="ValueEnumId" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="ValueFloat" nillable="true" type="xs:double" />
+              <xs:element minOccurs="0" name="ValueInt" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="ValueStr" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="TagValue" nillable="true" type="tns:TagValue" />
+      <xs:complexType name="ArrayOfTagValue">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TagValue" nillable="true" type="tns:TagValue" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfTagValue" nillable="true" type="tns:ArrayOfTagValue" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.Base" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sitel.TedisNet.Common.LocalEntities.Base" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Id" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="BaseEntity" nillable="true" type="tns:BaseEntity" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IStateService_GetStateEntitySet_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateEntitySet" />
+  </wsdl:message>
+  <wsdl:message name="IStateService_GetStateEntitySet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateEntitySetResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateService_GetTagValues_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTagValues" />
+  </wsdl:message>
+  <wsdl:message name="IStateService_GetTagValues_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTagValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateService_GetTagValuesBetweenDates_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTagValuesBetweenDates" />
+  </wsdl:message>
+  <wsdl:message name="IStateService_GetTagValuesBetweenDates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTagValuesBetweenDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateService_GetOldestStateEntitySetId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOldestStateEntitySetId" />
+  </wsdl:message>
+  <wsdl:message name="IStateService_GetOldestStateEntitySetId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOldestStateEntitySetIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IStateService">
+    <wsdl:operation name="GetStateEntitySet">
+      <wsdl:input wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetStateEntitySet" message="tns:IStateService_GetStateEntitySet_InputMessage" />
+      <wsdl:output wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetStateEntitySetResponse" message="tns:IStateService_GetStateEntitySet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTagValues">
+      <wsdl:input wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetTagValues" message="tns:IStateService_GetTagValues_InputMessage" />
+      <wsdl:output wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetTagValuesResponse" message="tns:IStateService_GetTagValues_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTagValuesBetweenDates">
+      <wsdl:input wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetTagValuesBetweenDates" message="tns:IStateService_GetTagValuesBetweenDates_InputMessage" />
+      <wsdl:output wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetTagValuesBetweenDatesResponse" message="tns:IStateService_GetTagValuesBetweenDates_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOldestStateEntitySetId">
+      <wsdl:input wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetOldestStateEntitySetId" message="tns:IStateService_GetOldestStateEntitySetId_InputMessage" />
+      <wsdl:output wsaw:Action="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetOldestStateEntitySetIdResponse" message="tns:IStateService_GetOldestStateEntitySetId_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_IStateService" type="tns:IStateService">
+    <wsp:PolicyReference URI="#WSHttpBinding_IStateService_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStateEntitySet">
+      <soap12:operation soapAction="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetStateEntitySet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTagValues">
+      <soap12:operation soapAction="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetTagValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTagValuesBetweenDates">
+      <soap12:operation soapAction="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetTagValuesBetweenDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOldestStateEntitySetId">
+      <soap12:operation soapAction="http://Sitel.TedisNet.System1.SystemDataService/IStateService/GetOldestStateEntitySetId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StateService">
+    <wsdl:port name="WSHttpBinding_IStateService" binding="tns:WSHttpBinding_IStateService">
+      <soap12:address location="http://msi-portatil-an/TedisNet.SystemData.StateService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://msi-portatil-an/TedisNet.SystemData.StateService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

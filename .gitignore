@@ -1,9 +1,3 @@
-/AntonUtils/AntonUtils/bin/
-/AntonUtils/AntonUtils/obj/
-/SitelERP/ExcelManagement/bin/
-/SitelERP/ExcelManagement/obj/
-/SitelCommon/bin/
-/SitelCommon/obj/
-/SitelERP/bin/
-/SitelERP/obj/
-/SitelUtils/packages/
+*/bin/
+*/obj/
+*/packages/

@@ -1,0 +1,6 @@
+﻿  pch.cpp
+  dllmain.cpp
+  FibLibrary.cpp
+  Generating Code...
+     Creating library C:\Users\apolenyaka\source\repos\ConsoleApp17\Debug\FibLibrary.lib and object C:\Users\apolenyaka\source\repos\ConsoleApp17\Debug\FibLibrary.exp
+  FibLibrary.vcxproj -> C:\Users\apolenyaka\source\repos\ConsoleApp17\Debug\FibLibrary.dll

@@ -1,0 +1,11 @@
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\bin\Debug\ConsoleApp16.exe.config
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\bin\Debug\ConsoleApp16.exe
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\bin\Debug\ConsoleApp16.pdb
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\bin\Debug\TMW.Base.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\bin\Debug\TMW.Tase2.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\bin\Debug\TMW.Base.pdb
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\bin\Debug\TMW.Tase2.pdb
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\obj\Debug\ConsoleApp16.csproj.AssemblyReference.cache
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\obj\Debug\ConsoleApp16.csproj.CoreCompileInputs.cache
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\obj\Debug\ConsoleApp16.exe
+C:\Users\apolenyaka\source\repos\ConsoleApp16\ConsoleApp16\obj\Debug\ConsoleApp16.pdb

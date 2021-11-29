@@ -1,0 +1,15 @@
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\ConsoleApp11.exe.config
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\ConsoleApp11.exe
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\ConsoleApp11.pdb
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\ConsoleApp11.csprojAssemblyReference.cache
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\ConsoleApp11.csproj.CoreCompileInputs.cache
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\ConsoleApp11.exe
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\ConsoleApp11.pdb
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\Microsoft.Web.Administration.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\System.Reflection.TypeExtensions.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\System.ServiceProcess.ServiceController.dll
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\apolenyaka\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\ConsoleApp11.csproj.CopyComplete
