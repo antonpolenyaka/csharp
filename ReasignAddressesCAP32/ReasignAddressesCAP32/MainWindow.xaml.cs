@@ -107,7 +107,7 @@ namespace ReasignAddressesCAP32
                                                                  // 45  SPO
                                                                  // 47  SPI
                         var tagsCAP32DIs = tagsCAP32.Where(t => t.TagClass.ParentTagClassId == 1).ToList();
-                        var tagsCAP32CDIs = tagsCAP32.Where(t => t.TagClass.ParentTagClassId == 31).ToList();
+                        //var tagsCAP32CDIs = tagsCAP32.Where(t => t.TagClass.ParentTagClassId == 31).ToList();
                         var tagsCAP32AIs = tagsCAP32.Where(t => t.TagClass.ParentTagClassId == 3).ToList();
                         var tagsCAP32DOandCDOs = tagsCAP32.Where(t => t.TagClass.ParentTagClassId == 5).ToList();
 
@@ -126,14 +126,14 @@ namespace ReasignAddressesCAP32
 
                             var tagsDevice = context.Tags.Where(t => t.DeviceId == subDevice.Id)
                                 .OrderBy(t => t.ShortName).ToList(); // Like AI.001, AI.002
-                            var tagsDIs = tagsDevice.Where(t => t.TagClass.ParentTagClassId == 1).ToList();
-                            var tagsCDIs = tagsDevice.Where(t => t.TagClass.ParentTagClassId == 31).ToList();
+                            var tagsDIsCDIs = tagsDevice.Where(t => t.TagClass.ParentTagClassId == 1 || t.TagClass.ParentTagClassId == 31).ToList();
+                            //var tagsCDIs = tagsDevice.Where(t => t.TagClass.ParentTagClassId == 31).ToList();
                             var tagsAIs = tagsDevice.Where(t => t.TagClass.ParentTagClassId == 3).ToList();
                             var tagsDOs = tagsDevice.Where(t => t.TagClass.ParentTagClassId == 5).ToList();
                             var tagsCDOs = tagsDevice.Where(t => t.TagClass.ParentTagClassId == 33).ToList();
 
-                            lastDIandCDI = SetDataTagsSubDevice(lastDIandCDI, tagsDIs);
-                            lastDIandCDI = SetDataTagsSubDevice(lastDIandCDI, tagsCDIs);
+                            lastDIandCDI = SetDataTagsSubDevice(lastDIandCDI, tagsDIsCDIs);
+                            //lastDIandCDI = SetDataTagsSubDevice(lastDIandCDI, tagsCDIs);
                             lastAI = SetDataTagsSubDevice(lastAI, tagsAIs);
                             lastDOandCDO = SetDataTagsSubDevice(lastDOandCDO, tagsDOs);
                             lastDOandCDO = SetDataTagsSubDevice(lastDOandCDO, tagsCDOs);
@@ -328,6 +328,113 @@ namespace ReasignAddressesCAP32
             if (!condition)
             {
                 throw new Exception(error);
+            }
+        }
+        #endregion
+
+        #region Methods: Tag rename ShortName & Name
+        private void BtnStartCAP32TagShortAnfFullNameChange_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int rowChanged = 0;
+                if (SelectedDevice != null)
+                {
+                    using (var context = new TedisNetEntities())
+                    {
+                        // Decide format by number of signals
+                        int numTagsAI = 0;
+                        int numTagsDI = 0;
+                        int numTagsDO = 0;
+
+                        // Refactoring cap32 tags
+                        var tagsCAP32 = context.Tags.Where(t => t.DeviceId == SelectedDevice.Id).ToList();
+                        numTagsDI += tagsCAP32.Where(t => t.TagClass.ParentTagClassId.HasValue && t.TagClass.ParentTagClassId == 1).Count();
+                        numTagsAI += tagsCAP32.Where(t => t.TagClass.ParentTagClassId.HasValue && t.TagClass.ParentTagClassId == 3).Count();
+                        numTagsDO += tagsCAP32.Where(t => t.TagClass.ParentTagClassId.HasValue && t.TagClass.ParentTagClassId == 5).Count();
+
+                        // Get sub devices
+                        var subDevices = context.Devices.Where(d => d.ParentDeviceId == SelectedDevice.Id)
+                            .OrderBy(d => d.Name).ToList();
+
+                        foreach (var subDevice in subDevices)
+                        {
+                            var tagsDevice = context.Tags.Where(t => t.DeviceId == subDevice.Id).ToList();
+                            numTagsDI += tagsDevice.Where(t => t.TagClass.ParentTagClassId.HasValue && t.TagClass.ParentTagClassId == 1).Count();
+                            numTagsAI += tagsDevice.Where(t => t.TagClass.ParentTagClassId.HasValue && t.TagClass.ParentTagClassId == 3).Count();
+                            numTagsDO += tagsDevice.Where(t => t.TagClass.ParentTagClassId.HasValue && t.TagClass.ParentTagClassId == 5).Count();
+                        }
+
+
+                        int numTagsMax = Math.Max(Math.Max(numTagsDO, numTagsDI), numTagsAI);
+                        int numDigits = (int)Math.Floor(Math.Log10(numTagsMax) + 1);
+                        string format = new string('0', numDigits);
+
+                        List<Device> allDevices = new List<Device>() { SelectedDevice };
+                        allDevices.AddRange(subDevices);
+
+                        // Change names temporaly, for change it late in second lap
+                        string prefixTempFirstLap = "_temp_";
+                        for (int i = 0; i < 2; i++)
+                        {
+                            foreach (var device in allDevices)
+                            {
+                                var tags = context.Tags.Where(t => t.DeviceId == device.Id).OrderBy(t => t.ShortName).ToList();
+                                foreach (var tag in tags)
+                                {
+                                    if (!tag.DeviceTerminal.HasValue) continue;
+                                    switch (tag.TagClass?.ParentTagClassId)
+                                    {
+                                        case 1: // DI
+                                            {
+                                                string shortName = (i == 0) ? prefixTempFirstLap : "";
+                                                shortName += "DI." + tag.DeviceTerminal.Value.ToString(format);
+                                                tag.ShortName = shortName;
+                                                tag.Name = $"{tag.Device.Name}/{shortName}";
+                                            }
+                                            break;
+                                        case 3: // AI
+                                            {
+                                                string shortName = (i == 0) ? prefixTempFirstLap : "";
+                                                shortName += "AI." + tag.DeviceTerminal.Value.ToString(format);
+                                                tag.ShortName = shortName;
+                                                tag.Name = $"{tag.Device.Name}/{shortName}";
+                                            }
+                                            break;
+                                        case 5: // DO
+                                            {
+                                                string shortName = (i == 0) ? prefixTempFirstLap : "";
+                                                shortName += "DO." + tag.DeviceTerminal.Value.ToString(format);
+                                                tag.ShortName = shortName;
+                                                tag.Name = $"{tag.Device.Name}/{shortName}";
+                                            }
+                                            break;
+                                        default:
+                                            // 8   SYS
+                                            // 20  ES
+                                            // 29  EC
+                                            // 31  CDI
+                                            // 33  CDO
+                                            // 36  AO
+                                            // 38  GE
+                                            // 40  VA
+                                            // 45  SPO
+                                            // 47  SPI
+
+                                            // blank
+                                            break;
+                                    } // switch
+                                } // foreach tags
+                            } // foreach devices
+                            rowChanged = context.SaveChanges();
+                        } // for two laps
+                    }
+                }
+                MessageBox.Show($"{rowChanged} Tags cambiados!", "100%", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
