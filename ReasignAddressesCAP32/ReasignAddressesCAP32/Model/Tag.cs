@@ -21,6 +21,8 @@ namespace ReasignAddressesCAP32.Model
             this.DevicesConnectionPetState = new HashSet<Device>();
             this.Operands = new HashSet<Operand>();
             this.Operations = new HashSet<Operation>();
+            this.Elements = new HashSet<Element>();
+            this.Controls = new HashSet<Control>();
         }
     
         public int Id { get; set; }
@@ -68,5 +70,10 @@ namespace ReasignAddressesCAP32.Model
         public virtual ICollection<Operand> Operands { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Operation> Operations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Element> Elements { get; set; }
+        public virtual Element Element { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Control> Controls { get; set; }
     }
 }

@@ -175,5 +175,101 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ElementTypes">
+      <EntityTypeMapping TypeName="TedisNetModel.ElementType">
+        <MappingFragment StoreEntitySet="ElementTypes">
+          <ScalarProperty Name="Color2" ColumnName="Color2" />
+          <ScalarProperty Name="Color1" ColumnName="Color1" />
+          <ScalarProperty Name="IsExport" ColumnName="IsExport" />
+          <ScalarProperty Name="DialogActionId" ColumnName="DialogActionId" />
+          <ScalarProperty Name="ColorPropagationTypeId" ColumnName="ColorPropagationTypeId" />
+          <ScalarProperty Name="StateCommandClassId" ColumnName="StateCommandClassId" />
+          <ScalarProperty Name="StateTagClassId" ColumnName="StateTagClassId" />
+          <ScalarProperty Name="SymbolId" ColumnName="SymbolId" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Elements">
+      <EntityTypeMapping TypeName="TedisNetModel.Element">
+        <MappingFragment StoreEntitySet="Elements">
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="ExportCode" ColumnName="ExportCode" />
+          <ScalarProperty Name="StateCommandId" ColumnName="StateCommandId" />
+          <ScalarProperty Name="StateTagId" ColumnName="StateTagId" />
+          <ScalarProperty Name="ParentElementId" ColumnName="ParentElementId" />
+          <ScalarProperty Name="ElementTypeId" ColumnName="ElementTypeId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Controls">
+      <EntityTypeMapping TypeName="TedisNetModel.Control">
+        <MappingFragment StoreEntitySet="Controls">
+          <ScalarProperty Name="GoToNetworkId" ColumnName="GoToNetworkId" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="RotationAngle" ColumnName="RotationAngle" />
+          <ScalarProperty Name="NetworkId" ColumnName="NetworkId" />
+          <ScalarProperty Name="FontSize" ColumnName="FontSize" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+          <ScalarProperty Name="ForegroundColor" ColumnName="ForegroundColor" />
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+          <ScalarProperty Name="ElementId" ColumnName="ElementId" />
+          <ScalarProperty Name="DialogActionId" ColumnName="DialogActionId" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="ControlTypeId" ColumnName="ControlTypeId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NodePositions">
+      <EntityTypeMapping TypeName="TedisNetModel.NodePosition">
+        <MappingFragment StoreEntitySet="NodePositions">
+          <ScalarProperty Name="LabelY" ColumnName="LabelY" />
+          <ScalarProperty Name="LabelX" ColumnName="LabelX" />
+          <ScalarProperty Name="IsLabelVisible" ColumnName="IsLabelVisible" />
+          <ScalarProperty Name="Y" ColumnName="Y" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="NodeId" ColumnName="NodeId" />
+          <ScalarProperty Name="LayoutId" ColumnName="LayoutId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Nodes">
+      <EntityTypeMapping TypeName="TedisNetModel.Node">
+        <MappingFragment StoreEntitySet="Nodes">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ElementId" ColumnName="ElementId" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="RotationAngle" ColumnName="RotationAngle" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="NodeTypeId" ColumnName="NodeTypeId" />
+          <ScalarProperty Name="NetworkId" ColumnName="NetworkId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ControlPositions">
+      <EntityTypeMapping TypeName="TedisNetModel.ControlPosition">
+        <MappingFragment StoreEntitySet="ControlPositions">
+          <ScalarProperty Name="Y" ColumnName="Y" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="ControlId" ColumnName="ControlId" />
+          <ScalarProperty Name="LayoutId" ColumnName="LayoutId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

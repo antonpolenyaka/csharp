@@ -28,6 +28,22 @@
         <AssociationConnector Association="TedisNetModel.FK_Channels_MasterPorts" />
         <AssociationConnector Association="TedisNetModel.FK_Channels_SlavePorts" />
         <AssociationConnector Association="TedisNetModel.FK_Ports_Devices" />
+        <EntityTypeShape EntityType="TedisNetModel.ElementType" Width="1.5" PointX="11.375" PointY="12" />
+        <AssociationConnector Association="TedisNetModel.FK_ElementTypes_TagClass" />
+        <EntityTypeShape EntityType="TedisNetModel.Element" Width="1.5" PointX="13.625" PointY="7.5" />
+        <AssociationConnector Association="TedisNetModel.FK_Elements_Elements" />
+        <AssociationConnector Association="TedisNetModel.FK_Elements_ElementTypes" />
+        <AssociationConnector Association="TedisNetModel.FK_Elements_StateTag" />
+        <AssociationConnector Association="TedisNetModel.FK_Tags_Elements" />
+        <EntityTypeShape EntityType="TedisNetModel.Control" Width="1.5" PointX="15.875" PointY="4" />
+        <EntityTypeShape EntityType="TedisNetModel.NodePosition" Width="1.5" PointX="18.125" PointY="14.125" />
+        <EntityTypeShape EntityType="TedisNetModel.Node" Width="1.5" PointX="15.875" PointY="14" />
+        <AssociationConnector Association="TedisNetModel.FK_Controls_Elements" />
+        <AssociationConnector Association="TedisNetModel.FK_Controls_Tags" />
+        <AssociationConnector Association="TedisNetModel.FK_Nodes_Elements" />
+        <AssociationConnector Association="TedisNetModel.FK_NodePositions_Node" />
+        <EntityTypeShape EntityType="TedisNetModel.ControlPosition" Width="1.5" PointX="18.125" PointY="5.625" />
+        <AssociationConnector Association="TedisNetModel.FK_ControlPositions_Controls" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

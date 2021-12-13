@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\apolenyaka\source\repos\ReasignAddressesCAP32\ReasignAddressesCAP32\Model\DataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\Model\DataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

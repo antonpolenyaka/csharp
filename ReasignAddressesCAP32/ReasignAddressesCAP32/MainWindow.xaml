@@ -4,11 +4,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="240" Width="416.977" Loaded="Window_Loaded"
+        Title="MainWindow" SizeToContent="WidthAndHeight" Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Margin="10,0,10,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -42,5 +44,12 @@
         <Button Grid.Row="6" 
                 Click="BtnStartCAP32TagShortAnfFullNameChange_Click"
                 Margin="10,0,10,0" Content="Start" />
+        <Label Grid.Row="7" 
+               Content="CT -> transformador. Encima se pone elmento CT Se utiliza el fichero del Calser"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Button Grid.Row="8" 
+                Click="BtnStartCalserElementModify_Click"
+                Margin="10,0,10,0" Content="{Binding NumElementsUpdated, FallbackValue='Start'}" />
     </Grid>
 </Window>

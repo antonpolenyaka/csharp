@@ -16,6 +16,40 @@
           <Property Name="Comments" Type="nvarchar" MaxLength="255" />
           <Property Name="ProtocolId" Type="int" />
         </EntityType>
+        <EntityType Name="ControlPositions">
+          <Key>
+            <PropertyRef Name="LayoutId" />
+            <PropertyRef Name="ControlId" />
+          </Key>
+          <Property Name="LayoutId" Type="int" Nullable="false" />
+          <Property Name="ControlId" Type="int" Nullable="false" />
+          <Property Name="X" Type="int" Nullable="false" />
+          <Property Name="Y" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Controls">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="356" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="ControlTypeId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="100" />
+          <Property Name="DialogActionId" Type="int" />
+          <Property Name="ElementId" Type="int" />
+          <Property Name="TagId" Type="int" />
+          <Property Name="ForegroundColor" Type="nvarchar" MaxLength="20" />
+          <Property Name="BackgroundColor" Type="nvarchar" MaxLength="20" />
+          <Property Name="Width" Type="int" />
+          <Property Name="Height" Type="int" />
+          <Property Name="FontSize" Type="int" />
+          <Property Name="NetworkId" Type="int" Nullable="false" />
+          <Property Name="RotationAngle" Type="int" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="ImageId" Type="int" />
+          <Property Name="GoToNetworkId" Type="int" />
+        </EntityType>
         <EntityType Name="Devices">
           <Key>
             <PropertyRef Name="Id" />
@@ -35,6 +69,47 @@
           <Property Name="ExtensionPort2Type" Type="int" />
           <Property Name="ExtensionPort3Type" Type="int" />
           <Property Name="IsAnalogMonopolar" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Elements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="ElementTypeId" Type="int" Nullable="false" />
+          <Property Name="ParentElementId" Type="int" />
+          <Property Name="StateTagId" Type="int" />
+          <Property Name="StateCommandId" Type="int" />
+          <Property Name="ExportCode" Type="int" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NodePositions">
+          <Key>
+            <PropertyRef Name="LayoutId" />
+            <PropertyRef Name="NodeId" />
+          </Key>
+          <Property Name="LayoutId" Type="int" Nullable="false" />
+          <Property Name="NodeId" Type="int" Nullable="false" />
+          <Property Name="X" Type="int" Nullable="false" />
+          <Property Name="Y" Type="int" Nullable="false" />
+          <Property Name="IsLabelVisible" Type="bit" Nullable="false" />
+          <Property Name="LabelX" Type="int" />
+          <Property Name="LabelY" Type="int" />
+        </EntityType>
+        <EntityType Name="Nodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NetworkId" Type="int" Nullable="false" />
+          <Property Name="NodeTypeId" Type="int" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" MaxLength="20" />
+          <Property Name="RotationAngle" Type="int" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="ElementId" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Operands">
           <Key>
@@ -145,6 +220,23 @@
           <Property Name="ExportName" Type="nvarchar" MaxLength="100" />
           <Property Name="IgnoreEventsOnQualityChangeGood" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ElementTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="SymbolId" Type="int" />
+          <Property Name="StateTagClassId" Type="int" />
+          <Property Name="StateCommandClassId" Type="int" />
+          <Property Name="ColorPropagationTypeId" Type="int" />
+          <Property Name="DialogActionId" Type="int" />
+          <Property Name="IsExport" Type="bit" />
+          <Property Name="Color1" Type="nvarchar" MaxLength="20" />
+          <Property Name="Color2" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="TagClasses">
           <Key>
             <PropertyRef Name="Id" />
@@ -195,6 +287,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ControlPositions_Controls">
+          <End Role="Controls" Type="Self.Controls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ControlPositions" Type="Self.ControlPositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Controls">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlPositions">
+              <PropertyRef Name="ControlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Controls_Elements">
+          <End Role="Elements" Type="Self.Elements" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Controls" Type="Self.Controls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Elements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Controls">
+              <PropertyRef Name="ElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Controls_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Controls" Type="Self.Controls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Controls">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Devices_Devices">
           <End Role="Devices" Type="Self.Devices" Multiplicity="0..1" />
           <End Role="Devices1" Type="Self.Devices" Multiplicity="*" />
@@ -242,6 +376,84 @@
             </Principal>
             <Dependent Role="Devices">
               <PropertyRef Name="ConnectionPetStateTagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_Elements">
+          <End Role="Elements" Type="Self.Elements" Multiplicity="0..1" />
+          <End Role="Elements1" Type="Self.Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Elements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements1">
+              <PropertyRef Name="ParentElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_ElementTypes">
+          <End Role="ElementTypes" Type="Self.ElementTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="ElementTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_StateTag">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="StateTagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ElementTypes_TagClass">
+          <End Role="TagClasses" Type="Self.TagClasses" Multiplicity="0..1" />
+          <End Role="ElementTypes" Type="Self.ElementTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagClasses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ElementTypes">
+              <PropertyRef Name="StateTagClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NodePositions_Node">
+          <End Role="Nodes" Type="Self.Nodes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NodePositions" Type="Self.NodePositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nodes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NodePositions">
+              <PropertyRef Name="NodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nodes_Elements">
+          <End Role="Elements" Type="Self.Elements" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Nodes" Type="Self.Nodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Elements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Nodes">
+              <PropertyRef Name="ElementId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -337,6 +549,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tags_Elements">
+          <End Role="Elements" Type="Self.Elements" Multiplicity="0..1" />
+          <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Elements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tags">
+              <PropertyRef Name="ElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tags_TagClasses">
           <End Role="TagClasses" Type="Self.TagClasses" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -365,12 +589,18 @@
         </Association>
         <EntityContainer Name="TedisNetModelStoreContainer">
           <EntitySet Name="Channels" EntityType="Self.Channels" Schema="Config" store:Type="Tables" />
+          <EntitySet Name="ControlPositions" EntityType="Self.ControlPositions" Schema="Config" store:Type="Tables" />
+          <EntitySet Name="Controls" EntityType="Self.Controls" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Devices" EntityType="Self.Devices" Schema="Config" store:Type="Tables" />
+          <EntitySet Name="Elements" EntityType="Self.Elements" Schema="Config" store:Type="Tables" />
+          <EntitySet Name="NodePositions" EntityType="Self.NodePositions" Schema="Config" store:Type="Tables" />
+          <EntitySet Name="Nodes" EntityType="Self.Nodes" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Operands" EntityType="Self.Operands" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Operations" EntityType="Self.Operations" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Ports" EntityType="Self.Ports" Schema="Config" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="Config" store:Type="Tables" />
           <EntitySet Name="DeviceTypes" EntityType="Self.DeviceTypes" Schema="Lib" store:Type="Tables" />
+          <EntitySet Name="ElementTypes" EntityType="Self.ElementTypes" Schema="Lib" store:Type="Tables" />
           <EntitySet Name="TagClasses" EntityType="Self.TagClasses" Schema="Lib" store:Type="Tables" />
           <AssociationSet Name="FK_Channels_MasterPorts" Association="Self.FK_Channels_MasterPorts">
             <End Role="Ports" EntitySet="Ports" />
@@ -379,6 +609,18 @@
           <AssociationSet Name="FK_Channels_SlavePorts" Association="Self.FK_Channels_SlavePorts">
             <End Role="Ports" EntitySet="Ports" />
             <End Role="Channels" EntitySet="Channels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlPositions_Controls" Association="Self.FK_ControlPositions_Controls">
+            <End Role="Controls" EntitySet="Controls" />
+            <End Role="ControlPositions" EntitySet="ControlPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Controls_Elements" Association="Self.FK_Controls_Elements">
+            <End Role="Elements" EntitySet="Elements" />
+            <End Role="Controls" EntitySet="Controls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Controls_Tags" Association="Self.FK_Controls_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Controls" EntitySet="Controls" />
           </AssociationSet>
           <AssociationSet Name="FK_Devices_Devices" Association="Self.FK_Devices_Devices">
             <End Role="Devices" EntitySet="Devices" />
@@ -395,6 +637,30 @@
           <AssociationSet Name="FK_Devices_Tags2" Association="Self.FK_Devices_Tags2">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Devices" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_Elements" Association="Self.FK_Elements_Elements">
+            <End Role="Elements" EntitySet="Elements" />
+            <End Role="Elements1" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_ElementTypes" Association="Self.FK_Elements_ElementTypes">
+            <End Role="ElementTypes" EntitySet="ElementTypes" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_StateTag" Association="Self.FK_Elements_StateTag">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ElementTypes_TagClass" Association="Self.FK_ElementTypes_TagClass">
+            <End Role="TagClasses" EntitySet="TagClasses" />
+            <End Role="ElementTypes" EntitySet="ElementTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NodePositions_Node" Association="Self.FK_NodePositions_Node">
+            <End Role="Nodes" EntitySet="Nodes" />
+            <End Role="NodePositions" EntitySet="NodePositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nodes_Elements" Association="Self.FK_Nodes_Elements">
+            <End Role="Elements" EntitySet="Elements" />
+            <End Role="Nodes" EntitySet="Nodes" />
           </AssociationSet>
           <AssociationSet Name="FK_Operands_Operation" Association="Self.FK_Operands_Operation">
             <End Role="Operations" EntitySet="Operations" />
@@ -422,6 +688,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Tags_Devices" Association="Self.FK_Tags_Devices">
             <End Role="Devices" EntitySet="Devices" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tags_Elements" Association="Self.FK_Tags_Elements">
+            <End Role="Elements" EntitySet="Elements" />
             <End Role="Tags" EntitySet="Tags" />
           </AssociationSet>
           <AssociationSet Name="FK_Tags_TagClasses" Association="Self.FK_Tags_TagClasses">
@@ -509,6 +779,9 @@
           <NavigationProperty Name="TagClass" Relationship="TedisNetModel.FK_Tags_TagClasses" FromRole="Tag" ToRole="TagClass" />
           <NavigationProperty Name="Operands" Relationship="TedisNetModel.FK_Operands_Tags" FromRole="Tag" ToRole="Operand" />
           <NavigationProperty Name="Operations" Relationship="TedisNetModel.FK_Operations_ResultTagId" FromRole="Tag" ToRole="Operation" />
+          <NavigationProperty Name="Elements" Relationship="TedisNetModel.FK_Elements_StateTag" FromRole="Tag" ToRole="Element" />
+          <NavigationProperty Name="Element" Relationship="TedisNetModel.FK_Tags_Elements" FromRole="Tag" ToRole="Element" />
+          <NavigationProperty Name="Controls" Relationship="TedisNetModel.FK_Controls_Tags" FromRole="Tag" ToRole="Control" />
         </EntityType>
         <EntityType Name="DeviceType">
           <Key>
@@ -672,6 +945,52 @@
             <End Role="Device" EntitySet="Devices" />
             <End Role="Port" EntitySet="Ports" />
           </AssociationSet>
+          <EntitySet Name="ElementTypes" EntityType="TedisNetModel.ElementType" />
+          <AssociationSet Name="FK_ElementTypes_TagClass" Association="TedisNetModel.FK_ElementTypes_TagClass">
+            <End Role="TagClass" EntitySet="TagClasses" />
+            <End Role="ElementType" EntitySet="ElementTypes" />
+          </AssociationSet>
+          <EntitySet Name="Elements" EntityType="TedisNetModel.Element" />
+          <AssociationSet Name="FK_Elements_Elements" Association="TedisNetModel.FK_Elements_Elements">
+            <End Role="Element" EntitySet="Elements" />
+            <End Role="Element1" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_ElementTypes" Association="TedisNetModel.FK_Elements_ElementTypes">
+            <End Role="ElementType" EntitySet="ElementTypes" />
+            <End Role="Element" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_StateTag" Association="TedisNetModel.FK_Elements_StateTag">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="Element" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tags_Elements" Association="TedisNetModel.FK_Tags_Elements">
+            <End Role="Element" EntitySet="Elements" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+          <EntitySet Name="Controls" EntityType="TedisNetModel.Control" />
+          <EntitySet Name="NodePositions" EntityType="TedisNetModel.NodePosition" />
+          <EntitySet Name="Nodes" EntityType="TedisNetModel.Node" />
+          <AssociationSet Name="FK_Controls_Elements" Association="TedisNetModel.FK_Controls_Elements">
+            <End Role="Element" EntitySet="Elements" />
+            <End Role="Control" EntitySet="Controls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Controls_Tags" Association="TedisNetModel.FK_Controls_Tags">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="Control" EntitySet="Controls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nodes_Elements" Association="TedisNetModel.FK_Nodes_Elements">
+            <End Role="Element" EntitySet="Elements" />
+            <End Role="Node" EntitySet="Nodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NodePositions_Node" Association="TedisNetModel.FK_NodePositions_Node">
+            <End Role="Node" EntitySet="Nodes" />
+            <End Role="NodePosition" EntitySet="NodePositions" />
+          </AssociationSet>
+          <EntitySet Name="ControlPositions" EntityType="TedisNetModel.ControlPosition" />
+          <AssociationSet Name="FK_ControlPositions_Controls" Association="TedisNetModel.FK_ControlPositions_Controls">
+            <End Role="Control" EntitySet="Controls" />
+            <End Role="ControlPosition" EntitySet="ControlPositions" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="TagClass">
           <Key>
@@ -703,6 +1022,7 @@
           <NavigationProperty Name="TagClass1" Relationship="TedisNetModel.FK_TagClasses_TagClasses" FromRole="TagClass1" ToRole="TagClass" />
           <NavigationProperty Name="TagClasses11" Relationship="TedisNetModel.FK_TagClasses_TargetTagClasses" FromRole="TagClass" ToRole="TagClass1" />
           <NavigationProperty Name="TagClass2" Relationship="TedisNetModel.FK_TagClasses_TargetTagClasses" FromRole="TagClass1" ToRole="TagClass" />
+          <NavigationProperty Name="ElementTypes" Relationship="TedisNetModel.FK_ElementTypes_TagClass" FromRole="TagClass" ToRole="ElementType" />
         </EntityType>
         <Association Name="FK_Tags_TagClasses">
           <End Type="TedisNetModel.TagClass" Role="TagClass" Multiplicity="1">
@@ -895,6 +1215,246 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ElementType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SymbolId" Type="Int32" />
+          <Property Name="StateTagClassId" Type="Int32" />
+          <Property Name="StateCommandClassId" Type="Int32" />
+          <Property Name="ColorPropagationTypeId" Type="Int32" />
+          <Property Name="DialogActionId" Type="Int32" />
+          <Property Name="IsExport" Type="Boolean" />
+          <Property Name="Color1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Color2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TagClass" Relationship="TedisNetModel.FK_ElementTypes_TagClass" FromRole="ElementType" ToRole="TagClass" />
+          <NavigationProperty Name="Elements" Relationship="TedisNetModel.FK_Elements_ElementTypes" FromRole="ElementType" ToRole="Element" />
+        </EntityType>
+        <Association Name="FK_ElementTypes_TagClass">
+          <End Type="TedisNetModel.TagClass" Role="TagClass" Multiplicity="0..1" />
+          <End Type="TedisNetModel.ElementType" Role="ElementType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TagClass">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ElementType">
+              <PropertyRef Name="StateTagClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Element">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ElementTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ParentElementId" Type="Int32" />
+          <Property Name="StateTagId" Type="Int32" />
+          <Property Name="StateCommandId" Type="Int32" />
+          <Property Name="ExportCode" Type="Int32" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Children" Relationship="TedisNetModel.FK_Elements_Elements" FromRole="Element" ToRole="Element1" />
+          <NavigationProperty Name="ParentElement" Relationship="TedisNetModel.FK_Elements_Elements" FromRole="Element1" ToRole="Element" />
+          <NavigationProperty Name="ElementType" Relationship="TedisNetModel.FK_Elements_ElementTypes" FromRole="Element" ToRole="ElementType" />
+          <NavigationProperty Name="Tag" Relationship="TedisNetModel.FK_Elements_StateTag" FromRole="Element" ToRole="Tag" />
+          <NavigationProperty Name="Tags" Relationship="TedisNetModel.FK_Tags_Elements" FromRole="Element" ToRole="Tag" />
+          <NavigationProperty Name="Controls" Relationship="TedisNetModel.FK_Controls_Elements" FromRole="Element" ToRole="Control" />
+          <NavigationProperty Name="Nodes" Relationship="TedisNetModel.FK_Nodes_Elements" FromRole="Element" ToRole="Node" />
+        </EntityType>
+        <Association Name="FK_Elements_Elements">
+          <End Type="TedisNetModel.Element" Role="Element" Multiplicity="0..1" />
+          <End Type="TedisNetModel.Element" Role="Element1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Element">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Element1">
+              <PropertyRef Name="ParentElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_ElementTypes">
+          <End Type="TedisNetModel.ElementType" Role="ElementType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TedisNetModel.Element" Role="Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="ElementTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_StateTag">
+          <End Type="TedisNetModel.Tag" Role="Tag" Multiplicity="0..1" />
+          <End Type="TedisNetModel.Element" Role="Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="StateTagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tags_Elements">
+          <End Type="TedisNetModel.Element" Role="Element" Multiplicity="0..1" />
+          <End Type="TedisNetModel.Tag" Role="Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Element">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tag">
+              <PropertyRef Name="ElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Control">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="356" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ControlTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DialogActionId" Type="Int32" />
+          <Property Name="ElementId" Type="Int32" />
+          <Property Name="TagId" Type="Int32" />
+          <Property Name="ForegroundColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Width" Type="Int32" />
+          <Property Name="Height" Type="Int32" />
+          <Property Name="FontSize" Type="Int32" />
+          <Property Name="NetworkId" Type="Int32" Nullable="false" />
+          <Property Name="RotationAngle" Type="Int32" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="ImageId" Type="Int32" />
+          <Property Name="GoToNetworkId" Type="Int32" />
+          <NavigationProperty Name="Element" Relationship="TedisNetModel.FK_Controls_Elements" FromRole="Control" ToRole="Element" />
+          <NavigationProperty Name="Tag" Relationship="TedisNetModel.FK_Controls_Tags" FromRole="Control" ToRole="Tag" />
+          <NavigationProperty Name="ControlPositions" Relationship="TedisNetModel.FK_ControlPositions_Controls" FromRole="Control" ToRole="ControlPosition" />
+        </EntityType>
+        <EntityType Name="NodePosition">
+          <Key>
+            <PropertyRef Name="LayoutId" />
+            <PropertyRef Name="NodeId" />
+          </Key>
+          <Property Name="LayoutId" Type="Int32" Nullable="false" />
+          <Property Name="NodeId" Type="Int32" Nullable="false" />
+          <Property Name="X" Type="Int32" Nullable="false" />
+          <Property Name="Y" Type="Int32" Nullable="false" />
+          <Property Name="IsLabelVisible" Type="Boolean" Nullable="false" />
+          <Property Name="LabelX" Type="Int32" />
+          <Property Name="LabelY" Type="Int32" />
+          <NavigationProperty Name="Node" Relationship="TedisNetModel.FK_NodePositions_Node" FromRole="NodePosition" ToRole="Node" />
+        </EntityType>
+        <EntityType Name="Node">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NetworkId" Type="Int32" Nullable="false" />
+          <Property Name="NodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RotationAngle" Type="Int32" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="ElementId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Element" Relationship="TedisNetModel.FK_Nodes_Elements" FromRole="Node" ToRole="Element" />
+          <NavigationProperty Name="NodePositions" Relationship="TedisNetModel.FK_NodePositions_Node" FromRole="Node" ToRole="NodePosition" />
+        </EntityType>
+        <Association Name="FK_Controls_Elements">
+          <End Type="TedisNetModel.Element" Role="Element" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TedisNetModel.Control" Role="Control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Element">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Control">
+              <PropertyRef Name="ElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Controls_Tags">
+          <End Type="TedisNetModel.Tag" Role="Tag" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TedisNetModel.Control" Role="Control" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Control">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nodes_Elements">
+          <End Type="TedisNetModel.Element" Role="Element" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TedisNetModel.Node" Role="Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Element">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Node">
+              <PropertyRef Name="ElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NodePositions_Node">
+          <End Type="TedisNetModel.Node" Role="Node" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TedisNetModel.NodePosition" Role="NodePosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Node">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NodePosition">
+              <PropertyRef Name="NodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ControlPosition">
+          <Key>
+            <PropertyRef Name="LayoutId" />
+            <PropertyRef Name="ControlId" />
+          </Key>
+          <Property Name="LayoutId" Type="Int32" Nullable="false" />
+          <Property Name="ControlId" Type="Int32" Nullable="false" />
+          <Property Name="X" Type="Int32" Nullable="false" />
+          <Property Name="Y" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Control" Relationship="TedisNetModel.FK_ControlPositions_Controls" FromRole="ControlPosition" ToRole="Control" />
+        </EntityType>
+        <Association Name="FK_ControlPositions_Controls">
+          <End Type="TedisNetModel.Control" Role="Control" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TedisNetModel.ControlPosition" Role="ControlPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Control">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlPosition">
+              <PropertyRef Name="ControlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1072,6 +1632,102 @@
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ElementTypes">
+            <EntityTypeMapping TypeName="TedisNetModel.ElementType">
+              <MappingFragment StoreEntitySet="ElementTypes">
+                <ScalarProperty Name="Color2" ColumnName="Color2" />
+                <ScalarProperty Name="Color1" ColumnName="Color1" />
+                <ScalarProperty Name="IsExport" ColumnName="IsExport" />
+                <ScalarProperty Name="DialogActionId" ColumnName="DialogActionId" />
+                <ScalarProperty Name="ColorPropagationTypeId" ColumnName="ColorPropagationTypeId" />
+                <ScalarProperty Name="StateCommandClassId" ColumnName="StateCommandClassId" />
+                <ScalarProperty Name="StateTagClassId" ColumnName="StateTagClassId" />
+                <ScalarProperty Name="SymbolId" ColumnName="SymbolId" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elements">
+            <EntityTypeMapping TypeName="TedisNetModel.Element">
+              <MappingFragment StoreEntitySet="Elements">
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="ExportCode" ColumnName="ExportCode" />
+                <ScalarProperty Name="StateCommandId" ColumnName="StateCommandId" />
+                <ScalarProperty Name="StateTagId" ColumnName="StateTagId" />
+                <ScalarProperty Name="ParentElementId" ColumnName="ParentElementId" />
+                <ScalarProperty Name="ElementTypeId" ColumnName="ElementTypeId" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Controls">
+            <EntityTypeMapping TypeName="TedisNetModel.Control">
+              <MappingFragment StoreEntitySet="Controls">
+                <ScalarProperty Name="GoToNetworkId" ColumnName="GoToNetworkId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="RotationAngle" ColumnName="RotationAngle" />
+                <ScalarProperty Name="NetworkId" ColumnName="NetworkId" />
+                <ScalarProperty Name="FontSize" ColumnName="FontSize" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="ForegroundColor" ColumnName="ForegroundColor" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="ElementId" ColumnName="ElementId" />
+                <ScalarProperty Name="DialogActionId" ColumnName="DialogActionId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ControlTypeId" ColumnName="ControlTypeId" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NodePositions">
+            <EntityTypeMapping TypeName="TedisNetModel.NodePosition">
+              <MappingFragment StoreEntitySet="NodePositions">
+                <ScalarProperty Name="LabelY" ColumnName="LabelY" />
+                <ScalarProperty Name="LabelX" ColumnName="LabelX" />
+                <ScalarProperty Name="IsLabelVisible" ColumnName="IsLabelVisible" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="NodeId" ColumnName="NodeId" />
+                <ScalarProperty Name="LayoutId" ColumnName="LayoutId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nodes">
+            <EntityTypeMapping TypeName="TedisNetModel.Node">
+              <MappingFragment StoreEntitySet="Nodes">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ElementId" ColumnName="ElementId" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="RotationAngle" ColumnName="RotationAngle" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="NodeTypeId" ColumnName="NodeTypeId" />
+                <ScalarProperty Name="NetworkId" ColumnName="NetworkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlPositions">
+            <EntityTypeMapping TypeName="TedisNetModel.ControlPosition">
+              <MappingFragment StoreEntitySet="ControlPositions">
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="ControlId" ColumnName="ControlId" />
+                <ScalarProperty Name="LayoutId" ColumnName="LayoutId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -11,6 +11,40 @@
     <Property Name="Comments" Type="nvarchar" MaxLength="255" />
     <Property Name="ProtocolId" Type="int" />
   </EntityType>
+  <EntityType Name="ControlPositions">
+    <Key>
+      <PropertyRef Name="LayoutId" />
+      <PropertyRef Name="ControlId" />
+    </Key>
+    <Property Name="LayoutId" Type="int" Nullable="false" />
+    <Property Name="ControlId" Type="int" Nullable="false" />
+    <Property Name="X" Type="int" Nullable="false" />
+    <Property Name="Y" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Controls">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="356" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+    <Property Name="ControlTypeId" Type="int" Nullable="false" />
+    <Property Name="Text" Type="nvarchar" MaxLength="100" />
+    <Property Name="DialogActionId" Type="int" />
+    <Property Name="ElementId" Type="int" />
+    <Property Name="TagId" Type="int" />
+    <Property Name="ForegroundColor" Type="nvarchar" MaxLength="20" />
+    <Property Name="BackgroundColor" Type="nvarchar" MaxLength="20" />
+    <Property Name="Width" Type="int" />
+    <Property Name="Height" Type="int" />
+    <Property Name="FontSize" Type="int" />
+    <Property Name="NetworkId" Type="int" Nullable="false" />
+    <Property Name="RotationAngle" Type="int" Nullable="false" />
+    <Property Name="IsEnabled" Type="bit" Nullable="false" />
+    <Property Name="RegionId" Type="int" />
+    <Property Name="ImageId" Type="int" />
+    <Property Name="GoToNetworkId" Type="int" />
+  </EntityType>
   <EntityType Name="Devices">
     <Key>
       <PropertyRef Name="Id" />
@@ -30,6 +64,47 @@
     <Property Name="ExtensionPort2Type" Type="int" />
     <Property Name="ExtensionPort3Type" Type="int" />
     <Property Name="IsAnalogMonopolar" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Elements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ShortName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+    <Property Name="ElementTypeId" Type="int" Nullable="false" />
+    <Property Name="ParentElementId" Type="int" />
+    <Property Name="StateTagId" Type="int" />
+    <Property Name="StateCommandId" Type="int" />
+    <Property Name="ExportCode" Type="int" />
+    <Property Name="IsEnabled" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NodePositions">
+    <Key>
+      <PropertyRef Name="LayoutId" />
+      <PropertyRef Name="NodeId" />
+    </Key>
+    <Property Name="LayoutId" Type="int" Nullable="false" />
+    <Property Name="NodeId" Type="int" Nullable="false" />
+    <Property Name="X" Type="int" Nullable="false" />
+    <Property Name="Y" Type="int" Nullable="false" />
+    <Property Name="IsLabelVisible" Type="bit" Nullable="false" />
+    <Property Name="LabelX" Type="int" />
+    <Property Name="LabelY" Type="int" />
+  </EntityType>
+  <EntityType Name="Nodes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NetworkId" Type="int" Nullable="false" />
+    <Property Name="NodeTypeId" Type="int" Nullable="false" />
+    <Property Name="Color" Type="nvarchar" MaxLength="20" />
+    <Property Name="RotationAngle" Type="int" Nullable="false" />
+    <Property Name="IsEnabled" Type="bit" Nullable="false" />
+    <Property Name="ElementId" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Operands">
     <Key>
@@ -140,6 +215,23 @@
     <Property Name="ExportName" Type="nvarchar" MaxLength="100" />
     <Property Name="IgnoreEventsOnQualityChangeGood" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="ElementTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="ShortDescription" Type="nvarchar" MaxLength="50" />
+    <Property Name="SymbolId" Type="int" />
+    <Property Name="StateTagClassId" Type="int" />
+    <Property Name="StateCommandClassId" Type="int" />
+    <Property Name="ColorPropagationTypeId" Type="int" />
+    <Property Name="DialogActionId" Type="int" />
+    <Property Name="IsExport" Type="bit" />
+    <Property Name="Color1" Type="nvarchar" MaxLength="20" />
+    <Property Name="Color2" Type="nvarchar" MaxLength="20" />
+  </EntityType>
   <EntityType Name="TagClasses">
     <Key>
       <PropertyRef Name="Id" />
@@ -190,6 +282,48 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ControlPositions_Controls">
+    <End Role="Controls" Type="Self.Controls" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ControlPositions" Type="Self.ControlPositions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Controls">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ControlPositions">
+        <PropertyRef Name="ControlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Controls_Elements">
+    <End Role="Elements" Type="Self.Elements" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Controls" Type="Self.Controls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Controls">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Controls_Tags">
+    <End Role="Tags" Type="Self.Tags" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Controls" Type="Self.Controls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Controls">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Devices_Devices">
     <End Role="Devices" Type="Self.Devices" Multiplicity="0..1" />
     <End Role="Devices1" Type="Self.Devices" Multiplicity="*" />
@@ -237,6 +371,84 @@
       </Principal>
       <Dependent Role="Devices">
         <PropertyRef Name="ConnectionPetStateTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Elements_Elements">
+    <End Role="Elements" Type="Self.Elements" Multiplicity="0..1" />
+    <End Role="Elements1" Type="Self.Elements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Elements1">
+        <PropertyRef Name="ParentElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Elements_ElementTypes">
+    <End Role="ElementTypes" Type="Self.ElementTypes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ElementTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Elements">
+        <PropertyRef Name="ElementTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Elements_StateTag">
+    <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+    <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Elements">
+        <PropertyRef Name="StateTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ElementTypes_TagClass">
+    <End Role="TagClasses" Type="Self.TagClasses" Multiplicity="0..1" />
+    <End Role="ElementTypes" Type="Self.ElementTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagClasses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ElementTypes">
+        <PropertyRef Name="StateTagClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NodePositions_Node">
+    <End Role="Nodes" Type="Self.Nodes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NodePositions" Type="Self.NodePositions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nodes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NodePositions">
+        <PropertyRef Name="NodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Nodes_Elements">
+    <End Role="Elements" Type="Self.Elements" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Nodes" Type="Self.Nodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Nodes">
+        <PropertyRef Name="ElementId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -332,6 +544,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Tags_Elements">
+    <End Role="Elements" Type="Self.Elements" Multiplicity="0..1" />
+    <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="ElementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Tags_TagClasses">
     <End Role="TagClasses" Type="Self.TagClasses" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -360,12 +584,18 @@
   </Association>
   <EntityContainer Name="TedisNetModelStoreContainer">
     <EntitySet Name="Channels" EntityType="Self.Channels" Schema="Config" store:Type="Tables" />
+    <EntitySet Name="ControlPositions" EntityType="Self.ControlPositions" Schema="Config" store:Type="Tables" />
+    <EntitySet Name="Controls" EntityType="Self.Controls" Schema="Config" store:Type="Tables" />
     <EntitySet Name="Devices" EntityType="Self.Devices" Schema="Config" store:Type="Tables" />
+    <EntitySet Name="Elements" EntityType="Self.Elements" Schema="Config" store:Type="Tables" />
+    <EntitySet Name="NodePositions" EntityType="Self.NodePositions" Schema="Config" store:Type="Tables" />
+    <EntitySet Name="Nodes" EntityType="Self.Nodes" Schema="Config" store:Type="Tables" />
     <EntitySet Name="Operands" EntityType="Self.Operands" Schema="Config" store:Type="Tables" />
     <EntitySet Name="Operations" EntityType="Self.Operations" Schema="Config" store:Type="Tables" />
     <EntitySet Name="Ports" EntityType="Self.Ports" Schema="Config" store:Type="Tables" />
     <EntitySet Name="Tags" EntityType="Self.Tags" Schema="Config" store:Type="Tables" />
     <EntitySet Name="DeviceTypes" EntityType="Self.DeviceTypes" Schema="Lib" store:Type="Tables" />
+    <EntitySet Name="ElementTypes" EntityType="Self.ElementTypes" Schema="Lib" store:Type="Tables" />
     <EntitySet Name="TagClasses" EntityType="Self.TagClasses" Schema="Lib" store:Type="Tables" />
     <AssociationSet Name="FK_Channels_MasterPorts" Association="Self.FK_Channels_MasterPorts">
       <End Role="Ports" EntitySet="Ports" />
@@ -374,6 +604,18 @@
     <AssociationSet Name="FK_Channels_SlavePorts" Association="Self.FK_Channels_SlavePorts">
       <End Role="Ports" EntitySet="Ports" />
       <End Role="Channels" EntitySet="Channels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ControlPositions_Controls" Association="Self.FK_ControlPositions_Controls">
+      <End Role="Controls" EntitySet="Controls" />
+      <End Role="ControlPositions" EntitySet="ControlPositions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Controls_Elements" Association="Self.FK_Controls_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="Controls" EntitySet="Controls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Controls_Tags" Association="Self.FK_Controls_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Controls" EntitySet="Controls" />
     </AssociationSet>
     <AssociationSet Name="FK_Devices_Devices" Association="Self.FK_Devices_Devices">
       <End Role="Devices" EntitySet="Devices" />
@@ -390,6 +632,30 @@
     <AssociationSet Name="FK_Devices_Tags2" Association="Self.FK_Devices_Tags2">
       <End Role="Tags" EntitySet="Tags" />
       <End Role="Devices" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Elements_Elements" Association="Self.FK_Elements_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="Elements1" EntitySet="Elements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Elements_ElementTypes" Association="Self.FK_Elements_ElementTypes">
+      <End Role="ElementTypes" EntitySet="ElementTypes" />
+      <End Role="Elements" EntitySet="Elements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Elements_StateTag" Association="Self.FK_Elements_StateTag">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="Elements" EntitySet="Elements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ElementTypes_TagClass" Association="Self.FK_ElementTypes_TagClass">
+      <End Role="TagClasses" EntitySet="TagClasses" />
+      <End Role="ElementTypes" EntitySet="ElementTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NodePositions_Node" Association="Self.FK_NodePositions_Node">
+      <End Role="Nodes" EntitySet="Nodes" />
+      <End Role="NodePositions" EntitySet="NodePositions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Nodes_Elements" Association="Self.FK_Nodes_Elements">
+      <End Role="Elements" EntitySet="Elements" />
+      <End Role="Nodes" EntitySet="Nodes" />
     </AssociationSet>
     <AssociationSet Name="FK_Operands_Operation" Association="Self.FK_Operands_Operation">
       <End Role="Operations" EntitySet="Operations" />
@@ -417,6 +683,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Tags_Devices" Association="Self.FK_Tags_Devices">
       <End Role="Devices" EntitySet="Devices" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_Elements" Association="Self.FK_Tags_Elements">
+      <End Role="Elements" EntitySet="Elements" />
       <End Role="Tags" EntitySet="Tags" />
     </AssociationSet>
     <AssociationSet Name="FK_Tags_TagClasses" Association="Self.FK_Tags_TagClasses">

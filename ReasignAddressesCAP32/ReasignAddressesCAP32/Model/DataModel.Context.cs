@@ -33,5 +33,11 @@ namespace ReasignAddressesCAP32.Model
         public virtual DbSet<Operation> Operations { get; set; }
         public virtual DbSet<Channel> Channels { get; set; }
         public virtual DbSet<Port> Ports { get; set; }
+        public virtual DbSet<ElementType> ElementTypes { get; set; }
+        public virtual DbSet<Element> Elements { get; set; }
+        public virtual DbSet<Control> Controls { get; set; }
+        public virtual DbSet<NodePosition> NodePositions { get; set; }
+        public virtual DbSet<Node> Nodes { get; set; }
+        public virtual DbSet<ControlPosition> ControlPositions { get; set; }
     }
 }
