@@ -522,6 +522,7 @@ namespace ReasignAddressesCAP32
                             tedisTransf.ShortName = tedisTransf.ShortName.Trim();
 
                             // Get Calser equal
+                            string labelText = tedisTransf.ShortName; // label 2 parts (Code Name) or 1 part (Code)
                             var calserTransf = transformatorsCalser.Where(tr => tedisTransf.ShortName.StartsWith(tr.Code)).SingleOrDefault();
                             if (calserTransf == null)
                             {
@@ -579,7 +580,7 @@ namespace ReasignAddressesCAP32
                                     {
                                         PositionX = nodePosition.LabelX ?? 1,
                                         PositionY = nodePosition.LabelY ?? 1,
-                                        Text = calserTransf.Name
+                                        Text = labelText
                                     });
                                     // Hide old label
                                     nodePosition.IsLabelVisible = false;
