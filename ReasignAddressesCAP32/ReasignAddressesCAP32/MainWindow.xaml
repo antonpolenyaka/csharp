@@ -17,6 +17,8 @@
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <ComboBox DisplayMemberPath="Name" 
                   Grid.Row="0" 
@@ -50,6 +52,13 @@
                VerticalAlignment="Center"/>
         <Button Grid.Row="8" 
                 Click="BtnStartCalserElementModify_Click"
+                Margin="10,0,10,0" Content="{Binding NumElementsUpdated, FallbackValue='Start'}" />
+        <Label Grid.Row="9" 
+               Content="Alta masiva de concentradores PRIME desde CSV"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Button Grid.Row="10" 
+                Command="{Binding AddNewConcentratorPRIMECommand}"
                 Margin="10,0,10,0" Content="{Binding NumElementsUpdated, FallbackValue='Start'}" />
     </Grid>
 </Window>
