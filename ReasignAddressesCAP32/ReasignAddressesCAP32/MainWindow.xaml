@@ -54,7 +54,7 @@
                 Click="BtnStartCalserElementModify_Click"
                 Margin="10,0,10,0" Content="{Binding NumElementsUpdated, FallbackValue='Start'}" />
         <Label Grid.Row="9" 
-               Content="Alta masiva de concentradores PRIME desde CSV"
+               Content="Alta masiva de concentradores PRIME desde Excel"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
         <Button Grid.Row="10" 

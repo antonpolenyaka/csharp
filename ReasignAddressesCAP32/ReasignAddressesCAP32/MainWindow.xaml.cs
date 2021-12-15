@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using ExcelDataReader;
+using Microsoft.Win32;
 using ReasignAddressesCAP32.Model;
 using System;
 using System.Collections.Generic;
@@ -649,33 +650,42 @@ namespace ReasignAddressesCAP32
             try
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "*.csv";
-                if (openFileDialog.ShowDialog() != true)
+                openFileDialog.Filter = "Excel file (*.xlsx,*.xlsb,*.xls)|*.xlsx;*.xlsb;*.xls";
+                string filePath = null;
+                if (openFileDialog.ShowDialog() != true || !File.Exists(openFileDialog.FileName))
                 {
                     isOk = false;
                 }
-
-                string[] fileLines = null;
-                if (isOk)
+                else
                 {
-                    fileLines = File.ReadAllLines(openFileDialog.FileName);
-                    isOk = fileLines != null;
+                    filePath = openFileDialog.FileName;
                 }
 
-                List<TransformatorInfo> transformatorsCalser = null;
                 if (isOk)
                 {
-                    transformatorsCalser = new List<TransformatorInfo>();
-                    for (int i = 0; i < fileLines.Length; i++)
+                    var file = new FileInfo(fileName: filePath);
+                    using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                     {
-                        string[] data = fileLines[i].Split(';');
-                        transformatorsCalser.Add(new TransformatorInfo()
+                        // Auto-detect format, supports:
+                        //  - Binary Excel files (2.0-2003 format; *.xls)
+                        //  - OpenXml Excel files (2007 format; *.xlsx, *.xlsb)
+                        using (var reader = ExcelReaderFactory.CreateReader(stream))
                         {
-                            Code = data[0],
-                            Name = data[1],
-                            Power = float.Parse(data[2]),
-                            CityINE = data[3]
-                        });
+                            do
+                            {
+                                List<List<object>> data = new List<List<object>>();
+                                while (reader.Read())
+                                {
+                                    data.Add(new List<object>(reader.FieldCount));
+                                    for (int column = 0; column < reader.FieldCount; column++)
+                                    {
+                                        string dataType = reader.GetString(column);
+                                        int b = 2;
+                                    }
+                                    var a = reader.GetDouble(0);
+                                }
+                            } while (reader.NextResult());
+                        }
                     }
                 }
 
@@ -683,127 +693,11 @@ namespace ReasignAddressesCAP32
                 {
                     using (var context = new TedisNetEntities())
                     {
-                        // Manage ELementTypes
-                        var elementTypeCT = new ElementType()
-                        {
-                            Name = "CT",
-                            Description = "CT",
-                            ColorPropagationTypeId = 3
-                        };
-                        context.ElementTypes.Add(elementTypeCT);
-                        // Rename Ex CT to Trafo
-                        var elType1 = context.ElementTypes.Find(118); // CT COMPAÑIA
-                        elType1.Name = "TR COMPAÑIA";
-                        elType1.Description = "TR COMPAÑIA";
-                        var elType2 = context.ElementTypes.Find(123); // CT PARTICULAR
-                        elType2.Name = "TR PARTICULAR";
-                        elType2.Description = "TR PARTICULAR";
-                        // Save changes of Element types
-                        context.SaveChanges();
-
-                        var elements = context.Elements.Where(e => !e.Name.StartsWith("/RED/OBSOLETOS/")
-                            && (e.ElementTypeId == 118 || e.ElementTypeId == 123) && e.Comments != "+CT+" && e.Comments != "+TRAFO+"
-                            && e.Comments != "+TRAFO+LABEL")
-                            .OrderBy(e => e.ShortName).ToList();
-
+                        List<string> elements = new List<string>();
                         for (int i = 0; i < elements.Count; i++)
                         {
-                            var tedisTransf = elements[i];
-                            tedisTransf.ShortName = tedisTransf.ShortName.Trim();
-
-                            // Get Calser equal
-                            string labelText = tedisTransf.ShortName; // label 2 parts (Code Name) or 1 part (Code)
-                            var calserTransf = transformatorsCalser.Where(tr => tedisTransf.ShortName.StartsWith(tr.Code)).SingleOrDefault();
-                            if (calserTransf == null)
-                            {
-                                info += Environment.NewLine + $"{tedisTransf.ShortName}";
-                                continue;
-                            }
-
-                            // Add CT level
-                            var posLastSign = tedisTransf.Name.LastIndexOf('/');
-                            var parentName = tedisTransf.Name.Substring(0, posLastSign);
-                            var newCT = new Element()
-                            {
-                                Name = $"{parentName}/{calserTransf.Name}:CT",
-                                ShortName = calserTransf.Name,
-                                Comments = "+CT+",
-                                ElementTypeId = elementTypeCT.Id,
-                                ParentElement = tedisTransf.ParentElement,
-                                ParentElementId = tedisTransf.ParentElementId,
-                                StateTagId = null,
-                                StateCommandId = null,
-                                ExportCode = null,
-                                IsEnabled = true
-                            };
-                            context.Elements.Add(newCT);
                             context.SaveChanges();
-
-                            // Update transformer
-                            tedisTransf.Name = $"{parentName}/{calserTransf.Name}/{calserTransf.Code}:TR";
-                            tedisTransf.Comments = tedisTransf.ShortName != calserTransf.Code ? "+TRAFO+LABEL" : "+TRAFO+";
-                            tedisTransf.ShortName = calserTransf.Code;
-                            tedisTransf.ParentElementId = newCT.Id;
-                            tedisTransf.ParentElement = newCT;
-                            context.SaveChanges();
-
-                            // Change transformer children to CT children
-                            var transformerChildren = context.Elements.Where(e => e.ParentElementId == tedisTransf.Id).ToList();
-                            foreach (var child in transformerChildren)
-                            {
-                                child.ParentElement = newCT;
-                                child.ParentElementId = newCT.Id;
-                                RefreshFullName(child, context);
-                            }
-                            context.SaveChanges();
-
-                            // Get info current label
-                            List<InfoLabel> infoLabels = new List<InfoLabel>();
-                            var elementId = tedisTransf.Id;
-                            var nodes = context.Nodes.Where(n => n.ElementId == elementId).ToList();
-                            foreach (var node in nodes)
-                            {
-                                var nodePosition = context.NodePositions.Where(np => np.NodeId == node.Id).Single();
-                                if (nodePosition.IsLabelVisible)
-                                {
-                                    infoLabels.Add(new InfoLabel()
-                                    {
-                                        PositionX = nodePosition.LabelX ?? 1,
-                                        PositionY = nodePosition.LabelY ?? 1,
-                                        Text = labelText
-                                    });
-                                    // Hide old label
-                                    nodePosition.IsLabelVisible = false;
-                                }
-                            }
-
-                            // Add new label
-                            foreach (var infoLabel in infoLabels)
-                            {
-                                var control = new Control()
-                                {
-                                    Name = $"Etiqueta estática.GRA. ANTOÑILLO",
-                                    ControlTypeId = 1, // Static control
-                                    Text = infoLabel.Text,
-                                    ForegroundColor = "White",
-                                    BackgroundColor = "Black",
-                                    FontSize = 12,
-                                    NetworkId = 1,
-                                    RotationAngle = 0,
-                                    IsEnabled = true
-                                };
-                                context.Controls.Add(control);
-                                context.SaveChanges();
-                                context.ControlPositions.Add(new ControlPosition()
-                                {
-                                    ControlId = control.Id,
-                                    LayoutId = 1,
-                                    X = infoLabel.PositionX,
-                                    Y = infoLabel.PositionY
-                                });
-                            }
-                            context.SaveChanges();
-                            NumElementsUpdated = $"Updated {i + 1} / {elements.Count}";
+                            NumElementsUpdated = $"Created {i + 1} / {elements.Count}";
                         }
                     }
                 }
