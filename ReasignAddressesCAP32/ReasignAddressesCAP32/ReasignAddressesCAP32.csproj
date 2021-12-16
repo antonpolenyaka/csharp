@@ -129,6 +129,8 @@
     <Compile Include="Model\NodePosition.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PrimeDeviceInfo.cs" />
+    <Compile Include="PrimeSignalInfo.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TransformatorInfo.cs" />
     <Page Include="MainWindow.xaml">

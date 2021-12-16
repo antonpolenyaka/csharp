@@ -59,6 +59,6 @@
                VerticalAlignment="Center"/>
         <Button Grid.Row="10" 
                 Command="{Binding AddNewConcentratorPRIMECommand}"
-                Margin="10,0,10,0" Content="{Binding NumElementsUpdated, FallbackValue='Start'}" />
+                Margin="10,0,10,0" Content="{Binding NumCncCreated, FallbackValue='Start'}" />
     </Grid>
 </Window>

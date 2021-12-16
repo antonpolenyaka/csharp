@@ -22,6 +22,7 @@ namespace ReasignAddressesCAP32
         private List<Device> _devices;
         private Device _selectedDevice;
         public string _numElementsUpdated = "Start";
+        public string _numCncCreated = "Start";
         #endregion
 
         #region Properties
@@ -51,6 +52,16 @@ namespace ReasignAddressesCAP32
             set
             {
                 _numElementsUpdated = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string NumCncCreated
+        {
+            get => _numCncCreated;
+            set
+            {
+                _numCncCreated = value;
                 OnPropertyChanged();
             }
         }
@@ -646,7 +657,8 @@ namespace ReasignAddressesCAP32
         {
             string error = "";
             bool isOk = true;
-            string info = "Dibujados, pero no se encuentran en el fichero del Calser:";
+            int line = 0;
+            int column = 0;
             try
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -661,28 +673,76 @@ namespace ReasignAddressesCAP32
                     filePath = openFileDialog.FileName;
                 }
 
+                bool useFirstRow = true;
+                if (MessageBox.Show("Saltar primera fila?", "Uso de fila", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    useFirstRow = false;
+                }
+
+                List<PrimeDeviceInfo> dataConcentrators = new List<PrimeDeviceInfo>();
                 if (isOk)
                 {
-                    var file = new FileInfo(fileName: filePath);
-                    using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                    FileInfo file = new FileInfo(fileName: filePath);
+                    using (FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                     {
                         // Auto-detect format, supports:
                         //  - Binary Excel files (2.0-2003 format; *.xls)
                         //  - OpenXml Excel files (2007 format; *.xlsx, *.xlsb)
-                        using (var reader = ExcelReaderFactory.CreateReader(stream))
+                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
                         {
                             do
                             {
-                                List<List<object>> data = new List<List<object>>();
                                 while (reader.Read())
                                 {
-                                    data.Add(new List<object>(reader.FieldCount));
-                                    for (int column = 0; column < reader.FieldCount; column++)
+                                    line++;
+                                    if (!useFirstRow && line == 1)
                                     {
-                                        string dataType = reader.GetString(column);
-                                        int b = 2;
+                                        continue;
                                     }
-                                    var a = reader.GetDouble(0);
+
+                                    PrimeDeviceInfo lineData = new PrimeDeviceInfo();
+                                    for (column = 0; column < reader.FieldCount; column++)
+                                    {
+                                        switch (column)
+                                        {
+                                            case 0:
+                                                lineData.ConcentratorName = TryGetString(reader, column);
+                                                break;
+                                            case 1:
+                                                lineData.ConcentratorID = TryGetString(reader, column);
+                                                break;
+                                            case 2:
+                                                lineData.ConcentratorAddress = TryGetInt(reader, column);
+                                                break;
+                                            case 3:
+                                                lineData.ConcentratorSignals = TryGetIntArray(reader, column);
+                                                break;
+                                            case 4:
+                                                lineData.StoryInterval = TryGetInt(reader, column);
+                                                break;
+                                            case 5:
+                                                lineData.MeterName = TryGetString(reader, column);
+                                                break;
+                                            case 6:
+                                                lineData.MeterID = TryGetString(reader, column);
+                                                break;
+                                            case 7:
+                                                lineData.ConcentratorWSUrl = TryGetString(reader, column);
+                                                break;
+                                            case 8:
+                                                lineData.MeterMarca = TryGetString(reader, column);
+                                                break;
+                                            case 9:
+                                                lineData.MeterModel = TryGetString(reader, column);
+                                                break;
+                                            case 10:
+                                                lineData.ConcentratorPrimeVersion = TryGetString(reader, column);
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    dataConcentrators.Add(lineData);
                                 }
                             } while (reader.NextResult());
                         }
@@ -691,17 +751,164 @@ namespace ReasignAddressesCAP32
 
                 if (isOk)
                 {
-                    using (var context = new TedisNetEntities())
+                    using (TedisNetEntities context = new TedisNetEntities())
                     {
-                        List<string> elements = new List<string>();
-                        for (int i = 0; i < elements.Count; i++)
+                        NumCncCreated = $"Create tag class";
+                        Dictionary<int, TagClass> tagClassBySignalId = CreatedTagClasses(context, dataConcentrators);
+
+                        for (int i = 0; i < dataConcentrators.Count; i++)
                         {
+                            string baseInfo = $"Work in {i + 1} / {dataConcentrators.Count}";
+                            var data = dataConcentrators[i];
+
+                            // Create concentrator
+                            NumCncCreated = $"{baseInfo} (Concentrator)";
+                            var cnc = new Device()
+                            {
+                                Name = data.ConcentratorName,
+                                ShortName = data.ConcentratorName,
+                                Address = data.ConcentratorAddress,
+                                // 81 Conc-v21
+                                // 82 Conc-v30
+                                // 83 Conc-v31
+                                // 84 Conc-v31C
+                                DeviceTypeId = 84, // Conc-v31C
+                            };
+                            context.Devices.Add(cnc);
                             context.SaveChanges();
-                            NumElementsUpdated = $"Created {i + 1} / {elements.Count}";
+
+                            // Create SYS tags for concentrator
+                            NumCncCreated = $"{baseInfo} (Sys tags for Concentrator)";
+                            Tag sysStateTagCnc = new Tag()
+                            {
+                                ShortName = "SYS.CONNECTION",
+                                Name = $"{cnc.Name}/SYS.CONNECTION",
+                                Comments = $"Estado de conexión en dispositivo {cnc.ShortName}",
+                                DeviceId = cnc.Id,
+                                TagClassId = 9 // 9 SYS.Estado Dispositivo
+                            };
+                            context.Tags.Add(sysStateTagCnc);
+                            Tag sysPetTagCnc = new Tag()
+                            {
+                                ShortName = "SYS.PETCONNECTION",
+                                Name = $"{cnc.Name}/SYS.PETCONNECTION",
+                                Comments = $"Cambio de estado de conexión en dispositivo {cnc.ShortName}",
+                                DeviceId = cnc.Id,
+                                TagClassId = 10 // 10 SYS.Cambio Estado Dispositivo
+                            };
+                            context.Tags.Add(sysPetTagCnc);
+                            context.SaveChanges();
+
+                            cnc.ConnectionStateTagId = sysStateTagCnc.Id;
+                            cnc.ConnectionPetStateTagId = sysPetTagCnc.Id;
+                            context.SaveChanges();
+
+                            // Create meter
+                            NumCncCreated = $"{baseInfo} (Meter)";
+                            var meter = new Device()
+                            {
+                                ShortName = data.MeterName,
+                                Name = $"{cnc.Name}/{data.MeterName}",
+                                DeviceTypeId = 30, // 30 Otros
+                                ParentDeviceId = cnc.Id,
+                            };
+                            context.Devices.Add(meter);
+                            context.SaveChanges();
+
+                            // Create SYS tags for meter
+                            NumCncCreated = $"{baseInfo} (Sys tags for Meter)";
+                            Tag sysStateTagMeter = new Tag()
+                            {
+                                ShortName = "SYS.CONNECTION",
+                                Name = $"{meter.Name}/SYS.CONNECTION",
+                                Comments = $"Estado de conexión en dispositivo {meter.ShortName}",
+                                DeviceId = meter.Id,
+                                TagClassId = 9 // 9 SYS.Estado Dispositivo
+                            };
+                            context.Tags.Add(sysStateTagMeter);
+                            Tag sysPetTagMeter = new Tag()
+                            {
+                                ShortName = "SYS.PETCONNECTION",
+                                Name = $"{meter.Name}/SYS.PETCONNECTION",
+                                Comments = $"Cambio de estado de conexión en dispositivo {cnc.ShortName}",
+                                DeviceId = meter.Id,
+                                TagClassId = 10 // 10 SYS.Cambio Estado Dispositivo
+                            };
+                            context.Tags.Add(sysPetTagMeter);
+                            context.SaveChanges();
+
+                            meter.ConnectionStateTagId = sysStateTagMeter.Id;
+                            meter.ConnectionPetStateTagId = sysPetTagMeter.Id;
+                            context.SaveChanges();
+
+                            // Create all necesary tags
+                            NumCncCreated = $"{baseInfo} (Meter Tags)";
+                            CreateMeterTags(context, data, tagClassBySignalId, meter);
+
+                            // Create CC port for concentrator. CC Device Id 1
+                            NumCncCreated = $"{baseInfo} (Port CC)";
+                            Port portCC = new Port()
+                            {
+                                DeviceId = 1, // 1 CC
+                                ShortName = $"PrimePort{data.ConcentratorAddress}",
+                                Name = $"CC/PrimePort{data.ConcentratorAddress}",
+                                ProtocolId = 24, // 24 Prime
+                                DriverId = 11, // 11 Prime Master
+                                Priority = 1,
+                                IsMaster = true,
+                                IpModeId = 1 // 1 TCP
+                            };
+                            context.Ports.Add(portCC);
+
+                            // Create port for concentrator
+                            NumCncCreated = $"{baseInfo} (Port Concentrator)";
+                            Port portCnc = new Port()
+                            {
+                                DeviceId = cnc.Id,
+                                ShortName = "PrimePort",
+                                Name = $"{cnc.Name}/PrimePort",
+                                Address = data.ConcentratorAddress,
+                                ProtocolId = 24, // 24 Prime
+                                DriverId = 11, // 11 Prime Master
+                                IpModeId = 1, // 1 TCP
+                                Uri = data.ConcentratorWSUrl,
+                                Priority = 1,
+                                IsMaster = false,
+                                ExportPath = data.ConcentratorID
+                            };
+                            context.Ports.Add(portCnc);
+
+                            // Create port for meter
+                            NumCncCreated = $"{baseInfo} (Port Meter)";
+                            Port portMeter = new Port()
+                            {
+                                DeviceId = meter.Id,
+                                ShortName = "PrimePort",
+                                Name = $"{meter.Name}/PrimePort",
+                                Priority = 1,
+                                IsMaster = false,
+                                ExportPath = data.MeterID
+                            };
+                            context.Ports.Add(portMeter);
+                            context.SaveChanges();
+
+                            // Create channel between port concentrator and CC
+                            NumCncCreated = $"{baseInfo} (Channel)";
+                            Channel channel = new Channel()
+                            {
+                                Name = $"{portCC.Name}->{portCnc.Name}",
+                                MasterPortId = portCC.Id,
+                                SlavePortId = portCnc.Id,
+                                ProtocolId = 24 // 24 Prime
+                            };
+                            context.Channels.Add(channel);
+                            context.SaveChanges();
+
+                            NumCncCreated = $"Created {i + 1} / {dataConcentrators.Count}";
                         }
                     }
                 }
-                NumElementsUpdated = $"Start (Last: {DateTime.Now:HH:mm:ss})";
+                NumCncCreated = $"Start (Last: {DateTime.Now:HH:mm:ss})";
             }
             catch (Exception ex)
             {
@@ -711,12 +918,170 @@ namespace ReasignAddressesCAP32
 
             if (isOk)
             {
-                MessageBox.Show($"Ok. {info}", "Ok", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Ok 100%", "Ok", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show($"Error: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error: {error}. Line?={line}, column?={column}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void CreateMeterTags(TedisNetEntities context, PrimeDeviceInfo data, Dictionary<int, TagClass> tagClassInfoBySignalId,
+            Device meter)
+        {
+            foreach (int signalId in data.ConcentratorSignals)
+            {
+                PrimeSignalInfo signalInfo = PrimeSignalInfo.GetInfoById(signalId);
+                TagClass tagClass = tagClassInfoBySignalId[signalId];
+                Tag tag = new Tag()
+                {
+                    Name = $"{meter.Name}/{tagClass.Name}",
+                    ShortName = tagClass.Name,
+                    TelecontrolAddress = signalId,
+                    DeviceId = meter.Id,
+                    TagClassId = tagClass.Id,
+                    StoreInterval = data.StoryInterval,
+                    SourceValueTypeId = GetSourceValueTypeId(signalInfo.DataType) // don't use from tag class, is possible be different
+                };
+                context.Tags.Add(tag);
+            }
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Return key - signal id, value - tag class
+        /// </summary>
+        private Dictionary<int, TagClass> CreatedTagClasses(TedisNetEntities context, List<PrimeDeviceInfo> dataConcentrators)
+        {
+            Dictionary<int, TagClass> items = new Dictionary<int, TagClass>();
+
+            List<int> allNecesarySignals = new List<int>();
+            foreach (PrimeDeviceInfo dataCnc in dataConcentrators)
+            {
+                foreach (int signalId in dataCnc.ConcentratorSignals)
+                {
+                    if (allNecesarySignals.Contains(signalId)) continue;
+                    allNecesarySignals.Add(signalId);
+                }
+            }
+
+            foreach (int signalId in allNecesarySignals)
+            {
+                PrimeSignalInfo signal = PrimeSignalInfo.GetInfoById(signalId);
+                if (signal == null) continue;
+
+                // Check if we have already same TagClass
+                TagClass tagClass = context.TagClasses.FirstOrDefault(tc => tc.Name == signal.Description);
+                if (tagClass == null)
+                {
+                    // Create new tag class
+                    tagClass = new TagClass()
+                    {
+                        Name = signal.Description,
+                        Description = signal.Description.Substring(3), // Name without "AI." in the start
+                        Comments = signal.Description.Substring(3), // Name without "AI." in the start
+                        ValueTypeId = GetValueTypeId(signal.DataType),
+                        ParentTagClassId = 3, // 3 AI
+                        Units = signal.Units,
+                        Format = "##0.0",
+                        SourceValueCodecId = 1, // 1 Defecto
+                        SourceValueTypeId = GetSourceValueTypeId(signal.DataType)
+                    };
+                    context.TagClasses.Add(tagClass);
+                    context.SaveChanges();
+                }
+                // Save relation signal id <=> tag class id
+                items.Add(signalId, tagClass);
+            }
+
+            return items;
+        }
+
+        private int? GetValueTypeId(string dataType)
+        {
+            int? result;
+            // 11  Entero
+            // 2   Flotante
+            // 12  Cadena
+            switch (dataType)
+            {
+                case "Float32":
+                    result = 2;
+                    break;
+                case "Int32":
+                    result = 11;
+                    break;
+                case "String":
+                    result = 12;
+                    break;
+                default:
+                    result = null;
+                    break;
+            }
+            return result;
+        }
+
+        private int? GetSourceValueTypeId(string dataType)
+        {
+            int? result;
+            // 1   Int32   Entero 32 bits con signo, en Complemento a 2 Int32
+            // 4   Float32 Flotante precisión simple(32 bits) Single
+            // 8   String  Cadena genérica String
+            switch (dataType)
+            {
+                case "Float32":
+                    result = 4;
+                    break;
+                case "Int32":
+                    result = 1;
+                    break;
+                case "String":
+                    result = 8;
+                    break;
+                default:
+                    result = null;
+                    break;
+            }
+            return result;
+        }
+
+        private List<int> TryGetIntArray(IExcelDataReader reader, int column)
+        {
+            List<int> result = new List<int>();
+
+            string allValuesStr = reader.GetString(column);
+            string[] valuesStr = allValuesStr.Split(',');
+            foreach (string valueStr in valuesStr)
+            {
+                result.Add(int.Parse(valueStr));
+            }
+
+            return result;
+        }
+
+        private int TryGetInt(IExcelDataReader reader, int column)
+        {
+            int? result = null;
+
+            try
+            {
+                string resultStr = reader.GetString(column);
+                result = int.Parse(resultStr);
+            }
+            catch { }
+
+            if (!result.HasValue)
+            {
+                double resultDouble = reader.GetDouble(column);
+                result = (int)resultDouble;
+            }
+
+            return result ?? -1;
+        }
+
+        private string TryGetString(IExcelDataReader reader, int column)
+        {
+            return reader.GetString(column);
         }
 
         private void BtnStartCalserElementModify_Click(object sender, RoutedEventArgs args)
