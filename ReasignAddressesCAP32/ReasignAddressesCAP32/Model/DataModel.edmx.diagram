@@ -44,6 +44,16 @@
         <AssociationConnector Association="TedisNetModel.FK_NodePositions_Node" />
         <EntityTypeShape EntityType="TedisNetModel.ControlPosition" Width="1.5" PointX="18.125" PointY="5.625" />
         <AssociationConnector Association="TedisNetModel.FK_ControlPositions_Controls" />
+        <EntityTypeShape EntityType="TedisNetModel.TagScale" Width="1.5" PointX="10" PointY="3.875" />
+        <AssociationConnector Association="TedisNetModel.FK_TagScales_Tags" />
+        <EntityTypeShape EntityType="TedisNetModel.Command" Width="1.5" PointX="10" PointY="0.75" />
+        <AssociationConnector Association="TedisNetModel.FK_Commands_LinkedTags" />
+        <AssociationConnector Association="TedisNetModel.FK_Commands_Tags" />
+        <AssociationConnector Association="TedisNetModel.FK_Elements_StateCommand" />
+        <EntityTypeShape EntityType="TedisNetModel.CommandClass" Width="1.5" PointX="3" PointY="11.375" />
+        <AssociationConnector Association="TedisNetModel.FK_CommandClass_LinkedTagClass" />
+        <AssociationConnector Association="TedisNetModel.FK_CommandClass_TagClass" />
+        <AssociationConnector Association="TedisNetModel.FK_ElementTypes_CommandClass" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

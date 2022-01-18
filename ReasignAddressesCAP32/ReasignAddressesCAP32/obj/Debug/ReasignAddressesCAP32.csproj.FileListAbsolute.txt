@@ -69,3 +69,8 @@ C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\bin\Debug\zh-Hans\X
 C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\bin\Debug\ExcelDataReader.dll
 C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\bin\Debug\ExcelDataReader.pdb
 C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\bin\Debug\ExcelDataReader.xml
+C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\obj\Debug\IEC104\New104DeviceWindow.g.cs
+C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\obj\Debug\IEC104\New104DeviceWindow.baml
+C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\bin\Debug\ExcelDataReader.DataSet.dll
+C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\bin\Debug\ExcelDataReader.DataSet.pdb
+C:\GitHub\csharp\ReasignAddressesCAP32\ReasignAddressesCAP32\bin\Debug\ExcelDataReader.DataSet.xml

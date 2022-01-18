@@ -47,6 +47,9 @@
     <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
     </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.2.2.0\lib\net462\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
@@ -77,6 +80,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -110,7 +114,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\TagClassType.cs" />
+    <Compile Include="IEC104\Info104.cs" />
+    <Compile Include="IEC104\TagInfo.cs" />
+    <Compile Include="IEC104\New104DeviceWindow.xaml.cs">
+      <DependentUpon>New104DeviceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InfoLabel.cs" />
+    <Compile Include="Model\Command.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CommandClass.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Control.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -129,10 +145,20 @@
     <Compile Include="Model\NodePosition.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TagScale.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PrimeDeviceInfo.cs" />
     <Compile Include="PrimeSignalInfo.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TransformatorInfo.cs" />
+    <Compile Include="Utils\DBUtils.cs" />
+    <Compile Include="Utils\ExcelUtils.cs" />
+    <Compile Include="Utils\TagClassUtility.cs" />
+    <Page Include="IEC104\New104DeviceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

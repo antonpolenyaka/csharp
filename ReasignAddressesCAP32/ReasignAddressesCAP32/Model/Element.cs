@@ -45,5 +45,6 @@ namespace ReasignAddressesCAP32.Model
         public virtual ICollection<Control> Controls { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Node> Nodes { get; set; }
+        public virtual Command Command { get; set; }
     }
 }

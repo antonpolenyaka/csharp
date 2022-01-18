@@ -1,9 +1,13 @@
 ﻿using ExcelDataReader;
 using Microsoft.Win32;
+using ReasignAddressesCAP32.Core;
+using ReasignAddressesCAP32.IEC104;
 using ReasignAddressesCAP32.Model;
+using ReasignAddressesCAP32.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -32,7 +36,7 @@ namespace ReasignAddressesCAP32
             set
             {
                 _devices = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Devices));
             }
         }
 
@@ -42,7 +46,7 @@ namespace ReasignAddressesCAP32
             set
             {
                 _selectedDevice = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedDevice));
             }
         }
 
@@ -52,7 +56,7 @@ namespace ReasignAddressesCAP32
             set
             {
                 _numElementsUpdated = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(NumElementsUpdated));
             }
         }
 
@@ -62,13 +66,14 @@ namespace ReasignAddressesCAP32
             set
             {
                 _numCncCreated = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(NumCncCreated));
             }
         }
         #endregion
 
         #region Commands
         public ICommand AddNewConcentratorPRIMECommand { get; set; }
+        public ICommand AddNewDevice104AndTagClassCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -76,7 +81,9 @@ namespace ReasignAddressesCAP32
         {
             InitializeComponent();
             DataContext = this;
-            AddNewConcentratorPRIMECommand = new RelayCommand((param) => Task.Run(() => AddNewConcentratorPRIME()), param => true);
+            AddNewConcentratorPRIMECommand = new RelayCommand((param) =>
+                Task.Run(() => AddNewConcentratorPRIME()), param => true);
+            AddNewDevice104AndTagClassCommand = new RelayCommand((param) => AddNewDevice104AndTagClass(), param => true);
         }
         #endregion
 
@@ -653,6 +660,148 @@ namespace ReasignAddressesCAP32
             }
         }
 
+        private void AddNewDevice104AndTagClass()
+        {
+            string error = "";
+            bool isOk = true;
+            int line = 0;
+            int column = 0;
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Filter = "Excel file (*.xlsx,*.xlsb,*.xls)|*.xlsx;*.xlsb;*.xls"
+                };
+                string filePath = null;
+                if (openFileDialog.ShowDialog() != true || !File.Exists(openFileDialog.FileName))
+                {
+                    isOk = false;
+                }
+                else
+                {
+                    filePath = openFileDialog.FileName;
+                }
+
+                Info104 config = null;
+                if (isOk)
+                {
+                    New104DeviceWindow window = new New104DeviceWindow();
+                    isOk = window.ShowDialog() ?? false;
+
+                    config = new Info104()
+                    {
+                        DeviceName = window.DeviceName,
+                        ColumnTagClassName = window.ColumnTagClassName,
+                        ColumnTagIOA = window.ColumnTagIOA,
+                        ColumnTagScale = window.ColumnTagScale,
+                        ColumnTagUnits = window.ColumnTagUnits,
+                        DeviceType = window.DeviceType,
+                        FirstTagInfoRow = window.FirstTagInfoRow,
+                        ExcelSheetName = window.ExcelSheetName,
+                        IoaFormat = window.IoaFormat
+                    };
+                }
+
+                if (isOk)
+                {
+                    FileInfo file = new FileInfo(fileName: filePath);
+                    using (FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                    {
+                        // Auto-detect format, supports:
+                        //  - Binary Excel files (2.0-2003 format; *.xls)
+                        //  - OpenXml Excel files (2007 format; *.xlsx, *.xlsb)
+                        using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                        {
+                            DataTable ds = reader.AsDataSet().Tables[config.ExcelSheetName];
+                            //var readerDS = ds.CreateDataReader();
+                            for (line = config.FirstTagInfoRow; line < ds.Rows.Count; line++)
+                            {
+                                TagInfo tagInfo = new TagInfo();
+                                // IOA
+                                column = ExcelUtils.ColumnNameToIndex(config.ColumnTagIOA);
+                                DataRow row = ds.Rows[line];
+                                int ioa = TryGetInt(row, column);
+                                if (ioa > 0)
+                                {
+                                    tagInfo.IOA = ioa;
+                                    // ClassName
+                                    column = ExcelUtils.ColumnNameToIndex(config.ColumnTagClassName);
+                                    tagInfo.ClassName = TryGetString(row, column);
+                                    // Name & ShortName
+                                    string prefix = tagInfo.ClassName.Substring(0, 3);
+                                    tagInfo.Name = $"{config.DeviceName}/{prefix}{tagInfo.IOA}";
+                                    tagInfo.ShortName = $"{prefix}{tagInfo.IOA}";
+                                    // Scale
+                                    column = ExcelUtils.ColumnNameToIndex(config.ColumnTagScale);
+                                    double scale = TryGetDouble(row, column);
+                                    tagInfo.Scale = scale == -1 ? 1 : scale;
+                                    // Units
+                                    column = ExcelUtils.ColumnNameToIndex(config.ColumnTagUnits);
+                                    tagInfo.Units = TryGetString(row, column);
+                                    tagInfo.SourceRow = line;
+
+                                    config.TagInfos.Add(tagInfo);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (isOk)
+                {
+                    using (TedisNetEntities context = new TedisNetEntities())
+                    {
+                        Dictionary<string, TagClass> tagClassByName = CreatedTagClasses(context, config.TagInfos);
+
+                        // Create device
+                        string uniqueDeviceName = DBUtils.GetUniqueDeviceName(context, baseDeviceName: config.DeviceName);
+                        Device device = DBUtils.CreateDeviceAndSave(context, uniqueDeviceName, config.DeviceType);
+
+                        // Create CC port for device if not exist. CC Device Id 1
+                        Port portCC = DBUtils.CreatePortCCIEC104(context);
+
+                        // Create port for device
+                        Port portDevice = DBUtils.CreatePortDeviceIEC104(context, device.Id, device.Name);
+
+                        // Create channel between port concentrator and CC
+                        Channel channel = DBUtils.CreateChannelAndSave(context, portCC, portDevice);
+
+                        // Create all necesary tags
+                        foreach (var tagInfo in config.TagInfos)
+                        {
+                            TagClass tagClass = tagClassByName[tagInfo.ClassName];
+
+                            // Tag
+                            (_, TagClassType classType, _) = TagClassUtility.DetectTagClassTypeByName(tagInfo.ClassName);
+                            DBUtils.CreateTagIEC104AndSave(context,
+                                tagInfo.IOA,
+                                config.IoaFormat,
+                                device.Name,
+                                device.Id,
+                                tagClass.Id,
+                                tagClass.SourceValueTypeId,
+                                tagInfo.Scale,
+                                classType);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message + ex.StackTrace;
+                isOk = false;
+            }
+
+            if (isOk)
+            {
+                MessageBox.Show($"Ok 100%", "Ok", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Error: {error}. Line?={line}, column?={column}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void AddNewConcentratorPRIME()
         {
             string error = "";
@@ -866,7 +1015,7 @@ namespace ReasignAddressesCAP32
                             {
                                 DeviceId = cnc.Id,
                                 ShortName = "PrimePort",
-                                Name = $"{cnc.Name}/PrimePort",
+                                Name = $"{cnc.Name}:PrimePort",
                                 Address = data.ConcentratorAddress,
                                 ProtocolId = 24, // 24 Prime
                                 DriverId = 11, // 11 Prime Master
@@ -884,7 +1033,7 @@ namespace ReasignAddressesCAP32
                             {
                                 DeviceId = meter.Id,
                                 ShortName = "PrimePort",
-                                Name = $"{meter.Name}/PrimePort",
+                                Name = $"{meter.Name}:PrimePort",
                                 Priority = 1,
                                 IsMaster = false,
                                 ExportPath = data.MeterID
@@ -997,6 +1146,95 @@ namespace ReasignAddressesCAP32
             return items;
         }
 
+        private Dictionary<string, TagClass> CreatedTagClasses(TedisNetEntities context, List<TagInfo> tagInfos)
+        {
+            Dictionary<string, TagClass> items = new Dictionary<string, TagClass>();
+
+            foreach (var tagInfo in tagInfos)
+            {
+                if (items.ContainsKey(tagInfo.ClassName)) continue;
+                // Check if we have already same TagClass
+                TagClass tagClass = context.TagClasses.FirstOrDefault(tc => tc.Name == tagInfo.ClassName);
+                if (tagClass == null)
+                {
+                    (bool result, TagClassType classType, string dataType) = TagClassUtility.DetectTagClassTypeByName(tagInfo.ClassName);
+                    if (!result)
+                    {
+                        throw new Exception("Tipo de clase desconocida");
+                    }
+                    // Create new tag class
+                    tagClass = new TagClass()
+                    {
+                        Name = tagInfo.ClassName,
+                        Description = tagInfo.ClassName.Substring(3), // Name without "AI." in the start
+                        Comments = tagInfo.ClassName.Substring(3) // Name without "AI." in the start                        
+                    };
+                    switch (classType)
+                    {
+                        case TagClassType.AI:
+                            tagClass.ValueTypeId = 2; // 2 = Float
+                            tagClass.ParentTagClassId = 3; // 3 = AI
+                            tagClass.Units = tagInfo.Units;
+                            tagClass.Format = "##0.0";
+                            tagClass.SourceValueCodecId = 1; // 1 = Defecto
+                            tagClass.SourceValueTypeId = 4; // 4 = Float32
+                            tagClass.StoreInterval = 300;
+                            break;
+                        case TagClassType.AO:
+                            tagClass.ValueTypeId = 2; // 2 = Float
+                            tagClass.ParentTagClassId = 36; // 36 = AO
+                            tagClass.Format = "###";
+                            tagClass.SourceValueTypeId = 1; // 1 = Int32
+                            break;
+                        case TagClassType.DI:
+                            tagClass.ShortDescription = string.Empty;
+                            tagClass.ValueTypeId = 3; // 3 = Off/On
+                            tagClass.ParentTagClassId = 1; // 1 = DI
+                            tagClass.EventTypeId = 2; // 2 = Aviso
+                            tagClass.Format = "##########";
+                            tagClass.ActivationTime = (double)0.02;
+                            tagClass.SendPriorityId = 1;
+                            tagClass.SourceValueCodecId = 1; // 1 = Defecto
+                            tagClass.SourceValueTypeId = 1; // 1 = Int32
+                            break;
+                        case TagClassType.DO:
+                            tagClass.ValueTypeId = 6; // 6 = Activar
+                            tagClass.ParentTagClassId = 5; // 5 = DO
+                            tagClass.Format = "#####";
+                            tagClass.SourceValueTypeId = 1; // 1 = Defecto
+                            break;
+                    }
+                    context.TagClasses.Add(tagClass);
+                    context.SaveChanges();
+
+                    // Create command class if this tag class is command
+                    switch (classType)
+                    {
+                        case TagClassType.AO:
+                            {
+                                CommandClass commandClass = new CommandClass();
+                                commandClass.TagClassId = tagClass.Id;
+                                commandClass.SelectBeforeExecute = false;
+                                context.SaveChanges();
+                            }
+                            break;
+                        case TagClassType.DO:
+                            {
+                                CommandClass commandClass = new CommandClass();
+                                commandClass.TagClassId = tagClass.Id;
+                                commandClass.SelectBeforeExecute = true;
+                                context.SaveChanges();
+                            }
+                            break;
+                    }
+                }
+                // Save relation signal id <=> tag class id
+                items.Add(tagInfo.ClassName, tagClass);
+            }
+
+            return items;
+        }
+
         private int? GetValueTypeId(string dataType)
         {
             int? result;
@@ -1045,10 +1283,10 @@ namespace ReasignAddressesCAP32
             return result;
         }
 
-        private List<int> TryGetIntArray(IExcelDataReader reader, int column)
+        private List<int> TryGetIntArray(IDataRecord reader, int column)
         {
             List<int> result = new List<int>();
-
+            object value = reader.GetValue(column);
             string allValuesStr = reader.GetString(column);
             string[] valuesStr = allValuesStr.Split(',');
             foreach (string valueStr in valuesStr)
@@ -1059,10 +1297,34 @@ namespace ReasignAddressesCAP32
             return result;
         }
 
-        private int TryGetInt(IExcelDataReader reader, int column)
+        private int TryGetInt(DataRow row, int column)
         {
             int? result = null;
+            object value = row[column];
+            try
+            {
+                string resultStr = (string)row[column];
+                result = int.Parse(resultStr);
+            }
+            catch { }
 
+            try
+            {
+                if (!result.HasValue)
+                {
+                    double resultDouble = (double)row[column];
+                    result = (int)resultDouble;
+                }
+            }
+            catch { }
+
+            return result ?? -1;
+        }
+
+        private int TryGetInt(IDataRecord reader, int column)
+        {
+            int? result = null;
+            object value = reader.GetValue(column);
             try
             {
                 string resultStr = reader.GetString(column);
@@ -1070,18 +1332,87 @@ namespace ReasignAddressesCAP32
             }
             catch { }
 
-            if (!result.HasValue)
+            try
             {
-                double resultDouble = reader.GetDouble(column);
-                result = (int)resultDouble;
+                if (!result.HasValue)
+                {
+                    double resultDouble = reader.GetDouble(column);
+                    result = (int)resultDouble;
+                }
             }
+            catch { }
 
             return result ?? -1;
         }
 
-        private string TryGetString(IExcelDataReader reader, int column)
+        private double TryGetDouble(DataRow row, int column)
         {
-            return reader.GetString(column);
+            double? result = null;
+            object value = row[column];
+            try
+            {
+                string resultStr = (string)row[column];
+                result = double.Parse(resultStr);
+            }
+            catch { }
+
+            try
+            {
+                if (!result.HasValue)
+                {
+                    result = (double)row[column];
+                }
+            }
+            catch { }
+
+            return result ?? -1;
+        }
+
+        private double TryGetDouble(IDataRecord reader, int column)
+        {
+            double? result = null;
+            object value = reader.GetValue(column);
+            try
+            {
+                string resultStr = reader.GetString(column);
+                result = double.Parse(resultStr);
+            }
+            catch { }
+
+            try
+            {
+                if (!result.HasValue)
+                {
+                    result = reader.GetDouble(column);
+                }
+            }
+            catch { }
+
+            return result ?? -1;
+        }
+
+        private string TryGetString(DataRow row, int column)
+        {
+            string result = null;
+            try
+            {
+                object value = row[column];
+                result = (string)row[column];
+            }
+            catch { }
+            return result;
+        }
+
+        private string TryGetString(IDataRecord reader, int column)
+        {
+            string result = null;
+            try
+            {
+                object value = reader.GetValue(column);
+                result = reader.GetString(column);
+            }
+            catch { }
+            return result;
         }
 
         private void BtnStartCalserElementModify_Click(object sender, RoutedEventArgs args)

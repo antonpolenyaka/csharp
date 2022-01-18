@@ -23,6 +23,8 @@ namespace ReasignAddressesCAP32.Model
             this.Operations = new HashSet<Operation>();
             this.Elements = new HashSet<Element>();
             this.Controls = new HashSet<Control>();
+            this.TagScales = new HashSet<TagScale>();
+            this.Commands = new HashSet<Command>();
         }
     
         public int Id { get; set; }
@@ -75,5 +77,10 @@ namespace ReasignAddressesCAP32.Model
         public virtual Element Element { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Control> Controls { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TagScale> TagScales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Command> Commands { get; set; }
+        public virtual Command Command { get; set; }
     }
 }

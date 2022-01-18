@@ -271,5 +271,33 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TagScales">
+      <EntityTypeMapping TypeName="TedisNetModel.TagScale">
+        <MappingFragment StoreEntitySet="TagScales">
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ResultValue" ColumnName="ResultValue" />
+          <ScalarProperty Name="InputValue" ColumnName="InputValue" />
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commands">
+      <EntityTypeMapping TypeName="TedisNetModel.Command">
+        <MappingFragment StoreEntitySet="Commands">
+          <ScalarProperty Name="LinkedTagId" ColumnName="LinkedTagId" />
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommandClasses">
+      <EntityTypeMapping TypeName="TedisNetModel.CommandClass">
+        <MappingFragment StoreEntitySet="CommandClasses">
+          <ScalarProperty Name="LinkedTagClassId" ColumnName="LinkedTagClassId" />
+          <ScalarProperty Name="SelectBeforeExecute" ColumnName="SelectBeforeExecute" />
+          <ScalarProperty Name="TagClassId" ColumnName="TagClassId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

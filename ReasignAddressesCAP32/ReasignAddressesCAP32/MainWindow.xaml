@@ -19,6 +19,8 @@
             <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <ComboBox DisplayMemberPath="Name" 
                   Grid.Row="0" 
@@ -60,5 +62,12 @@
         <Button Grid.Row="10" 
                 Command="{Binding AddNewConcentratorPRIMECommand}"
                 Margin="10,0,10,0" Content="{Binding NumCncCreated, FallbackValue='Start'}" />
+        <Label Grid.Row="11" 
+               Content="Alta dispositivo 104 desde Excel"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Button Grid.Row="12" 
+                Command="{Binding AddNewDevice104AndTagClassCommand}"
+                Margin="10,0,10,0" Content="Start" />
     </Grid>
 </Window>

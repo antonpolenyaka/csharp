@@ -36,5 +36,6 @@ namespace ReasignAddressesCAP32.Model
         public virtual TagClass TagClass { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Element> Elements { get; set; }
+        public virtual CommandClass CommandClass { get; set; }
     }
 }

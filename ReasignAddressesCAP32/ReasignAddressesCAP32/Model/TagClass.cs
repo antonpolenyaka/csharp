@@ -21,6 +21,7 @@ namespace ReasignAddressesCAP32.Model
             this.TagClasses1 = new HashSet<TagClass>();
             this.TagClasses11 = new HashSet<TagClass>();
             this.ElementTypes = new HashSet<ElementType>();
+            this.CommandClasses = new HashSet<CommandClass>();
         }
     
         public int Id { get; set; }
@@ -55,5 +56,8 @@ namespace ReasignAddressesCAP32.Model
         public virtual TagClass TagClass2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ElementType> ElementTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CommandClass> CommandClasses { get; set; }
+        public virtual CommandClass CommandClass { get; set; }
     }
 }

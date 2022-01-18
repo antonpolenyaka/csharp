@@ -75,6 +75,9 @@
     <NavigationProperty Name="Elements" Relationship="TedisNetModel.FK_Elements_StateTag" FromRole="Tag" ToRole="Element" />
     <NavigationProperty Name="Element" Relationship="TedisNetModel.FK_Tags_Elements" FromRole="Tag" ToRole="Element" />
     <NavigationProperty Name="Controls" Relationship="TedisNetModel.FK_Controls_Tags" FromRole="Tag" ToRole="Control" />
+    <NavigationProperty Name="TagScales" Relationship="TedisNetModel.FK_TagScales_Tags" FromRole="Tag" ToRole="TagScale" />
+    <NavigationProperty Name="Commands" Relationship="TedisNetModel.FK_Commands_LinkedTags" FromRole="Tag" ToRole="Command" />
+    <NavigationProperty Name="Command" Relationship="TedisNetModel.FK_Commands_Tags" FromRole="Tag" ToRole="Command" />
   </EntityType>
   <EntityType Name="DeviceType">
     <Key>
@@ -284,6 +287,37 @@
       <End Role="Control" EntitySet="Controls" />
       <End Role="ControlPosition" EntitySet="ControlPositions" />
     </AssociationSet>
+    <EntitySet Name="TagScales" EntityType="TedisNetModel.TagScale" />
+    <AssociationSet Name="FK_TagScales_Tags" Association="TedisNetModel.FK_TagScales_Tags">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="TagScale" EntitySet="TagScales" />
+    </AssociationSet>
+    <EntitySet Name="Commands" EntityType="TedisNetModel.Command" />
+    <AssociationSet Name="FK_Commands_LinkedTags" Association="TedisNetModel.FK_Commands_LinkedTags">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="Command" EntitySet="Commands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commands_Tags" Association="TedisNetModel.FK_Commands_Tags">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="Command" EntitySet="Commands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Elements_StateCommand" Association="TedisNetModel.FK_Elements_StateCommand">
+      <End Role="Command" EntitySet="Commands" />
+      <End Role="Element" EntitySet="Elements" />
+    </AssociationSet>
+    <EntitySet Name="CommandClasses" EntityType="TedisNetModel.CommandClass" />
+    <AssociationSet Name="FK_CommandClass_LinkedTagClass" Association="TedisNetModel.FK_CommandClass_LinkedTagClass">
+      <End Role="TagClass" EntitySet="TagClasses" />
+      <End Role="CommandClass" EntitySet="CommandClasses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommandClass_TagClass" Association="TedisNetModel.FK_CommandClass_TagClass">
+      <End Role="TagClass" EntitySet="TagClasses" />
+      <End Role="CommandClass" EntitySet="CommandClasses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ElementTypes_CommandClass" Association="TedisNetModel.FK_ElementTypes_CommandClass">
+      <End Role="CommandClass" EntitySet="CommandClasses" />
+      <End Role="ElementType" EntitySet="ElementTypes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="TagClass">
     <Key>
@@ -316,6 +350,8 @@
     <NavigationProperty Name="TagClasses11" Relationship="TedisNetModel.FK_TagClasses_TargetTagClasses" FromRole="TagClass" ToRole="TagClass1" />
     <NavigationProperty Name="TagClass2" Relationship="TedisNetModel.FK_TagClasses_TargetTagClasses" FromRole="TagClass1" ToRole="TagClass" />
     <NavigationProperty Name="ElementTypes" Relationship="TedisNetModel.FK_ElementTypes_TagClass" FromRole="TagClass" ToRole="ElementType" />
+    <NavigationProperty Name="CommandClasses" Relationship="TedisNetModel.FK_CommandClass_LinkedTagClass" FromRole="TagClass" ToRole="CommandClass" />
+    <NavigationProperty Name="CommandClass" Relationship="TedisNetModel.FK_CommandClass_TagClass" FromRole="TagClass" ToRole="CommandClass" />
   </EntityType>
   <Association Name="FK_Tags_TagClasses">
     <End Type="TedisNetModel.TagClass" Role="TagClass" Multiplicity="1">
@@ -526,6 +562,7 @@
     <Property Name="Color2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TagClass" Relationship="TedisNetModel.FK_ElementTypes_TagClass" FromRole="ElementType" ToRole="TagClass" />
     <NavigationProperty Name="Elements" Relationship="TedisNetModel.FK_Elements_ElementTypes" FromRole="ElementType" ToRole="Element" />
+    <NavigationProperty Name="CommandClass" Relationship="TedisNetModel.FK_ElementTypes_CommandClass" FromRole="ElementType" ToRole="CommandClass" />
   </EntityType>
   <Association Name="FK_ElementTypes_TagClass">
     <End Type="TedisNetModel.TagClass" Role="TagClass" Multiplicity="0..1" />
@@ -560,6 +597,7 @@
     <NavigationProperty Name="Tags" Relationship="TedisNetModel.FK_Tags_Elements" FromRole="Element" ToRole="Tag" />
     <NavigationProperty Name="Controls" Relationship="TedisNetModel.FK_Controls_Elements" FromRole="Element" ToRole="Control" />
     <NavigationProperty Name="Nodes" Relationship="TedisNetModel.FK_Nodes_Elements" FromRole="Element" ToRole="Node" />
+    <NavigationProperty Name="Command" Relationship="TedisNetModel.FK_Elements_StateCommand" FromRole="Element" ToRole="Command" />
   </EntityType>
   <Association Name="FK_Elements_Elements">
     <End Type="TedisNetModel.Element" Role="Element" Multiplicity="0..1" />
@@ -745,6 +783,128 @@
       </Principal>
       <Dependent Role="ControlPosition">
         <PropertyRef Name="ControlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TagScale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="InputValue" Type="Double" Nullable="false" />
+    <Property Name="ResultValue" Type="Double" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tag" Relationship="TedisNetModel.FK_TagScales_Tags" FromRole="TagScale" ToRole="Tag" />
+  </EntityType>
+  <Association Name="FK_TagScales_Tags">
+    <End Type="TedisNetModel.Tag" Role="Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="TedisNetModel.TagScale" Role="TagScale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagScale">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Command">
+    <Key>
+      <PropertyRef Name="TagId" />
+    </Key>
+    <Property Name="TagId" Type="Int32" Nullable="false" />
+    <Property Name="LinkedTagId" Type="Int32" />
+    <NavigationProperty Name="Tag" Relationship="TedisNetModel.FK_Commands_LinkedTags" FromRole="Command" ToRole="Tag" />
+    <NavigationProperty Name="Tag1" Relationship="TedisNetModel.FK_Commands_Tags" FromRole="Command" ToRole="Tag" />
+    <NavigationProperty Name="Elements" Relationship="TedisNetModel.FK_Elements_StateCommand" FromRole="Command" ToRole="Element" />
+  </EntityType>
+  <Association Name="FK_Commands_LinkedTags">
+    <End Type="TedisNetModel.Tag" Role="Tag" Multiplicity="0..1" />
+    <End Type="TedisNetModel.Command" Role="Command" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Command">
+        <PropertyRef Name="LinkedTagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commands_Tags">
+    <End Type="TedisNetModel.Tag" Role="Tag" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="TedisNetModel.Command" Role="Command" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Command">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Elements_StateCommand">
+    <End Type="TedisNetModel.Command" Role="Command" Multiplicity="0..1" />
+    <End Type="TedisNetModel.Element" Role="Element" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Command">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="Element">
+        <PropertyRef Name="StateCommandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CommandClass">
+    <Key>
+      <PropertyRef Name="TagClassId" />
+    </Key>
+    <Property Name="TagClassId" Type="Int32" Nullable="false" />
+    <Property Name="SelectBeforeExecute" Type="Boolean" Nullable="false" />
+    <Property Name="LinkedTagClassId" Type="Int32" />
+    <NavigationProperty Name="TagClass" Relationship="TedisNetModel.FK_CommandClass_LinkedTagClass" FromRole="CommandClass" ToRole="TagClass" />
+    <NavigationProperty Name="TagClass1" Relationship="TedisNetModel.FK_CommandClass_TagClass" FromRole="CommandClass" ToRole="TagClass" />
+    <NavigationProperty Name="ElementTypes" Relationship="TedisNetModel.FK_ElementTypes_CommandClass" FromRole="CommandClass" ToRole="ElementType" />
+  </EntityType>
+  <Association Name="FK_CommandClass_LinkedTagClass">
+    <End Type="TedisNetModel.TagClass" Role="TagClass" Multiplicity="0..1" />
+    <End Type="TedisNetModel.CommandClass" Role="CommandClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommandClass">
+        <PropertyRef Name="LinkedTagClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommandClass_TagClass">
+    <End Type="TedisNetModel.TagClass" Role="TagClass" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="TedisNetModel.CommandClass" Role="CommandClass" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TagClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommandClass">
+        <PropertyRef Name="TagClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ElementTypes_CommandClass">
+    <End Type="TedisNetModel.CommandClass" Role="CommandClass" Multiplicity="0..1" />
+    <End Type="TedisNetModel.ElementType" Role="ElementType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CommandClass">
+        <PropertyRef Name="TagClassId" />
+      </Principal>
+      <Dependent Role="ElementType">
+        <PropertyRef Name="StateCommandClassId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

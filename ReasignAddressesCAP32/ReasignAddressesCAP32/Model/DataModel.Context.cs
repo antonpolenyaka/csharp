@@ -39,5 +39,8 @@ namespace ReasignAddressesCAP32.Model
         public virtual DbSet<NodePosition> NodePositions { get; set; }
         public virtual DbSet<Node> Nodes { get; set; }
         public virtual DbSet<ControlPosition> ControlPositions { get; set; }
+        public virtual DbSet<TagScale> TagScales { get; set; }
+        public virtual DbSet<Command> Commands { get; set; }
+        public virtual DbSet<CommandClass> CommandClasses { get; set; }
     }
 }

@@ -1,0 +1,32 @@
+﻿<Window x:Class="ReasignAddressesCAP32.IEC104.New104DeviceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="New104DeviceWindow" SizeToContent="WidthAndHeight">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+            <Label Content="Device name:" Margin="0,0,0,0" Width="300" />
+            <TextBox Text="{Binding DeviceName, FallbackValue='DeviceX'}" Margin="30,0,10,0" />
+            <Label Content="Device type:" Margin="0,0,0,0" Width="300" />
+            <TextBox Text="{Binding DeviceType, FallbackValue='30'}" Margin="30,0,10,0" />
+            <Label Content="First row with tag info:" Margin="0,0,0,0" />
+            <TextBox Text="{Binding FirstTagInfoRow, FallbackValue='1'}" Margin="30,0,10,0" />
+            <Label Content="Column with tag class name:" Margin="0,0,0,0" />
+            <TextBox Text="{Binding ColumnTagClassName, FallbackValue='I'}" Margin="30,0,10,0" />
+            <Label Content="Column with tag IOA:" Margin="0,0,0,0" />
+            <TextBox Text="{Binding ColumnTagIOA, FallbackValue='AI'}" Margin="30,0,10,0" />
+            <Label Content="Column with tag Units (AI info):" Margin="0,0,0,0" />
+            <TextBox Text="{Binding ColumnTagUnits, FallbackValue='R'}" Margin="30,0,10,0" />
+            <Label Content="Column with tag Scale (AI info):" Margin="0,0,0,0" />
+            <TextBox Text="{Binding ColumnTagScale, FallbackValue='T'}" Margin="30,0,10,0" />
+            <Label Content="IOA Format:" Margin="0,0,0,0" />
+            <TextBox Text="{Binding IoaFormat, FallbackValue='00000'}" Margin="30,0,10,0" />
+            <Label Content="Excel sheet name:" Margin="0,0,0,0" />
+            <TextBox Text="{Binding ExcelSheetName, FallbackValue='result'}" Margin="30,0,10,0" />
+            <Button Content="Save" Command="{Binding SaveCommand}" Margin="10" />
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="10,0,10,0" />
+        </StackPanel>
+    </Grid>
+</Window>
